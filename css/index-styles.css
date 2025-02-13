@@ -1,5 +1,5 @@
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
   color: #fff;
@@ -9,7 +9,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 #video-bg {
@@ -21,7 +21,7 @@ body {
   width: auto;
   height: auto;
   transform: translate(-50%, -50%);
-  z-index: -1; 
+  z-index: -1;
 }
 
 .overlay {
@@ -64,11 +64,26 @@ p {
   transition: background 0.3s ease;
 }
 
-.btn-login { background: #007BFF; color: #fff; }
-.btn-signup { background: #FF5722; color: #fff; }
-.btn-support { background: #009688; color: #fff; }
-.btn-faq { background: #FFC107; color: #000; }
-.btn-website { background: #333; color: #fff; }
+.btn-login {
+  background: #007bff;
+  color: #fff;
+}
+.btn-signup {
+  background: #ff5722;
+  color: #fff;
+}
+.btn-support {
+  background: #009688;
+  color: #fff;
+}
+.btn-faq {
+  background: #ffc107;
+  color: #000;
+}
+.btn-website {
+  background: #333;
+  color: #fff;
+}
 
 .btn:hover {
   opacity: 0.9;
