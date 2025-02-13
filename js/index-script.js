@@ -1,6 +1,6 @@
 function redirectToLogin() {
     alert("Login page is under construction. Check back soon!");
-    window.location.href = "login.html";
+    window.location.href = "pages/login.html";
   }
   
   function redirectToSignup() {
