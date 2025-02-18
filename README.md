@@ -14,7 +14,7 @@ This repository contains the source code for the Gauteng City College student po
 
 ## Introduction
 
-The Gauteng City College Student Portal aims to provide a centralized platform for students to manage their academic journey. It offers a user-friendly interface to access grades, course materials, announcements, and other essential information. This project was developed as a [mention project type, e.g., course project, personal project] and serves as a [mention purpose, e.g., demonstration of skills, practical application of concepts]. It is anticipated to significantly improve [mention specific institutional aspects, e.g., student-faculty interaction, information dissemination, administrative efficiency].
+The Gauteng City College Student Portal aims to provide a centralized platform for students to manage their academic journey. It offers a user-friendly interface to access grades, course materials, announcements, and other essential information. This project was developed as a personal project and serves as a demonstration of skills and practical application of concepts. It is anticipated to improve significantly, student-faculty interaction, information dissemination, and administrative efficiency].
 
 ## Features
 
@@ -62,8 +62,6 @@ Once the portal is open (either locally or on Render), you can navigate through 
     *   **Courses:**  Here you can access course materials, assignments, and grades for each of your enrolled courses.
     *   **Grades:** View your grades for completed assignments and overall course grades.
     *   **Announcements:** Stay updated on important college announcements and deadlines.
-*   **[Add any specific instructions or tips for using the portal. For example, if there's a search function, explain how to use it. If there are forms to fill out, explain what information is required.]**
-*   **[If you have any interactive elements, like buttons or dropdowns, explain their functionality.]**
 
 ## Contributing
 
