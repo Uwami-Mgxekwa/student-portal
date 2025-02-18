@@ -64,7 +64,7 @@ Once the portal is open (either locally or on Render), you can navigate through 
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request for any bug fixes, feature requests, or improvements. [You can add specific guidelines for contributing if you have any.]
+Contributions are welcome! Please open an issue or submit a pull request for any bug fixes, feature requests, or improvements. 
 
 ## Contact
 
