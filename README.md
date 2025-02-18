@@ -56,8 +56,7 @@ This project utilizes the following technologies:
 
 Once the portal is open (either locally or on Render), you can navigate through the different sections using the navigation menu or links provided on the page.
 
-*   **[Describe the main sections or pages of your portal, e.g., "Dashboard," "Courses," "Grades," "Announcements."]**
-*   **[For each section, briefly explain what the user can do.  For example:]**
+*   **Parts*
     *   **Dashboard:** The dashboard provides an overview of your academic progress, upcoming deadlines, and recent announcements.
     *   **Courses:**  Here you can access course materials, assignments, and grades for each of your enrolled courses.
     *   **Grades:** View your grades for completed assignments and overall course grades.
