@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCC Dashboard</title>
+    <link rel="stylesheet" href="dashboard-styles.css" />
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <h1>GCC</h1>
+            <p><img src="logo.png" alt="School Logo" class="school-logo"> Gauteng City College</p>
+        </div>
+        <p class="greeting">Hi, Danny</p> <!-- Greeting Message -->
+        <nav>
+            <div class="nav-item active">Dashboard</div>
+            <div class="nav-item">Courses</div>
+            <div class="nav-item">Schedule</div>
+            <div class="nav-item">Resources</div>
+            <div class="nav-item">Events</div>
+            <div class="nav-item">Settings</div>
+        </nav>
+        <div class="nav-item" style="margin-top: 32px">Sign out</div>
+    </div>
 
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="calendar-section"> <!-- Replacing Progress with Calendar -->
+            <h2>Calendar</h2>
+            <div class="calendar" id="calendar"></div>
+        </div>
+
+        <div class="assignments">
+            <div class="assignments-header">
+                <h2>Assignments</h2>
+                <span>24 Completed • Last updated on <span id='lastUpdated'></span></span>
+            </div>
+            <div id="assignmentsList"></div>
+        </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="right-sidebar">
+        <div class="app-card">
+            <h3>Learn on your terms,<br>anytime, anywhere</h3>
+            <p>Download GCC mobile app<br>at gcc.edu.za</p>
+        </div>
+
+        <div class="trending-courses">
+            <h3>Trending now</h3>
+            <div id="coursesList"></div>
+        </div>
+    </div>
+    <script src="dashboard-script.js"></script>
+</body>
+</html>
