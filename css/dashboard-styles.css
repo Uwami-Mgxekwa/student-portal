@@ -24,6 +24,7 @@ body {
     margin-right: 10px;
     vertical-align: middle;
 }
+
 .logo {
     margin-bottom: 32px;
     align-items: center;
@@ -60,47 +61,37 @@ body {
     max-width: 1200px;
 }
 
-.progress-section {
-    margin-bottom: 32px;
-}
-
-.progress-section h2 {
-    margin-bottom: 16px;
-}
-
-.progress-chart {
+.calendar-section {
     background: white;
-    padding: 24px;
+    padding: 16px;
     border-radius: 8px;
     border: 1px solid #e5e5e5;
+    text-align: center;
+    margin-bottom: 32px;
+    max-width: 800px;
 }
 
-.chart-bars {
-    display: flex;
-    align-items: flex-end;
-    gap: 24px;
-    height: 200px;
-    padding-top: 24px;
+.calendar-section h2 {
+    font-size: 16px;
+    margin-bottom: 12px;
 }
 
-.bar-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
 }
 
-.bar {
-    width: 40px;
-    background: #8884d8;
-    border-radius: 4px 4px 0 0;
-    transition: height 0.3s ease;
-}
-
-.bar-label {
-    font-size: 14px;
-    color: #666;
+.calendar div {
+    padding: 6px 4px;
+    background: white;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 12px;
+    border: 1px solid #ddd;
 }
 
 .assignments {
@@ -163,7 +154,6 @@ body {
     font-size: 14px;
 }
 
-
 .right-sidebar {
     width: 320px;
     background: white;
@@ -220,35 +210,9 @@ body {
     border-radius: 4px;
     font-size: 14px;
 }
+
 .greeting {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 16px;
-}
-
-.calendar-section {
-    background: white;
-    padding: 24px;
-    border-radius: 8px;
-    border: 1px solid #e5e5e5;
-    text-align: center;
-    margin-bottom: 32px;
-}
-
-.calendar {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-    padding: 16px;
-    background: #f5f5f5;
-    border-radius: 8px;
-}
-
-.calendar div {
-    padding: 12px;
-    background: white;
-    border-radius: 4px;
-    text-align: center;
-    font-weight: bold;
-    border: 1px solid #ddd;
 }
