@@ -1,3 +1,4 @@
+/* Import Google font - Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
 * {
@@ -21,7 +22,7 @@ body {
   width: 100%;
   border-radius: 12px;
   padding: 20px 30px 120px;
-  background: #4070f4;
+  background: orange;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
@@ -129,7 +130,7 @@ form input[type="submit"] {
 }
 
 .form.login input[type="submit"] {
-  background: #4070f4;
+  background: orange;
   color: #fff;
   border: none;
 }
