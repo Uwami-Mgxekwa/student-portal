@@ -22,7 +22,6 @@ The Gauteng City College Student Portal aims to provide a centralized platform f
 *   **Course Management:** Access course schedules, syllabi, assignments, and grades.
 *   **Announcements:** Stay informed about important college announcements and deadlines.
 *   **Resource Access:** Access library resources, online learning platforms, and other helpful tools.
-*   **[Add other features as needed]** (e.g., Messaging, Enrollment, Fee Payment integration)
 
 ## Technologies Used
 
