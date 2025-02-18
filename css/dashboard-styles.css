@@ -1,1 +1,260 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
 
+body {
+    background: #f5f5f5;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background: white;
+    padding: 24px;
+    border-right: 1px solid #e5e5e5;
+}
+
+.logo {
+    margin-bottom: 32px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo p {
+    color: #666;
+    font-size: 14px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #333;
+}
+
+.nav-item:hover {
+    background: #f5f5f5;
+}
+
+.nav-item.active {
+    background: #f0f0f0;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    padding: 32px;
+    max-width: 1200px;
+}
+
+.progress-section {
+    margin-bottom: 32px;
+}
+
+.progress-section h2 {
+    margin-bottom: 16px;
+}
+
+.progress-chart {
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+}
+
+.chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    height: 200px;
+    padding-top: 24px;
+}
+
+.bar-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.bar {
+    width: 40px;
+    background: #8884d8;
+    border-radius: 4px 4px 0 0;
+    transition: height 0.3s ease;
+}
+
+.bar-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.assignments {
+    margin-bottom: 32px;
+}
+
+.assignments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.assignments-header span {
+    font-size: 14px;
+    color: #666;
+}
+
+.assignment-card {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.assignment-info {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.assignment-icon {
+    width: 40px;
+    height: 40px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.assignment-details h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.assignment-details p {
+    font-size: 14px;
+    color: #666;
+}
+
+.assignment-meta {
+    display: flex;
+    gap: 32px;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Right Sidebar Styles */
+.right-sidebar {
+    width: 320px;
+    background: white;
+    padding: 24px;
+    border-left: 1px solid #e5e5e5;
+}
+
+.app-card {
+    background: #faf8f6;
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 32px;
+}
+
+.app-card h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.app-card p {
+    font-size: 14px;
+    color: #666;
+}
+
+.trending-courses h3 {
+    margin-bottom: 16px;
+}
+
+.course-card {
+    background: #f5f5f5;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.course-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.course-info h4 {
+    margin-bottom: 4px;
+}
+
+.course-info p {
+    font-size: 14px;
+    color: #666;
+}
+
+.course-badge {
+    background: #e5e5e5;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.greeting {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.school-logo {
+    width: 30px;
+    height: auto;
+    margin-right: 8px;
+}
+
+/* Calendar Styles */
+.calendar-section {
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    padding: 16px;
+    background: #f5f5f5;
+    border-radius: 8px;
+}
+
+.calendar div {
+    padding: 12px;
+    background: white;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #ddd;
+}
