@@ -11,7 +11,6 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar Styles */
 .sidebar {
     width: 250px;
     background: white;
@@ -19,13 +18,16 @@ body {
     border-right: 1px solid #e5e5e5;
 }
 
+.school-logo {
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
+    vertical-align: middle;
+}
 .logo {
     margin-bottom: 32px;
-}
-
-.logo h1 {
-    font-size: 24px;
-    font-weight: bold;
+    align-items: center;
+    display: flex;
 }
 
 .logo p {
@@ -52,7 +54,6 @@ body {
     background: #f0f0f0;
 }
 
-/* Main Content Styles */
 .main-content {
     flex: 1;
     padding: 32px;
@@ -225,13 +226,6 @@ body {
     margin-bottom: 16px;
 }
 
-.school-logo {
-    width: 30px;
-    height: auto;
-    margin-right: 8px;
-}
-
-/* Calendar Styles */
 .calendar-section {
     background: white;
     padding: 24px;
