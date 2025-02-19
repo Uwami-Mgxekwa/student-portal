@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gauteng City College</title>
-    <link rel="icon" href="/assets/logo.png" type="image/x-icon">
+    <link rel="icon" href="./assets/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/index-styles.css" />
     <link
       rel="stylesheet"
@@ -22,10 +22,10 @@
       <h1>Welcome to Gauteng City College</h1>
       <p>Your gateway to quality education and endless opportunities.</p>
       <div class="buttons">
-        <button class="btn btn-login" onclick="redirectToLogin()">
+        <button class="btn btn-login" id="login">
           <i class="fas fa-sign-in-alt"></i> Click to Login
         </button>
-        <button class="btn btn-signup" onclick="redirectToSignup()">
+        <button class="btn btn-signup" id="sign-up">
           <i class="fas fa-user-plus"></i> Sign Up
         </button>
         <button class="btn btn-support" onclick="redirectToSupport()">
@@ -43,6 +43,6 @@
       <p>Contact: Uwami Mgxekwa | +27 63 572 2080</p>
       <p>© 2025 Gauteng City College. All rights reserved.</p>
     </footer>
-    <script src="./js/index-script.js"></script>
+    <script type="module" src="./js/index-script.js"></script>
   </body>
 </html>

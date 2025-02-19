@@ -31,7 +31,6 @@ body {
   font-size: 24px;
 }
 
-
 .wrapper {
   position: relative;
   max-width: 570px;
@@ -90,7 +89,9 @@ body {
   margin-top: 40px;
 }
 
-form input {
+form input,
+form select,
+.form-btn {
   height: 60px;
   outline: none;
   border: none;
@@ -137,7 +138,7 @@ form a:hover {
   text-decoration: underline;
 }
 
-form input[type="submit"] {
+.form-btn {
   margin-top: 15px;
   padding: none;
   font-size: 18px;
@@ -145,8 +146,9 @@ form input[type="submit"] {
   cursor: pointer;
 }
 
-.form.login input[type="submit"] {
+.form-btn:hover {
   background: orange;
   color: #fff;
-  border: none;
+  border: 2px solid #fff;
+  transition: color 0.5s, border 0.2s;
 }
