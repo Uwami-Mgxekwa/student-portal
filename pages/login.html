@@ -7,7 +7,7 @@
     <title>GCC-Login</title>
     <link rel="stylesheet" href="/css/login-styles.css" />
     <link rel="icon" href="/assets/logo.png" type="image/x-icon">
-    <script src="../custom-scripts.js" defer></script>
+    <script src="/js/login-script.js" defer></script>
   </head>
   <body>
     
@@ -19,10 +19,10 @@
       <div class="form signup">
         <header>Login</header>
         <form action="#">
-          <input type="text" placeholder="ID Number/Passport Number" required />
-          <input type="password" placeholder="Password" required />
+          <input type="text" id="id" placeholder="ID Number/Passport Number" required />
+          <input type="password" id="pass" placeholder="Password" required />
           <a href="#">Forgot password?</a>
-          <input type="submit" value="Login" />
+          <input type="submit" value="Login"/>
           <p style="display: inline;"><span>Don't have an account?</span> <a href="/pages/sign-up.html">Sign Up Now</a></p>
         </form>
       </div>
