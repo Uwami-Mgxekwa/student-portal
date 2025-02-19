@@ -2,7 +2,7 @@
 
 
 
-This repository contains the source code for the Gauteng City College student portal, a web application designed to streamline student access to academic information, resources, and services. This project is expected to greatly benefit the institution by [mention specific benefits, e.g., improving communication, simplifying administrative tasks, enhancing student experience].
+This repository contains the source code for the Gauteng City College student portal, a web application designed to streamline student access to academic information, resources, and services. This project is expected to greatly benefit the institution by improving communication, simplifying administrative tasks, and enhancing student experience.
 
 
 
