@@ -10,6 +10,14 @@
         "select-name": "off"
       }
     ],
-    "button-type": "off"
+    "button-type": "off",
+    "compat-api/html": [
+      "default",
+      {
+        "ignore": [
+          "video[playsinline]"
+        ]
+      }
+    ]
   }
 }
