@@ -5,25 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>GCC-Login</title>
-    <link rel="stylesheet" href="/css/login-styles.css" />
-    <link rel="icon" href="/assets/logo.png" type="image/x-icon">
-    <script src="/js/login-script.js" defer></script>
+    <link rel="stylesheet" href="../css/login-styles.css" />
+    <link rel="icon" href="../assets/logo.png" type="image/x-icon">
+    <script type="module" src="../js/login-script.js" defer></script>
   </head>
   <body>
-    
     <section class="wrapper">
       <header class="college-header">
-        <img src="/assets/logo.png" alt="Gauteng City College Logo" class="college-logo">
+        <img src="../assets/logo.png" alt="Gauteng City College Logo" class="college-logo">
         <h1>Gauteng City College</h1>
       </header>
       <div class="form signup">
         <header>Login</header>
-        <form action="#">
+        <form action="#" id="login-form">
           <input type="text" id="id" placeholder="ID Number/Passport Number" required />
-          <input type="password" id="pass" placeholder="Password" required />
+          <input type="password" id="password" placeholder="Password" required />
           <a href="#">Forgot password?</a>
-          <input type="submit" value="Login"/>
-          <p style="display: inline;"><span>Don't have an account?</span> <a href="/pages/sign-up.html">Sign Up Now</a></p>
+          <button class="form-btn" id="login-btn">Login</button>
+          <p style="display: inline;"><span>Don't have an account?</span> <a href="./sign-up.html">Sign Up Now</a></p>
         </form>
       </div>
     </section>

@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GCC Dashboard</title>
-    <link rel="icon" type="image/png" href="/assets/logo.png">
-    <link rel="stylesheet" href="/css/dashboard-styles.css" />
-</head>
-<body>
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <link rel="stylesheet" href="../css/dashboard-styles.css" />
+  </head>
+  <body>
 
     <div class="sidebar">
-        <div class="logo">
-            <p><img src="/assets/logo.png" alt="School Logo" class="school-logo"> Gauteng City College</p>
-        </div>
-        <p class="greeting">Hi, Owami</p> 
-        <nav>
-            <div class="nav-item active">Dashboard</div>
-            <div class="nav-item">Courses</div>
-            <div class="nav-item">Schedule</div>
-            <div class="nav-item">Resources</div>
-            <div class="nav-item">Events</div>
-            <div class="nav-item">Settings</div>
-        </nav>
-        <div class="nav-item" style="margin-top: 32px">Sign out</div>
+      <div class="logo">
+        <p><img src="../assets/logo.png" alt="School Logo" class="school-logo"> Gauteng City College</p>
+      </div>
+      <p class="greeting" id="greeting">Hi, Owami</p> 
+      <nav>
+        <div class="nav-item active">Dashboard</div>
+        <div class="nav-item">Courses</div>
+        <div class="nav-item">Schedule</div>
+        <div class="nav-item">Resources</div>
+        <div class="nav-item">Events</div>
+        <div class="nav-item">Settings</div>
+      </nav>
+      <div class="nav-item" style="margin-top: 32px">Sign out</div>
     </div>
 
     <div class="main-content">
-        <div class="calendar-section"> 
-            <h2>Calendar</h2>
-            <div class="calendar" id="calendar"></div>
-        </div>
+      <div class="calendar-section"> 
+        <h2>Calendar</h2>
+        <div class="calendar" id="calendar"></div>
+      </div>
 
-        <div class="assignments">
-            <div class="assignments-header">
-                <h2>Assignments</h2>
-                <span>24 Completed • Last updated on <span id='lastUpdated'></span></span>
-            </div>
-            <div id="assignmentsList"></div>
+      <div class="assignments">
+        <div class="assignments-header">
+          <h2>Assignments</h2>
+          <span>24 Completed • Last updated on <span id='lastUpdated'></span></span>
         </div>
+        <div id="assignmentsList"></div>
+      </div>
     </div>
 
     <div class="right-sidebar">
-        <div class="app-card">
-            <h3>Learn on your terms,<br>anytime, anywhere</h3>
-            <p>Download GCC mobile app<br>at gcc.edu.za</p>
-        </div>
+      <div class="app-card">
+        <h3>Learn on your terms,<br>anytime, anywhere</h3>
+        <p>Download GCC mobile app<br>at gcc.edu.za</p>
+      </div>
 
-        <div class="trending-courses">
-            <h3>Trending now</h3>
-            <div id="coursesList"></div>
-        </div>
+      <div class="trending-courses">
+        <h3>Trending now</h3>
+        <div id="coursesList"></div>
+      </div>
     </div>
-    <script src="/js/dashboard-script.js"></script>
-</body>
+    <script type="module" src="../js/dashboard-script.js"></script>
+  </body>
 </html>
