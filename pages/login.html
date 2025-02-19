@@ -4,55 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-   <title>GCC-Login/SignUp</title>
-    <link rel="stylesheet" href="logincss.css" />
-    <link rel="icon" href="logo.png" type="image/x-icon">
+    <title>GCC-Login</title>
+    <link rel="stylesheet" href="/css/login-styles.css" />
+    <link rel="icon" href="/assets/logo.png" type="image/x-icon">
     <script src="../custom-scripts.js" defer></script>
-    
   </head>
   <body>
-    <header class="college-header">
-        <img src="assets/logo.png" alt="Gauteng City College Logo" class="college-logo">
-        <h1>Gauteng City College</h1>
-    </header>
+    
     <section class="wrapper">
+      <header class="college-header">
+        <img src="/assets/logo.png" alt="Gauteng City College Logo" class="college-logo">
+        <h1>Gauteng City College</h1>
+      </header>
       <div class="form signup">
-        <header>Signup</header>
-        <form action="#">
-          <input type="text" placeholder="ID Number/Passport Number" required />
-          <input type="text" placeholder="Full name" required />
-          <input type="text" placeholder="Email address" required />
-          <input type="password" placeholder="Password" required />
-          <div class="checkbox">
-            <input type="checkbox" id="signupCheck" />
-            <label for="signupCheck">I accept all terms & conditions</label>
-          </div>
-          <input type="submit" value="Signup" />
-        </form>
-      </div>
-
-      <div class="form login">
         <header>Login</header>
         <form action="#">
           <input type="text" placeholder="ID Number/Passport Number" required />
           <input type="password" placeholder="Password" required />
           <a href="#">Forgot password?</a>
           <input type="submit" value="Login" />
+          <p style="display: inline;"><span>Don't have an account?</span> <a href="/pages/sign-up.html">Sign Up Now</a></p>
         </form>
       </div>
-
-      <script>
-        const wrapper = document.querySelector(".wrapper"),
-          signupHeader = document.querySelector(".signup header"),
-          loginHeader = document.querySelector(".login header");
-
-        loginHeader.addEventListener("click", () => {
-          wrapper.classList.add("active");
-        });
-        signupHeader.addEventListener("click", () => {
-          wrapper.classList.remove("active");
-        });
-      </script>
     </section>
   </body>
 </html>

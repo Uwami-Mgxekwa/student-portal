@@ -31,9 +31,10 @@ body {
   font-size: 24px;
 }
 
+
 .wrapper {
   position: relative;
-  max-width: 470px;
+  max-width: 570px;
   width: 100%;
   border-radius: 12px;
   padding: 20px 30px 120px;
