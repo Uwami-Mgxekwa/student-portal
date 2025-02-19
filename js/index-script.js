@@ -1,11 +1,9 @@
 function redirectToLogin() {
-    alert("Login page is under construction. Check back soon!");
     window.location.href = "pages/login.html";
   }
   
   function redirectToSignup() {
-    alert("Signup page is under construction. Check back soon!");
-    // window.location.href = "https://example.com/signup"; 
+    window.location.href = "pages/sign-up.html"; 
   }
   
   function redirectToSupport() {
@@ -19,6 +17,5 @@ function redirectToLogin() {
   }
   
   function redirectToWebsite() {
-    alert("Main website is under construction. Check back soon!");
-    // window.location.href = "https://example.com"; 
+    window.location.href = "https://www.gcc-ed.com/"; 
   }
