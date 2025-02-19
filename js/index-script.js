@@ -1,6 +1,7 @@
 import { isLoggedIn } from "../lib/check-login.js";
 const loginBtn = document.getElementById("login");
 const signUpBtn = document.getElementById("sign-up");
+const mainWeb = document.getElementById("mainWeb");
 
 function redirectToLogin() {
   if (isLoggedIn()) {
@@ -34,4 +35,8 @@ loginBtn.addEventListener("click", () => {
 
 signUpBtn.addEventListener("click", () => {
   redirectToSignup();
+});
+
+mainWeb.addEventListener("click", () => {
+  redirectToWebsite()
 });
