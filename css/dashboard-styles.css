@@ -268,3 +268,121 @@
       justify-content: space-between;
     }
   }
+
+
+
+
+
+
+
+  /* Add these rules to your existing CSS file */
+
+/* Improved mobile responsiveness */
+@media (max-width: 768px) {
+    /* Header adjustments for smaller screens */
+    .header {
+        padding: 12px 16px;
+    }
+    
+    .logo-container p {
+        font-size: 14px;
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* Better sidebar handling for mobile */
+    .sidebar {
+        position: fixed;
+        z-index: 99;
+        width: 80%;
+        max-width: 280px;
+        transform: translateX(-100%);
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    
+    .sidebar:not(.collapsed) {
+        transform: translateX(0);
+    }
+    
+    /* Main content adjustments */
+    .main-content {
+        padding: 16px;
+        width: 100%;
+    }
+    
+    /* Assignment card layout for mobile */
+    .assignments-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .assignment-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .assignment-meta {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    /* Calendar adjustments for mobile */
+    .calendar {
+        font-size: 11px;
+    }
+    
+    .calendar div {
+        padding: 4px 2px;
+    }
+}
+
+/* Small phone adjustments */
+@media (max-width: 480px) {
+    .greeting {
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .assignment-meta {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    
+    .calendar {
+        font-size: 10px;
+    }
+}
+
+/* Make sure the default sidebar state is correct on mobile */
+@media (max-width: 768px) {
+    .content-wrapper {
+        position: relative;
+    }
+    
+    .sidebar {
+        height: calc(100vh - 60px);
+    }
+    
+    /* Overlay when sidebar is open on mobile */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.3);
+        z-index: 98;
+    }
+    
+    .sidebar:not(.collapsed) + .sidebar-overlay {
+        display: block;
+    }
+}

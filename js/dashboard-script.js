@@ -11,10 +11,33 @@ document.addEventListener("DOMContentLoaded", () => {
 function initializeSidebar() {
   const menuToggle = document.getElementById('menuToggle');
   const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  
+  const isMobile = () => window.innerWidth <= 768;
   
   menuToggle.addEventListener('click', () => {
     sidebar.classList.toggle('collapsed');
   });
+  
+  overlay.addEventListener('click', () => {
+    if (isMobile()) {
+      sidebar.classList.add('collapsed');
+    }
+  });
+  
+  window.addEventListener('resize', () => {
+    if (!isMobile()) {
+      sidebar.classList.remove('collapsed');
+    } else {
+      sidebar.classList.add('collapsed');
+    }
+  });
+  
+  if (isMobile()) {
+    sidebar.classList.add('collapsed');
+  } else {
+    sidebar.classList.remove('collapsed');
+  }
 }
 
 function renderCalendar() {
