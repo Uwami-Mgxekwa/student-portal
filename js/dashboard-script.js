@@ -203,3 +203,7 @@ window.addEventListener("load", () => {
     window.location.href = "/";
   }
 });
+
+document.querySelector('.nav-item.sign-out').addEventListener('click', function() {
+  window.location.href = '/index.html';
+});
