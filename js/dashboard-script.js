@@ -212,3 +212,7 @@ document.querySelector('.nav-item.events').addEventListener('click', function() 
   window.location.href = '../pages/events.html';
 });
 
+document.querySelector('.nav-item.schedule').addEventListener('click', function() {
+  window.location.href = '../pages/schedule.html';
+});
+
