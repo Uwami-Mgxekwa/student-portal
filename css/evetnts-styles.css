@@ -13,7 +13,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Header Styles */
 header {
   background-color: #F29100;
   padding: 20px;
@@ -63,7 +62,6 @@ header {
   color: #fff;
 }
 
-/* Sidebar Navigation */
 .sidebar {
   position: fixed;
   top: 0;
@@ -153,7 +151,6 @@ header {
   display: block;
 }
 
-/* Main Content Styles */
 main {
   max-width: 1200px;
   margin: 30px auto;
@@ -254,7 +251,6 @@ main {
   margin-right: 8px;
 }
 
-/* Newsletter Section */
 .newsletter {
   background-color: #4B2D73;
   padding: 50px 30px;
@@ -310,7 +306,6 @@ main {
   background-color: #e58600;
 }
 
-/* Footer Styles */
 footer {
   background-color: #333;
   color: #fff;
@@ -401,7 +396,6 @@ footer {
   color: #aaa;
 }
 
-/* Responsive Design */
 @media screen and (max-width: 768px) {
   .logo h1 {
     font-size: 1.5em;
