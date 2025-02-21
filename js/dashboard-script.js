@@ -216,3 +216,7 @@ document.querySelector('.nav-item.schedule').addEventListener('click', function(
   window.location.href = '../pages/schedule.html';
 });
 
+document.querySelector('.nav-item.resources').addEventListener('click', function() {
+  window.location.href = '../pages/resources.html';
+});
+
