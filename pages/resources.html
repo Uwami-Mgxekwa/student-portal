@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Resources | Gauteng City College</title>
+    <link rel="stylesheet" href="../css/resources-styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="../assets/logo.png" alt="Gauteng City College Logo" class="logo">
+                <div>
+                    <div class="college-name">GAUTENG CITY COLLEGE</div>
+                    <div class="tagline">KNOWLEDGE · INTEGRITY · ACHIEVEMENT</div>
+                </div>
+            </div>
+            <div>
+                <button class="btn">Student Login</button>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="page-title">
+            <h2>Student Resources</h2>
+            <div class="btn-group">
+                <a href="#" class="btn">Back to Dashboard</a>
+            </div>
+        </div>
+        
+        <div class="filter-container">
+            <div class="search-box">
+                <input type="text" id="resource-search" placeholder="Search resources...">
+                <button id="search-btn" class="btn">Search</button>
+            </div>
+            <div class="filter-options">
+                <select id="resource-category">
+                    <option value="all">All Categories</option>
+                    <option value="exams">Examination</option>
+                    <option value="forms">Forms & Letters</option>
+                    <option value="timetables">Timetables</option>
+                    <option value="guides">Study Guides</option>
+                    <option value="policies">Policies</option>
+                </select>
+                <select id="resource-department">
+                    <option value="all">All Departments</option>
+                    <option value="business">Business Studies</option>
+                    <option value="economics">Economics</option>
+                    <option value="accounting">Accounting</option>
+                    <option value="it">Information Technology</option>
+                    <option value="language">Languages</option>
+                </select>
+            </div>
+        </div>
+
+        <section class="featured-resources">
+            <h3>Featured Resources</h3>
+            <div class="featured-grid">
+                <div class="featured-item">
+                    <div class="resource-icon exam-icon"></div>
+                    <h4>2025 Final Examination Timetable</h4>
+                    <p>Updated February 10, 2025</p>
+                    <a href="#" class="btn resource-btn">Download PDF</a>
+                </div>
+                <div class="featured-item">
+                    <div class="resource-icon form-icon"></div>
+                    <h4>Academic Record Request Form</h4>
+                    <p>Updated January 15, 2025</p>
+                    <a href="#" class="btn resource-btn">Download PDF</a>
+                </div>
+                <div class="featured-item">
+                    <div class="resource-icon policy-icon"></div>
+                    <h4>Student Handbook 2025</h4>
+                    <p>Updated December 5, 2024</p>
+                    <a href="#" class="btn resource-btn">View Online</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="resource-tabs">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="exams">Examination</button>
+                <button class="tab-btn" data-tab="forms">Forms & Letters</button>
+                <button class="tab-btn" data-tab="timetables">Timetables</button>
+                <button class="tab-btn" data-tab="guides">Study Guides</button>
+                <button class="tab-btn" data-tab="policies">Policies</button>
+            </div>
+            
+            <div class="tab-content">
+                <div class="tab-panel active" id="exams-panel">
+                    <div class="resource-cards">
+                        <div class="resource-card">
+                            <div class="resource-details">
+                                <div class="resource-icon exam-icon"></div>
+                                <div>
+                                    <h4>2025 Final Examination Timetable</h4>
+                                    <p>Comprehensive schedule for all departments</p>
+                                    <span class="resource-meta">PDF • 1.2 MB • Updated Feb 10, 2025</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn resource-btn">Download</a>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-details">
+                                <div class="resource-icon exam-icon"></div>
+                                <div>
+                                    <h4>Midterm Examination Schedule</h4>
+                                    <p>March 2025 midterm examination dates</p>
+                                    <span class="resource-meta">PDF • 0.8 MB • Updated Jan 20, 2025</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn resource-btn">Download</a>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-details">
+                                <div class="resource-icon exam-icon"></div>
+                                <div>
+                                    <h4>Examination Rules & Regulations</h4>
+                                    <p>Important guidelines for all students</p>
+                                    <span class="resource-meta">PDF • 0.5 MB • Updated Dec 12, 2024</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn resource-btn">Download</a>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-details">
+                                <div class="resource-icon exam-icon"></div>
+                                <div>
+                                    <h4>Supplementary Exam Application</h4>
+                                    <p>Form for requesting supplementary exams</p>
+                                    <span class="resource-meta">PDF • 0.3 MB • Updated Jan 5, 2025</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn resource-btn">Download</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-panel" id="forms-panel">
+                    <div class="resource-cards">
+                        <div class="resource-card">
+                            <div class="resource-details">
+                                <div class="resource-icon form-icon"></div>
+                                <div>
+                                    <h4>Academic Record Request Form</h4>
+                                    <p>Request your official academic transcript</p>
+                                    <span class="resource-meta">PDF • 0.4 MB • Updated Jan 15, 2025</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn resource-btn">Download</a>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-details">
+                                <div class="resource-icon form-icon"></div>
+                                <div>
+                                    <h4>Leave of Absence Request</h4>
+                                    <p>Form for requesting temporary leave</p>
+                                    <span class="resource-meta">PDF • 0.3 MB • Updated Dec 5, 2024</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn resource-btn">Download</a>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-details">
+                                <div class="resource-icon form-icon"></div>
+                                <div>
+                                    <h4>Confirmation of Enrollment Letter</h4>
+                                    <p>Request letter confirming your student status</p>
+                                    <span class="resource-meta">PDF • 0.2 MB • Updated Feb 1, 2025</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn resource-btn">Download</a>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-details">
+                                <div class="resource-icon form-icon"></div>
+                                <div>
+                                    <h4>Change of Personal Details Form</h4>
+                                    <p>Update your contact information and details</p>
+                                    <span class="resource-meta">PDF • 0.3 MB • Updated Jan 10, 2025</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn resource-btn">Download</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-panel" id="timetables-panel">
+                    <div class="resource-message">
+                        <p>Loading timetable resources...</p>
+                    </div>
+                </div>
+                
+                <div class="tab-panel" id="guides-panel">
+                    <div class="resource-message">
+                        <p>Loading study guide resources...</p>
+                    </div>
+                </div>
+                
+                <div class="tab-panel" id="policies-panel">
+                    <div class="resource-message">
+                        <p>Loading policy documents...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <section class="recent-uploads">
+            <h3>Recently Added Resources</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Feb 15, 2025</div>
+                    <div class="timeline-content">
+                        <h4>Internship Opportunities Guide</h4>
+                        <p>Comprehensive list of internship opportunities for 2025 graduates.</p>
+                        <a href="#" class="btn resource-btn-small">View Details</a>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Feb 10, 2025</div>
+                    <div class="timeline-content">
+                        <h4>Final Examination Timetable</h4>
+                        <p>Updated schedule for April 2025 examinations.</p>
+                        <a href="#" class="btn resource-btn-small">Download</a>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Feb 5, 2025</div>
+                    <div class="timeline-content">
+                        <h4>Library Resource Guide</h4>
+                        <p>Updated guide to accessing online and physical library resources.</p>
+                        <a href="#" class="btn resource-btn-small">View Online</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="help-section">
+            <h3>Need Help?</h3>
+            <div class="help-cards">
+                <div class="help-card">
+                    <div class="help-icon support-icon"></div>
+                    <h4>Technical Support</h4>
+                    <p>Having trouble downloading resources?</p>
+                    <a href="#" class="help-link">Contact IT Support</a>
+                </div>
+                
+                <div class="help-card">
+                    <div class="help-icon question-icon"></div>
+                    <h4>FAQs</h4>
+                    <p>Find answers to common questions</p>
+                    <a href="#" class="help-link">View FAQs</a>
+                </div>
+                
+                <div class="help-card">
+                    <div class="help-icon feedback-icon"></div>
+                    <h4>Feedback</h4>
+                    <p>Suggest resources or improvements</p>
+                    <a href="#" class="help-link">Submit Feedback</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Gauteng City College. All rights reserved.</p>
+        <p>For technical support, please contact <a href="mailto:support@gautengcitycollege.edu.za">support@gautengcitycollege.edu.za</a></p>
+    </footer>
+    
+    <script src="../js/resources-script.js"></script>
+</body>
+</html>
