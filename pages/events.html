@@ -5,95 +5,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gauteng City College - Events</title>
     <link rel="stylesheet" href="../css/evetnts-styles.css">
-    <script type="module" src="../js/dashboard-script.js"></script>
+    <script src="../js/events-script.js" defer></script>
     <link rel="icon" type="image/png" href="../assets/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
+      <div class="hamburger-container">
+        <button class="hamburger-icon" id="hamburger-icon">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
       <div class="logo">
         <img src="../assets/logo.png" alt="Gauteng City College Logo" />
         <h1>Gauteng City College</h1>
       </div>
+      
+      <!-- Sidebar navigation -->
+      <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <img src="../assets/logo.png" alt="Gauteng City College Logo" />
+          <h2>Gauteng City College</h2>
+          <button class="close-btn" id="close-sidebar">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <ul class="menu-items">
+          <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+          <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+          <li><a href="schedule.html"><i class="fas fa-calendar-alt"></i> Schedule</a></li>
+          <li><a href="resources.html"><i class="fas fa-folder"></i> Resources</a></li>
+          <li><a href="events.html" class="active"><i class="fas fa-calendar-check"></i> Events</a></li>
+          <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+          <li><a href="logout.html"><i class="fas fa-sign-out-alt"></i> Sign out</a></li>
+        </ul>
+      </nav>
+      <div class="overlay" id="overlay"></div>
     </header>
   
     <main>
+      <div class="page-heading">
+        <h1>College Events</h1>
+        <p>Stay updated with our upcoming and ongoing events</p>
+      </div>
+
       <section class="events">
-        <h2>Upcoming &amp; Ongoing Events</h2>
+        <h2>Upcoming Events</h2>
         <div class="card-container">
           <div class="card">
+            <div class="card-badge">Mar 5</div>
             <img src="../assets/tech.jpg" alt="Tech Conference">
             <div class="card-content">
               <h3>Tech Conference 2025</h3>
-              <p><strong>Date:</strong> March 5, 2025</p>
-              <p><strong>Location:</strong> Main Auditorium</p>
+              <p><i class="fas fa-calendar"></i> March 5, 2025</p>
+              <p><i class="fas fa-map-marker-alt"></i> Main Auditorium</p>
               <p>A gathering of tech enthusiasts, professionals, and students.</p>
             </div>
           </div>
   
           <div class="card">
+            <div class="card-badge">Apr 10</div>
             <img src="../assets/mrandmrs.jpg" alt="MR & MRS GCC">
             <div class="card-content">
               <h3>MR & MRS GCC</h3>
-              <p><strong>Date:</strong> April 10-12, 2025</p>
-              <p><strong>Location:</strong> Innovation Hub</p>
+              <p><i class="fas fa-calendar"></i> April 10-12, 2025</p>
+              <p><i class="fas fa-map-marker-alt"></i> Innovation Hub</p>
               <p>Compete and collaborate on exciting challenges.</p>
             </div>
           </div>
   
           <div class="card">
+            <div class="card-badge">May 20</div>
             <img src="../assets/sports.jpg" alt="Sports Day">
             <div class="card-content">
               <h3>Intercollege Sports Day</h3>
-              <p><strong>Date:</strong> May 20, 2025</p>
-              <p><strong>Location:</strong> College Stadium</p>
+              <p><i class="fas fa-calendar"></i> May 20, 2025</p>
+              <p><i class="fas fa-map-marker-alt"></i> College Stadium</p>
               <p>A day filled with sports competitions and fun activities.</p>
             </div>
           </div>
         </div>
-        
       </section>
       
       <section class="events">
-        <h2></h2>
+        <h2>Popular Events</h2>
         <div class="card-container">
           <div class="card">
+            <div class="card-badge">Trending</div>
             <img src="../assets/netball.jpg" alt="Netball">
             <div class="card-content">
-              <h3>Netball</h3>
-              <p><strong>Date:</strong> March 5, 2025</p>
-              <p><strong>Location:</strong> Main Auditorium</p>
-              <p>A gathering of enthusiasts, professionals, and students.</p>
+              <h3>Netball Tournament</h3>
+              <p><i class="fas fa-calendar"></i> March 15, 2025</p>
+              <p><i class="fas fa-map-marker-alt"></i> Sports Complex</p>
+              <p>Join our annual netball competition and show your skills.</p>
             </div>
           </div>
   
           <div class="card">
-            <img src="../assets/freshers.jpg" alt="Hackathon">
+            <div class="card-badge">New!</div>
+            <img src="../assets/freshers.jpg" alt="Freshers">
             <div class="card-content">
-              <h3>Freshers</h3>
-              <p><strong>Date:</strong> April 10-12, 2025</p>
-              <p><strong>Location:</strong> Come Together</p>
-              <p>Compete and collaborate on exciting coding challenges.</p>
+              <h3>Freshers Welcome Party</h3>
+              <p><i class="fas fa-calendar"></i> February 10, 2025</p>
+              <p><i class="fas fa-map-marker-alt"></i> College Hall</p>
+              <p>Welcome celebration for all new students joining our community.</p>
             </div>
           </div>
   
           <div class="card">
+            <div class="card-badge">Important</div>
             <img src="../assets/logo.png" alt="Opening day">
             <div class="card-content">
               <h3>Opening Day Orientation</h3>
-              <p><strong>Date:</strong> May 20, 2025</p>
-              <p><strong>Location:</strong> College Stadium</p>
-              <p>A day filled with fun and loads of important information</p>
+              <p><i class="fas fa-calendar"></i> January 15, 2025</p>
+              <p><i class="fas fa-map-marker-alt"></i> College Auditorium</p>
+              <p>A day filled with fun and loads of important information.</p>
             </div>
           </div>
         </div>
-        
+      </section>
+
+      <section class="newsletter">
+        <div class="newsletter-content">
+          <h2>Stay Updated</h2>
+          <p>Subscribe to our newsletter to get notifications about upcoming events</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
       </section>
     </main>
   
     <footer>
-      <p>&copy; 2025 Gauteng City College. All rights reserved.</p>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p><i class="fas fa-map-marker-alt"></i> 123 College Avenue, Gauteng</p>
+          <p><i class="fas fa-phone"></i> (012) 345-6789</p>
+          <p><i class="fas fa-envelope"></i> info@gcc.edu.za</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Academic Calendar</a></li>
+            <li><a href="#">Campus Map</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Gauteng City College. All rights reserved.</p>
+      </div>
     </footer>
   </body>
   </html>
-  
