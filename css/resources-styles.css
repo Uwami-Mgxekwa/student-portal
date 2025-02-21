@@ -1,10 +1,10 @@
 :root {
-    --primary-color: #f7a41d; /* Orange/gold from logo */
-    --secondary-color: #e08c00; /* Darker orange */
-    --accent-color: #1f75c5; /* Blue from logo */
-    --dark-accent: #155a9c; /* Darker blue */
+    --primary-color: #f7a41d; 
+    --secondary-color: #e08c00; 
+    --accent-color: #1f75c5; 
+    --dark-accent: #155a9c; 
     --text-color: #333;
-    --light-bg: #f9f7f2; /* Light cream background */
+    --light-bg: #f9f7f2; 
     --border-color: #e0e0e0;
     --success-color: #4caf50;
     --warning-color: #ff9800;
@@ -22,7 +22,6 @@ body {
     background-color: var(--light-bg);
 }
 
-/* Header Styles */
 header {
     background-color: var(--primary-color);
     color: #333;
@@ -60,7 +59,6 @@ header {
     font-style: italic;
 }
 
-/* General Container Styles */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -79,7 +77,6 @@ header {
     border-left: 4px solid var(--accent-color);
 }
 
-/* Button Styles */
 .btn {
     background-color: var(--accent-color);
     color: white;
@@ -124,7 +121,6 @@ header {
     font-size: 0.85rem;
 }
 
-/* Filter and Search Styles */
 .filter-container {
     background-color: white;
     border-radius: 8px;
@@ -170,7 +166,6 @@ header {
     min-width: 180px;
 }
 
-/* Featured Resources Styles */
 .featured-resources {
     margin-bottom: 2rem;
 }
@@ -235,7 +230,6 @@ header {
     font-size: 0.9rem;
 }
 
-/* Resource Tabs Styles */
 .resource-tabs {
     background-color: white;
     border-radius: 8px;
@@ -281,7 +275,6 @@ header {
     display: block;
 }
 
-/* Resource Cards Styles */
 .resource-cards {
     display: flex;
     flex-direction: column;
@@ -337,7 +330,6 @@ header {
     color: var(--gray-dark);
 }
 
-/* Timeline Styles */
 .recent-uploads {
     margin-bottom: 2rem;
 }
@@ -397,7 +389,6 @@ header {
     margin: 0 0 0.5rem;
 }
 
-/* Help Section Styles */
 .help-section {
     margin-bottom: 2rem;
 }
@@ -478,8 +469,6 @@ header {
     transform: translateX(3px);
 }
 
-/* Footer Styles */
-/* Footer Styles - completing the cut-off part */
 footer {
     background-color: var(--primary-color);
     color: #333;
@@ -503,16 +492,14 @@ footer a:hover {
     color: var(--accent-color);
 }
 
-/* Responsive Styles */
-/* Timeline Styles - Updated to prevent date cutoff */
 .recent-uploads {
     margin-bottom: 2rem;
 }
 
 .timeline {
     position: relative;
-    padding: 1rem 0 1rem 8rem; /* Increased left padding to accommodate dates */
-    margin-left: 2rem; /* Add margin to prevent cutoff */
+    padding: 1rem 0 1rem 8rem; 
+    margin-left: 2rem; 
 }
 
 .timeline::before {
@@ -520,7 +507,7 @@ footer a:hover {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 7rem; /* Moved timeline line to align with new structure */
+    left: 7rem; 
     width: 2px;
     background-color: var(--primary-color);
 }
@@ -549,12 +536,12 @@ footer a:hover {
 
 .timeline-date {
     position: absolute;
-    left: -6rem; /* Repositioned to ensure visibility */
+    left: -6rem; 
     top: 1.2rem;
     color: var(--gray-dark);
     font-size: 0.85rem;
     font-weight: 500;
-    width: 5rem; /* Fixed width for consistency */
+    width: 5rem; 
     text-align: right;
 }
 
@@ -567,7 +554,6 @@ footer a:hover {
     margin: 0 0 0.5rem;
 }
 
-/* Responsive timeline adjustments */
 @media (max-width: 768px) {
     .timeline {
         padding-left: 3rem;
