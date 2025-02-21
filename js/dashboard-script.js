@@ -208,3 +208,7 @@ document.querySelector('.nav-item.sign-out').addEventListener('click', function(
   window.location.href = '/index.html';
 });
 
+document.querySelector('.nav-item.events').addEventListener('click', function() {
+  window.location.href = '../pages/events.html';
+});
+
