@@ -345,6 +345,23 @@
     }
 }
 
+.loading-wrapper {
+  position: absolute;
+  z-index: 1000;
+  background: black;
+  opacity: 60%;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-wrapper h1 {
+  color: white;
+}
+
 @media (max-width: 768px) {
     .content-wrapper {
         position: relative;
