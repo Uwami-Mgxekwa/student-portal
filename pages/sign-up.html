@@ -1,49 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>GCC-SignUp</title>
     <link rel="stylesheet" href="../css/login-styles.css" />
-    <link rel="icon" href="../assets/logo.png" type="image/x-icon">
+    <link rel="icon" href="../assets/logo.png" type="image/x-icon" />
     <script type="module" src="../js/sign-up-script.js" defer></script>
   </head>
   <body>
-
     <section class="wrapper">
       <header class="college-header">
-        <img src="../assets/logo.png" alt="Gauteng City College Logo" class="college-logo">
+        <img
+          src="../assets/logo.png"
+          alt="Gauteng City College Logo"
+          class="college-logo"
+        />
         <h1>Gauteng City College</h1>
       </header>
       <div class="form signup">
         <header>Signup</header>
         <form action="#" id="sign-up-form">
-          <input type="text" id="id" placeholder="ID Number/Passport Number" required />
-          <input type="text" id="first_name" placeholder="First Name" required />
+          <input
+            type="text"
+            id="id"
+            placeholder="ID Number/Passport Number"
+            required
+          />
+          <input
+            type="text"
+            id="first_name"
+            placeholder="First Name"
+            required
+          />
           <input type="text" id="last_name" placeholder="Last Name" required />
           <input type="email" id="email" placeholder="Email address" required />
-          <input type="tel" id="phone" placeholder="Phone Number eg: 071 234 5678" required />
+          <input
+            type="tel"
+            id="phone"
+            placeholder="Phone Number eg: 071 234 5678"
+            required
+          />
           <input type="text" id="address" placeholder="Address" required />
           <select id="gender" name="gender" required>
-            <option value=""> --Gender--</option>
+            <option value="">--Gender--</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
             <option value="prefer_not_to_say">Prefer not to say</option>
           </select>
-          <input type="password" id="password" placeholder="Password" required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
           <div class="checkbox">
-            <input type="checkbox" id="signupCheck" value="accept" required/>
+            <input type="checkbox" id="signupCheck" value="accept" required />
             <label for="signupCheck">I accept all terms & conditions</label>
           </div>
           <button class="form-btn" id="sign-up-btn">Sign Up</button>
-          <p style="display: inline;"><span>Already have an account?</span> <a href="./login.html">Login Now</a></p>
+          <p style="display: inline">
+            <span>Already have an account?</span>
+            <a href="./login.html">Login Now</a>
+          </p>
         </form>
       </div>
 
-      <script>
-      </script>
+      <script></script>
     </section>
   </body>
 </html>

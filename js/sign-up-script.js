@@ -1,5 +1,7 @@
 import checkFormValidity from "../lib/validate-form.js";
 import postData from "../lib/post-data.js";
+import { removeLoading, showLoading } from "../lib/loading.js";
+import { showAlert, removeAlert } from "../lib/pop-up.js";
 const signUpForm = document.getElementById("sign-up-form");
 const studentID = document.getElementById("id");
 const firstName = document.getElementById("first_name");
@@ -22,6 +24,7 @@ const cleanseString = (string) => {
 };
 
 const signUp = () => {
+  showLoading("Signing up...");
   let data = {
     studentID: studentID.value,
     first_name: cleanseString(firstName.value),
@@ -33,7 +36,29 @@ const signUp = () => {
     password: password.value,
     signupCheck: signupCheck.value,
   };
-  postData(registerUrl, data);
+
+  const onSuccess = () => {
+    removeLoading();
+    const timer = setTimeout(() => {
+      location.reload();
+      if (isLoggedIn()) {
+        window.location.href = "dashboard.html";
+      }
+      clearTimeout(timer);
+    }, 2000);
+  };
+
+  const onFail = (message) => {
+    let title = "Sign up error";
+    removeLoading();
+    showAlert(title, message);
+    const timer = setTimeout(() => {
+      removeAlert();
+      clearTimeout(timer);
+    }, 2000);
+  };
+
+  postData(registerUrl, data, onSuccess, onFail);
 };
 
 signUpBtn.addEventListener("click", (e) => {
