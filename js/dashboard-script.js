@@ -219,14 +219,24 @@ document
 function signOutStudent() {
   showLoading("Signing out");
   const jsonValue = localStorage.getItem("stu");
+
+  const onSuccess = () => {
+    removeLoading();
+    localStorage.clear();
+    location.href = "/";
+  };
+
+  const onFail = (message) => {
+    removeLoading();
+    showAlert(title, message);
+    localStorage.clear();
+    location.href = "/";
+  };
+
   if (jsonValue) {
     try {
       const studentDetails = JSON.parse(jsonValue);
-      postData(signOutUrl, { id: studentDetails._id }, () => {
-        removeLoading();
-        localStorage.clear();
-        location.href = "/";
-      });
+      postData(signOutUrl, { id: studentDetails._id }, onSuccess, onFail);
     } catch (e) {
       console.error("Error parsing student data:", e);
     }
