@@ -1,67 +1,124 @@
 :root {
-    --primary-color: #f7a41d; 
-    --secondary-color: #e08c00; 
-    --accent-color: #1f75c5; 
-    --dark-accent: #155a9c; 
-    --text-color: #333;
-    --light-bg: #f9f7f2; 
-    --border-color: #e0e0e0;
-    --success-color: #4caf50;
-    --warning-color: #ff9800;
-    --danger-color: #f44336;
-    --gray-light: #f5f5f5;
-    --gray-medium: #e0e0e0;
-    --gray-dark: #757575;
+  --primary-color: #f7a41d;
+  --secondary-color: #e08c00;
+  --accent-color: #1f75c5;
+  --dark-accent: #155a9c;
+  --text-color: #333;
+  --light-bg: #f9f7f2;
+  --border-color: #e0e0e0;
+  --success-color: #4caf50;
+  --warning-color: #ff9800;
+  --danger-color: #f44336;
+  --gray-light: #f5f5f5;
+  --gray-medium: #e0e0e0;
+  --gray-dark: #757575;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    color: var(--text-color);
-    background-color: var(--light-bg);
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-header {
-    background-color: var(--primary-color);
-    color: #333;
-    padding: 0.75rem 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-bottom: 4px solid var(--accent-color);
-}
-
-.header-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: white;
+  border-bottom: 1px solid #e5e5e5;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .logo-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-.logo {
-    height: 60px;
-    margin-right: 1rem;
+.school-logo {
+  width: 30px;
+  height: auto;
+  margin-right: 10px;
+  vertical-align: middle;
 }
 
-.college-name {
-    font-size: 1.5rem;
-    font-weight: bold;
+.menu-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 16px;
 }
 
-.tagline {
-    font-size: 0.8rem;
-    font-style: italic;
+.menu-toggle:hover {
+  background: #f5f5f5;
+}
+
+.content-wrapper {
+  display: flex;
+  /*flex: 1;*/
+}
+
+.sidebar {
+  width: 250px;
+  background: white;
+  padding: 24px;
+  border-right: 1px solid #e5e5e5;
+  transition:
+    transform 0.3s ease,
+    width 0.3s ease;
+  height: calc(100vh - 70px);
+  position: sticky;
+  top: 70px;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-100%);
+  width: 0;
+  padding: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  color: #333;
+}
+
+.nav-item:hover {
+  background: #f5f5f5;
+}
+
+.nav-item.active {
+  background: #f0f0f0;
+}
+
+.main-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
     padding: 1rem;
 }
 
@@ -576,3 +633,21 @@ footer a:hover {
         left: -2rem;
     }
 }
+
+.loading-wrapper {
+  position: absolute;
+  z-index: 1000;
+  background: black;
+  opacity: 60%;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-wrapper h1 {
+  color: white;
+}
+

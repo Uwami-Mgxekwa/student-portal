@@ -194,7 +194,7 @@ const showGreeting = () => {
     }
   } else {
     localStorage.clear();
-    location.href = "/";
+    location.href = "../index.html";
   }
 };
 
@@ -223,14 +223,14 @@ function signOutStudent() {
   const onSuccess = () => {
     removeLoading();
     localStorage.clear();
-    location.href = "/";
+    location.href = "../index.html";
   };
 
   const onFail = (message) => {
     removeLoading();
     showAlert(title, message);
     localStorage.clear();
-    location.href = "/";
+    location.href = "../index.html";
   };
 
   if (jsonValue) {
@@ -253,6 +253,6 @@ window.addEventListener("load", () => {
   if (isLoggedIn()) {
     showGreeting();
   } else {
-    location.href = "/";
+    location.href = "../index.html";
   }
 });

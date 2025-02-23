@@ -1,294 +1,176 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class Schedule | Gauteng City College</title>
+    <title>GCC Dashboard</title>
     <link rel="icon" type="image/png" href="../assets/logo.png">
-    <link rel="stylesheet" href="../css/schedule-styles.css">
-    <script src="../js/schedule-script.js"></script>
-</head>
-<body>
-    <header>
-        <div class="header-content">
-            <div class="logo-container">
-                <img src="../assets/logo.png" alt="Gauteng City College Logo" class="logo">
-                <div>
-                    <div class="college-name">GAUTENG CITY COLLEGE</div>
-                    <div class="tagline">KNOWLEDGE · INTEGRITY · ACHIEVEMENT</div>
-                </div>
-            </div>
-            <div>
-                <button class="btn" onclick="openDashboard()">Back to Dashboard</button>
-            </div>
+    <link rel="stylesheet" href="../css/schedule-styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo-container">
+        <div class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
         </div>
+        <img src="../assets/logo.png" alt="School Logo" class="school-logo">
+        <p>Gauteng City College</p>
+      </div>
     </header>
-    
-    <main class="container">
-        <div class="page-title">
+
+    <div class="content-wrapper">
+      <div class="sidebar collapsed" id="sidebar">
+        <nav>
+          <div class="nav-item dashboard">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </div>
+          <div class="nav-item">
+            <i class="fas fa-book"></i>
+            <span>Courses</span>
+          </div>
+          <div class="nav-item schedule active">
+            <i class="fas fa-calendar"></i>
+            <span>Schedule</span>
+          </div>
+          <div class="nav-item resources">
+            <i class="fas fa-file-alt"></i>
+            <span>Resources</span>
+          </div>
+          <div class="nav-item events">
+            <i class="fas fa-bell"></i>
+            <span>Events</span>
+          </div>
+          <div class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </div>
+          <div class="nav-item sign-out" id="sign-out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sign out</span>
+          </div>
+        </nav>
+      </div>
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+      <div class="main-wrapper">
+        <div class="container">
+          <div class="page-title">
             <h2>My Class Schedule</h2>
             <div class="btn-group">
-                <a href="#" class="btn">Dowload Timetable</a>
+              <a href="#" class="btn">Dowload Timetable</a>
             </div>
-        </div>
-        
-        <div class="schedule-container">
-            <div class="schedule-header">
-                <div>Time</div>
-                <div>Monday</div>
-                <div>Tuesday</div>
-                <div>Wednesday</div>
-                <div>Thursday</div>
-                <div>Friday</div>
-            </div>
-            
-            <div class="schedule-body">
-                <!-- Time column -->
-                <div>
-                    <div class="time-slot">8:00 AM</div>
-                    <div class="time-slot">9:00 AM</div>
-                    <div class="time-slot">10:00 AM</div>
-                    <div class="time-slot">11:00 AM</div>
-                    <div class="time-slot">12:00 PM</div>
-                    <div class="time-slot">1:00 PM</div>
-                    <div class="time-slot">2:00 PM</div>
-                    <div class="time-slot">3:00 PM</div>
-                    <div class="time-slot">4:00 PM</div>
-                </div>
-                
-                <!-- Monday -->
-                <div class="day-column">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    
-                    <!-- Monday Classes -->
-                    <div class="course course-business" style="top: 0px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">BUS301 Business Strategy</div>
-                        <div class="course-location">Block B, Room 302</div>
-                    </div>
-                    
-                    <div class="course course-economics" style="top: 130px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">ECO202 Macroeconomics</div>
-                        <div class="course-location">Block A, Room 105</div>
-                    </div>
-                    
-                    <div class="course course-computing" style="top: 270px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">COM101 Computer Literacy</div>
-                        <div class="course-location">IT Lab 3</div>
-                    </div>
-                </div>
-                
-                <!-- Tuesday -->
-                <div class="day-column">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    
-                    <!-- Tuesday Classes -->
-                    <div class="course course-language" style="top: 90px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">ENG105 Business Communication</div>
-                        <div class="course-location">Languages Building, Room 401</div>
-                    </div>
-                    
-                    <div class="course course-accounting" style="top: 230px; height: 130px; left: 5px; right: 5px;">
-                        <div class="course-title">ACC101 Financial Accounting</div>
-                        <div class="course-location">Block C, Room 230</div>
-                    </div>
-                </div>
-                
-                <!-- Wednesday -->
-                <div class="day-column">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    
-                    <!-- Wednesday Classes -->
-                    <div class="course course-business" style="top: 0px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">BUS301 Business Strategy</div>
-                        <div class="course-location">Block B, Room 302</div>
-                    </div>
-                    
-                    <div class="course course-economics" style="top: 130px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">ECO202 Macroeconomics</div>
-                        <div class="course-location">Block A, Room 105</div>
-                    </div>
-                    
-                    <div class="course course-computing" style="top: 270px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">COM101 Computer Literacy</div>
-                        <div class="course-location">IT Lab 3</div>
-                    </div>
-                </div>
-                
-                <!-- Thursday -->
-                <div class="day-column">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    
-                    <!-- Thursday Classes -->
-                    <div class="course course-language" style="top: 90px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">ENG105 Business Communication</div>
-                        <div class="course-location">Languages Building, Room 401</div>
-                    </div>
-                    
-                    <div class="course course-business" style="top: 230px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">BUS301 Tutorial Session</div>
-                        <div class="course-location">Block B, Room 110</div>
-                    </div>
-                </div>
-                
-                <!-- Friday -->
-                <div class="day-column">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    
-                    <!-- Friday Classes -->
-                    <div class="course course-economics" style="top: 40px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">ECO202 Tutorial</div>
-                        <div class="course-location">Block A, Room 150</div>
-                    </div>
-                    
-                    <div class="course course-accounting" style="top: 130px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">ACC101 Financial Accounting</div>
-                        <div class="course-location">Block C, Room 230</div>
-                    </div>
-                    
-                    <div class="course course-business" style="top: 270px; height: 90px; left: 5px; right: 5px;">
-                        <div class="course-title">BUS201 Group Project</div>
-                        <div class="course-location">Student Center, Room 120</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: var(--business-color);"></div>
-                <span>Business Courses</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: var(--economics-color);"></div>
-                <span>Economics Courses</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: var(--accounting-color);"></div>
-                <span>Accounting Courses</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: var(--language-color);"></div>
-                <span>Language Courses</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: var(--computing-color);"></div>
-                <span>Computing Courses</span>
-            </div>
-        </div>
-        
-        <h3>Upcoming Assessments</h3>
-        <div class="upcoming-container">
+          </div>
+          <h1 class="course-header">
+            System Development N4
+          </h1>
+          <div id="table-container" class="schedule-container">
+            <table class="table-column"> 
+              <thead>
+                <tr class="column-header">
+                  <th>
+                    Time 
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="column-data">
+                  <td>08:30 - 09:30</td>
+                  <td>09:30 - 10:30</td>
+                  <td>10:30 - 11:30</td>
+                  <td>11:30 - 12:30</td>
+                  <td>12:30 - 13:30</td>
+                  <td>13:30 - 14:30</td>
+                  <td>14:30 - 15:30</td>
+                  <td>15:30 - 16:30</td>
+                  <td>15:30 - 16:30</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Upcoming Assessments</h3>
+          <div class="upcoming-container">
             <div class="upcoming-card">
-                <div class="upcoming-header">
-                    Tests & Exams
-                </div>
-                <div class="upcoming-content">
-                    <ul class="upcoming-list">
-                        <li>
-                            <span>ECO202 Mid-Term Test</span>
-                            <span class="upcoming-date">March 15, 2025</span>
-                        </li>
-                        <li>
-                            <span>BUS301 Case Study Presentation</span>
-                            <span class="upcoming-date">March 22, 2025</span>
-                        </li>
-                        <li>
-                            <span>ACC101 Practical Exam</span>
-                            <span class="upcoming-date">April 5, 2025</span>
-                        </li>
-                    </ul>
-                </div>
+              <div class="upcoming-header">
+                Tests & Exams
+              </div>
+              <p>Comming soon...</p>
+              <!--<div class="upcoming-content">-->
+              <!--  <ul class="upcoming-list">-->
+              <!--    <li>-->
+              <!--      <span>ECO202 Mid-Term Test</span>-->
+              <!--      <span class="upcoming-date">March 15, 2025</span>-->
+              <!--    </li>-->
+              <!--    <li>-->
+              <!--      <span>BUS301 Case Study Presentation</span>-->
+              <!--      <span class="upcoming-date">March 22, 2025</span>-->
+              <!--    </li>-->
+              <!--    <li>-->
+              <!--      <span>ACC101 Practical Exam</span>-->
+              <!--      <span class="upcoming-date">April 5, 2025</span>-->
+              <!--    </li>-->
+              <!--  </ul>-->
+              <!--</div>-->
             </div>
-            
+
             <div class="upcoming-card">
-                <div class="upcoming-header">
-                    Assignments Due
-                </div>
-                <div class="upcoming-content">
-                    <ul class="upcoming-list">
-                        <li>
-                            <span>COM101 Project Submission</span>
-                            <span class="upcoming-date">February 28, 2025</span>
-                        </li>
-                        <li>
-                            <span>ENG105 Business Report</span>
-                            <span class="upcoming-date">March 10, 2025</span>
-                        </li>
-                        <li>
-                            <span>BUS301 Group Assignment</span>
-                            <span class="upcoming-date">March 18, 2025</span>
-                        </li>
-                    </ul>
-                </div>
+              <div class="upcoming-header">
+                Assignments Due
+              </div>
+              <p>Comming soon...</p>
+              <!--<div class="upcoming-content">-->
+              <!--  <ul class="upcoming-list">-->
+              <!--    <li>-->
+              <!--      <span>COM101 Project Submission</span>-->
+              <!--      <span class="upcoming-date">February 28, 2025</span>-->
+              <!--    </li>-->
+              <!--    <li>-->
+              <!--      <span>ENG105 Business Report</span>-->
+              <!--      <span class="upcoming-date">March 10, 2025</span>-->
+              <!--    </li>-->
+              <!--    <li>-->
+              <!--      <span>BUS301 Group Assignment</span>-->
+              <!--      <span class="upcoming-date">March 18, 2025</span>-->
+              <!--    </li>-->
+              <!--  </ul>-->
+              <!--</div>-->
             </div>
-            
+
             <div class="upcoming-card">
-                <div class="upcoming-header">
-                    Important Dates
-                </div>
-                <div class="upcoming-content">
-                    <ul class="upcoming-list">
-                        <li>
-                            <span>Course Registration Deadline</span>
-                            <span class="upcoming-date">March 1, 2025</span>
-                        </li>
-                        <li>
-                            <span>Study Break Begins</span>
-                            <span class="upcoming-date">April 10, 2025</span>
-                        </li>
-                        <li>
-                            <span>Final Exams Begin</span>
-                            <span class="upcoming-date">April 20, 2025</span>
-                        </li>
-                    </ul>
-                </div>
+              <div class="upcoming-header">
+                Important Dates
+              </div>
+              <p>Comming soon...</p>
+              <!--  <div class="upcoming-content">-->
+              <!--    <ul class="upcoming-list">-->
+              <!--      <li>-->
+              <!--        <span>Course Registration Deadline</span>-->
+              <!--        <span class="upcoming-date">March 1, 2025</span>-->
+              <!--      </li>-->
+              <!--      <li>-->
+              <!--        <span>Study Break Begins</span>-->
+              <!--        <span class="upcoming-date">April 10, 2025</span>-->
+              <!--      </li>-->
+              <!--      <li>-->
+              <!--        <span>Final Exams Begin</span>-->
+              <!--        <span class="upcoming-date">April 20, 2025</span>-->
+              <!--      </li>-->
+              <!--    </ul>-->
+              <!--  </div>-->
+              <!--</div>-->
             </div>
+          </div>
         </div>
-    </main>
-    
-    <footer>
-        <p>&copy; 2025 Gauteng City College. All rights reserved.</p>
-        <p>For technical support, please contact <a href="mailto:support@gautengcitycollege.edu.za">support@gautengcitycollege.edu.za</a></p>
-    </footer>
-</body>
+
+        <footer>
+          <p>&copy; 2025 Gauteng City College. All rights reserved.</p>
+          <p>For technical support, please contact <a href="mailto:support@gautengcitycollege.edu.za">support@gautengcitycollege.edu.za</a></p>
+        </footer>
+      </div>
+      <script type="module" src="../js/schedule-script.js"></script>
+  </body>
 </html>
+
