@@ -140,6 +140,7 @@ function signOutStudent() {
   };
 
   const onFail = (message) => {
+    let title = "Sign out error";
     removeLoading();
     showAlert(title, message);
     localStorage.clear();
@@ -152,8 +153,10 @@ function signOutStudent() {
       postData(signOutUrl, { id: studentDetails._id }, onSuccess, onFail);
     } catch (e) {
       console.error("Error parsing student data:", e);
+      showAlert("Session error", e.message);
     }
   } else {
+    showAlert("Session error", "Session failed to sign out");
     console.log("Failed to sign out");
   }
 }
