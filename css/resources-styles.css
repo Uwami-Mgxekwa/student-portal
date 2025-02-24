@@ -634,6 +634,63 @@ footer a:hover {
     }
 }
 
+@media (max-width: 768px) {
+  .header {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 12px 16px;
+  }
+
+  .logo-container p {
+    font-size: 14px;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sidebar {
+    position: fixed;
+    z-index: 99;
+    width: 80%;
+    max-width: 280px;
+    transform: translateX(-100%);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar:not(.collapsed) {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    position: relative;
+  }
+
+  .sidebar {
+    height: calc(100vh - 60px);
+  }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 98;
+  }
+
+  .sidebar:not(.collapsed) + .sidebar-overlay {
+    display: block;
+  }
+}
 .loading-wrapper {
   position: absolute;
   z-index: 1000;
