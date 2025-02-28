@@ -135,15 +135,7 @@
     font-size: 12px;
     border: 1px solid #ddd;
   }
-
-  .calendar-grid .last-row {
-    margin-bottom: 10px
-  }
-    
-.calendar-grid .calendar-row:last-child {
-  margin-bottom: 8px;
-}
-
+  
   .assignments {
     margin-bottom: 32px;
   }
@@ -160,6 +152,11 @@
     color: #666;
   }
   
+  .calendar-grid .last-row {
+    margin-bottom: 10px;
+  }
+    
+
   .assignment-card {
     background: white;
     padding: 16px;
