@@ -1,12 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GCC Dashboard</title>
-    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <link rel="icon" type="image/png" href="../assets/logo.png" />
     <link rel="stylesheet" href="../css/dashboard-styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
   <body>
     <header class="header">
@@ -14,12 +17,12 @@
         <div class="menu-toggle" id="menuToggle">
           <i class="fas fa-bars"></i>
         </div>
-        <img src="../assets/logo.png" alt="School Logo" class="school-logo">
+        <img src="../assets/logo.png" alt="School Logo" class="school-logo" />
         <p>Gauteng City College</p>
       </div>
       <p class="greeting" id="greeting">Hi, Owami</p>
     </header>
-    
+
     <div class="content-wrapper">
       <div class="sidebar collapsed" id="sidebar">
         <nav>
@@ -56,15 +59,18 @@
       <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
       <div class="main-content" id="mainContent">
-        <div class="calendar-section"> 
+        <div class="calendar-section">
           <h2>Calendar</h2>
+          <div class="month-name" id="month-name"></div>
           <div class="calendar" id="calendar"></div>
         </div>
 
         <div class="assignments">
           <div class="assignments-header">
             <h2>Assignments</h2>
-            <span>24 Completed • Last updated on <span id='lastUpdated'></span></span>
+            <span
+              >24 Completed • Last updated on <span id="lastUpdated"></span
+            ></span>
           </div>
           <div id="assignmentsList"></div>
         </div>
@@ -81,4 +87,3 @@
     <script type="module" src="../js/dashboard-script.js"></script>
   </body>
 </html>
-

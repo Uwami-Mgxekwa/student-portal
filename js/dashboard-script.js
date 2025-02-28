@@ -62,12 +62,8 @@ function renderCalendar() {
   ];
 
   calendar.innerHTML = "";
-  calendar.style = "position: relative; padding-top: 50px;";
-
-  const monthName = document.createElement("h1");
+  const monthName = document.getElementById("month-name");
   monthName.innerText = months[new Date().getMonth()];
-  monthName.style = "position: absolute; top: 8px; left: 20px";
-  calendar.appendChild(monthName);
 
   days.forEach((day) => {
     const dayElement = document.createElement("div");

@@ -1,15 +1,85 @@
-body {
-  font-family: "Poppins", sans-serif;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
   color: #fff;
   text-align: center;
   height: 100vh;
+}
+
+.wrapper {
+  width: 100vw;
+  position: relative;
+  z-index: 2;
+  display: flex;
+}
+
+.wrapper-content {
+  min-height: 100vh;
+}
+
+.sign {
+  margin-top: 10px;
+}
+
+.wrapper-content.left {
+  background: none;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.wrapper-content.right {
+  width: 60%;
+  background-image: url("../assets/deco-bg.png");
+  background-size: fit;
+  color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.heading-wrapper {
+  margin-bottom: 20px;
+}
+
+.login-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+}
+
+.glyph-wrapper {
+  width: 190px;
+  height: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
   overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.glyph {
+  width: 200px;
+  height: 200px;
+  background: orange;
+  border-radius: 10px 10px 0 0;
+}
+
+.sign-up-wrapper {
+  margin-top: 200px;
+}
+
+.sign-up-wrapper p {
+  text-decoration: underline;
+  margin-bottom: 20px;
 }
 
 #video-bg {
@@ -40,12 +110,10 @@ body {
 
 h1 {
   font-size: 3rem;
-  margin-bottom: 10px;
 }
 
 p {
   font-size: 1.2rem;
-  margin-bottom: 30px;
 }
 
 .buttons {
@@ -65,6 +133,8 @@ p {
 }
 
 .btn-login {
+  width: 200px;
+  height: 50px;
   background: #007bff;
   color: #fff;
 }
@@ -93,4 +163,20 @@ footer {
   position: absolute;
   bottom: 10px;
   font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    min-height: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wrapper-content {
+    width: 100% !important;
+  }
+
+  .sign-up-wrapper {
+    margin-top: 50px;
+  }
 }
