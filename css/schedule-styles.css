@@ -193,6 +193,7 @@ body {
 
 .column-data {
   display: flex;
+  font-size: 18px;
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -343,4 +344,19 @@ footer a {
   .sidebar:not(.collapsed) + .sidebar-overlay {
     display: block;
   }
+
+  .schedule-heading{
+    flex-direction: column;
+    gap: 10px;
+  }
+
+.column-data {
+  display: flex;
+  font-size: 12px;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 10px 0 10px 0;
+}
+  
 }

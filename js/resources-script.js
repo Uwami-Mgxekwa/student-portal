@@ -102,8 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.addEventListener("DOMContentLoaded", adjustTimelineDates);
 
-  window.addEventListener("resize", adjustTimelineDates);
-
   adjustTimelineDates();
 
   window.addEventListener("resize", adjustTimelineDates);

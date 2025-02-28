@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gauteng City College</title>
-    <link rel="icon" href="./assets/logo.png" type="image/x-icon">
+    <link rel="icon" href="./assets/logo.png" type="image/x-icon" />
     <link rel="stylesheet" href="./css/index-styles.css" />
     <link
       rel="stylesheet"
@@ -18,30 +18,50 @@
     </video>
 
     <div class="overlay"></div>
-    <div class="content">
-      <h1>Welcome to GCC Student Portal</h1>
-      <p>Your gateway to quality education and endless opportunities.</p>
-      <div class="buttons">
-        <button class="btn btn-login" id="login">
-          <i class="fas fa-sign-in-alt"></i> Click to Login
-        </button>
-        <button class="btn btn-signup" id="sign-up">
-          <i class="fas fa-user-plus"></i> Sign Up
-        </button>
-        <button class="btn btn-support" onclick="redirectToSupport()">
-          <i class="fas fa-life-ring"></i> Support
-        </button>
-        <button class="btn btn-faq" onclick="redirectToFAQ()">
-          <i class="fas fa-question-circle"></i> FAQ
-        </button>
-        <button class="btn btn-website" id="mainWeb" onclick="redirectToWebsite()">
-          <i class="fas fa-globe"></i> Visit Main Website
-        </button>
+    <div class="wrapper">
+      <div class="wrapper-content left">
+        <div class="heading-wrapper heading-left">
+          <img src="assets/logo.png" />
+          <h1>Gauteng City College</h1>
+          <p>Knowledge Intergrity Archievement</p>
+        </div>
+        <div class="buttons">
+          <button class="btn btn-support" onclick="redirectToSupport()">
+            <i class="fas fa-life-ring"></i> Support
+          </button>
+          <button class="btn btn-faq" onclick="redirectToFAQ()">
+            <i class="fas fa-question-circle"></i> FAQ
+          </button>
+          <button
+            class="btn btn-website"
+            id="mainWeb"
+            onclick="redirectToWebsite()"
+          >
+            <i class="fas fa-globe"></i> Visit Main Website
+          </button>
+        </div>
+      </div>
+      <div class="wrapper-content right">
+        <div class="heading-wrapper">
+          <p>Welcome to</p>
+          <h1 class="sign">GCC STUDENT PORTAL</h1>
+        </div>
+        <div class="login-wrapper">
+          <div class="glyph-wrapper">
+            <img class="glyph" src="./assets/student.png" />
+          </div>
+          <button class="btn btn-login" id="login">
+            <i class="fas fa-sign-in-alt"></i> Click to Login
+          </button>
+        </div>
+        <div class="sign-up-wrapper">
+          <p>Dont have an account? Click to sign up now</p>
+          <button class="btn btn-signup" id="sign-up">
+            <i class="fas fa-user-plus"></i> Sign Up
+          </button>
+        </div>
       </div>
     </div>
-    <footer>
-      <p>© 2025 Gauteng City College. All rights reserved.</p>
-    </footer>
     <script type="module" src="./js/index-script.js"></script>
   </body>
 </html>

@@ -15,15 +15,15 @@ function redirectToSignup() {
   window.location.href = "pages/sign-up.html";
 }
 
-function redirectToSupport() {
-  alert("Support page is under construction. Check back soon!");
-  // window.location.href = "https://example.com/support";
-}
-
-function redirectToFAQ() {
-  alert("FAQ page is under construction. Check back soon!");
-  // window.location.href = "https://example.com/faq";
-}
+//function redirectToSupport() {
+//  alert("Support page is under construction. Check back soon!");
+//  // window.location.href = "https://example.com/support";
+//}
+//
+//function redirectToFAQ() {
+//  alert("FAQ page is under construction. Check back soon!");
+//  // window.location.href = "https://example.com/faq";
+//}
 
 function redirectToWebsite() {
   window.location.href = "https://www.gcc-ed.com/";
@@ -38,5 +38,11 @@ signUpBtn.addEventListener("click", () => {
 });
 
 mainWeb.addEventListener("click", () => {
-  redirectToWebsite()
+  redirectToWebsite();
 });
+
+const isMobile = () => window.innerWidth <= 768;
+if (isMobile()) {
+  console.log("Mobile");
+}
+
