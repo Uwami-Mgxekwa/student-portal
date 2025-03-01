@@ -1,40 +1,12 @@
+import CONFIG from "../config/config.js";
 import { signOutStudent } from "../lib/auth.js";
+import getData from "../lib/get-data.js";
+import { showLoading, removeLoading } from "../lib/loading.js";
+import { showAlert } from "../lib/pop-up.js";
 const tableContainer = document.getElementById("table-container");
 const logOutBtn = document.getElementById("sign-out");
 const dateAndTime = document.getElementById("dateandtime");
-
-const timeTable = [
-  {
-    day: "Monday",
-    table: [
-      "Module1",
-      "Module2",
-      "Module3",
-      "Module4",
-      "Module5",
-      "Module6",
-      " ",
-      " ",
-      "",
-    ],
-  },
-  {
-    day: "Tuesday",
-    table: ["Module1", "", "", "Module4", "Module5", "Module6", " ", " ", ""],
-  },
-  {
-    day: "Wednesday",
-    table: ["Module1", "", "", "Module4", "Module5", "Module6", " ", " ", ""],
-  },
-  {
-    day: "Thursday",
-    table: ["Module1", "", "", "Module4", "Module5", "Module6", " ", " ", ""],
-  },
-  {
-    day: "Friday",
-    table: ["Module1", "", "", "Module4", "Module5", "Module6", " ", " ", ""],
-  },
-];
+const studentCourseHeading = document.getElementById("student-course");
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeSidebar();
@@ -72,34 +44,36 @@ function initializeSidebar() {
   }
 }
 
-const createTimeTable = () => {
+const createTimeTable = (data) => {
+  studentCourseHeading.innerText =
+    data.schedule[0].COURSE + " " + data.schedule[0].CERTIFICATE;
+  const timeTable = data.schedule[0].TABLE;
+
   timeTable.forEach((tTable) => {
     const column = document.createElement("table");
     column.classList.add("table-column");
-    //column.style = "display: flex; flex-direction: column;";
     column.innerHTML = `
-        <thead>
-          <tr class="column-header">
-            <th>
-              ${tTable.day} 
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="column-data" >
+<thead>
+  <tr class="column-header">
+    <th>
+      ${tTable.DAY} 
+    </th>
+  </tr>
+</thead>
+<tbody>
+  <tr class="column-data" >
 
-              <td>${tTable.table[0]}</td>
-              <td>${tTable.table[1]}</td>
-              <td>${tTable.table[2]}</td>
-              <td>${tTable.table[3]}</td>
-              <td>${tTable.table[4]}</td>
-              <td>${tTable.table[5]}</td>
-              <td>${tTable.table[6]}</td>
-              <td>${tTable.table[7]}</td>
-              <td>${tTable.table[8]}</td>
-          </tr>
-        </tbody>
-    `;
+    <td>${tTable.MODULES[0]}</td>
+    <td>${tTable.MODULES[1]}</td>
+    <td>${tTable.MODULES[2]}</td>
+    <td>${tTable.MODULES[3]}</td>
+    <td>${tTable.MODULES[4]}</td>
+    <td>${tTable.MODULES[5]}</td>
+    <td>${tTable.MODULES[6]}</td>
+    <td>${tTable.MODULES[7]}</td>
+  </tr>
+</tbody>
+`;
     tableContainer.appendChild(column);
   });
 };
@@ -130,6 +104,47 @@ const updateDateAndTime = () => {
 
   dateAndTime.innerText = `${day} ${dayDate} ${month} | ${hour < 10 ? "0" + hour : hour}:${min < 10 ? "0" + min : min}`;
 };
+
+const getSchedule = new Promise(async (resolve, reject) => {
+  showLoading("Verifying...");
+  const jsonStuInfo = localStorage.getItem("stu-info");
+  const jsonStuSchedule = localStorage.getItem("stu-schedule");
+
+  if (jsonStuSchedule) {
+    removeLoading();
+    const parsedData = JSON.parse(jsonStuSchedule);
+    resolve(parsedData);
+    return;
+  }
+
+  const onSuccess = () => {
+    removeLoading();
+  };
+
+  const onFail = (message) => {
+    let title = "Verification Error";
+    removeLoading();
+    showAlert(title, message);
+  };
+
+  if (jsonStuInfo) {
+    try {
+      const studentInfo = JSON.parse(jsonStuInfo);
+      const scheduleUrl =
+        CONFIG.scheduleEP +
+        `?course=${studentInfo.studentInfo.COURSE}&certificate=${studentInfo.studentInfo.CERTIFICATE}`;
+
+      await getData(scheduleUrl, "stu-schedule", onSuccess, onFail);
+      const jsonData = localStorage.getItem("stu-schedule");
+      const parsedData = JSON.parse(jsonData);
+      resolve(parsedData);
+    } catch (error) {
+      console.error("Error parsing student data:", error);
+      showAlert("Session error", error.message);
+      reject(error);
+    }
+  }
+});
 
 document
   .querySelector(".nav-item.dashboard")
@@ -165,7 +180,14 @@ logOutBtn.addEventListener("click", () => {
   signOutStudent();
 });
 
-createTimeTable();
+getSchedule
+  .then((data) => {
+    createTimeTable(data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 setInterval(() => {
   updateDateAndTime();
 }, 1000);

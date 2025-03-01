@@ -202,10 +202,11 @@ body {
 
 .column-data td {
   border-top: 1px solid var(--primary-color);
-  height: calc((100vh / 2) / 8);
+  height: calc((100vh / 2) / 7);
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .upcoming-container {

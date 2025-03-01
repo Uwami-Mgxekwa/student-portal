@@ -1,5 +1,5 @@
 import { isLoggedIn } from "../lib/check-login.js";
-import { signOutStudent } from "../lib/auth.js";
+import { signOutStudent, studentInfo } from "../lib/auth.js";
 const logOutBtn = document.getElementById("sign-out");
 const greeting = document.getElementById("greeting");
 
@@ -243,6 +243,7 @@ logOutBtn.addEventListener("click", () => {
 window.addEventListener("load", () => {
   if (isLoggedIn()) {
     showGreeting();
+    studentInfo();
   } else {
     location.href = "../index.html";
   }
