@@ -1,5 +1,5 @@
 import CONFIG from "../config/config.js";
-import { signOutStudent } from "../lib/auth.js";
+import { signOutStudent, studentInfo } from "../lib/auth.js";
 import getData from "../lib/get-data.js";
 import { showLoading, removeLoading } from "../lib/loading.js";
 import { showAlert } from "../lib/pop-up.js";
@@ -143,6 +143,8 @@ const getSchedule = new Promise(async (resolve, reject) => {
       showAlert("Session error", error.message);
       reject(error);
     }
+  } else {
+    studentInfo();
   }
 });
 
