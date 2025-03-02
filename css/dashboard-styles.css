@@ -68,8 +68,8 @@ body {
 }
 
 .greeting-wrapper img{
-  width: 50px;
-  height: 50px;
+  width: 38px;
+  height: 38px;
   border-radius: 100%;
 }
 
@@ -150,15 +150,48 @@ body {
   max-height: 350px; 
   overflow-y: auto; 
 }
-  .calendar div {
-    padding: 6px 4px;
-    background: white;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 12px;
-    border: 1px solid #ddd;
-  }
-  
+.calendar div {
+  position: relative;
+  padding: 6px 4px;
+  background: white;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #ddd;
+}
+
+.calendar span{
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+
+.legend-wrapper{
+  width: 100%;
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap:20px;
+}
+
+.legend{
+  display: inline-block;
+  margin-right: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+
+.legend-test{
+  background: #00ff00;
+}
+
+.legend-exam{
+  background: #ff0000;
+}
 
 @media (max-width: 768px) {
   

@@ -79,6 +79,9 @@ function renderCalendar() {
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDay = new Date(currentYear, currentMonth, 1).getDay();
 
+  const tests = [10, 11, 12];
+  const exams = [24, 26, 27];
+
   for (let i = 0; i < firstDay; i++) {
     const emptyDay = document.createElement("div");
     emptyDay.style.background = "#f5f5f5";
@@ -87,12 +90,24 @@ function renderCalendar() {
 
   for (let i = 1; i <= daysInMonth; i++) {
     const dayElement = document.createElement("div");
+    let pinElement = document.createElement("span");
     dayElement.textContent = i;
     if (i === currentDate.getDate()) {
       dayElement.style.background = "#e6f7ff";
       dayElement.style.fontWeight = "bold";
       dayElement.style.border = "1px solid #1890ff";
     }
+
+    if (tests.includes(i)) {
+      pinElement.style.background = "#00ff00";
+      dayElement.appendChild(pinElement);
+    }
+
+    if (exams.includes(i)) {
+      pinElement.style.background = "#ff0000";
+      dayElement.appendChild(pinElement);
+    }
+
     calendar.appendChild(dayElement);
   }
 }
