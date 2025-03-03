@@ -1,3 +1,4 @@
+import CONFIG from "../config/config.js";
 import checkFormValidity from "../lib/validate-form.js";
 import postData from "../lib/post-data.js";
 import { removeLoading, showLoading } from "../lib/loading.js";
@@ -13,7 +14,7 @@ const gender = document.getElementById("gender");
 const password = document.getElementById("password");
 const signupCheck = document.getElementById("signupCheck");
 const signUpBtn = document.getElementById("sign-up-btn");
-const registerUrl = "https://sp-server-ts.onrender.com/api/register";
+const registerUrl = CONFIG.registerEP;
 //const registerUrl = "http://localhost:6969/api/register";
 
 const cleanseString = (string) => {

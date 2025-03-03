@@ -201,12 +201,15 @@ body {
 
 .column-data td {
   border-top: 1px solid var(--primary-color);
-  height: calc((100vh / 2) / 8);
+  height: calc((100vh / 2) / 7);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+<<<<<<< HEAD
+=======
   padding: 8px 4px;
+>>>>>>> 37731c2a0eb795c3e5145de655249adaff1e310e
 }
 
 .upcoming-container {

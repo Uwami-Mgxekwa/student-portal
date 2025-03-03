@@ -1,0 +1,305 @@
+@import url("./color-scheme.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: var(--background);
+  color: var(--text);
+  border-bottom: 1px solid var(--accent);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.school-logo {
+  width: 30px;
+  height: auto;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.menu-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.menu-toggle:hover {
+  background: var(--background);
+}
+
+.content-wrapper {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 250px;
+  background: var(--background);
+  color: var(--text);
+  padding: 24px;
+  border-right: 1px solid var(--accent);
+  transition:
+    transform 0.3s ease,
+    width 0.3s ease;
+  height: calc(100vh - 70px);
+  position: sticky;
+  top: 70px;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-100%);
+  width: 0;
+  padding: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  color: var(--text);
+}
+
+.nav-item:hover {
+  background: var(--secondary);
+}
+
+.nav-item.active {
+  background: var(--secondary);
+}
+
+.main-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  transition: margin-left 0.3s ease;
+}
+
+.settings-wrapper {
+  background: var(--background);
+  color: var(--text);
+}
+
+.page-title {
+  margin-bottom: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--accent);
+}
+
+.theme-wrapper {
+  width: 100%;
+  margin-top: 20px;
+  background: var(--secondary);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-toggle,
+.theme-toggle input {
+  width: 25px;
+  height: 25px;
+  background: var(--background);
+}
+
+@media (max-width: 1200px) {
+  .right-sidebar {
+    display: none;
+  }
+
+  body {
+    background: var(--background);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: var(--background);
+    color: var(--text);
+    border-bottom: 1px solid var(--accent);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .school-logo {
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  .menu-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 16px;
+  }
+
+  .menu-toggle:hover {
+    background: var(--secondary);
+  }
+
+  .sidebar {
+    width: 250px;
+    background: var(--background);
+    color: var(--text);
+    padding: 24px;
+    border-right: 1px solid var(--accent);
+    transition:
+      transform 0.3s ease,
+      width 0.3s ease;
+    height: calc(100vh - 70px);
+    position: sticky;
+    top: 70px;
+    overflow-y: auto;
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+    width: 0;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    color: var(--text);
+  }
+
+  .nav-item:hover {
+    background: var(--secondary);
+  }
+
+  .nav-item.active {
+    background: var(--secondary);
+  }
+
+  .main-content {
+    padding: 32px;
+    transition: margin-left 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      padding: 12px 16px;
+    }
+
+    .main-content {
+      padding: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      padding: 12px 16px;
+    }
+
+    .logo-container p {
+      font-size: 14px;
+      max-width: 120px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar {
+      position: fixed;
+      z-index: 99;
+      width: 80%;
+      max-width: 280px;
+      transform: translateX(-100%);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar:not(.collapsed) {
+      transform: translateX(0);
+    }
+
+    .main-content {
+      padding: 16px;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .content-wrapper {
+      position: relative;
+    }
+
+    .sidebar {
+      height: calc(100vh - 60px);
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 98;
+    }
+
+    .sidebar:not(.collapsed) + .sidebar-overlay {
+      display: block;
+    }
+  }
+}

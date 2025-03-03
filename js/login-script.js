@@ -1,3 +1,4 @@
+import CONFIG from "../config/config.js";
 import { removeLoading, showLoading } from "../lib/loading.js";
 import { isLoggedIn } from "../lib/check-login.js";
 import postData from "../lib/post-data.js";
@@ -7,7 +8,7 @@ const loginForm = document.getElementById("login-form");
 const password = document.getElementById("password");
 const studentID = document.getElementById("id");
 const loginBtn = document.getElementById("login-btn");
-const loginUrl = "https://sp-server-ts.onrender.com/api/login";
+const loginUrl = CONFIG.loginEP;
 //const loginUrl = "http://localhost:6969/api/login";
 
 const login = () => {

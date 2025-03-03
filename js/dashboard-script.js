@@ -1,7 +1,9 @@
 import { isLoggedIn } from "../lib/check-login.js";
-import { signOutStudent } from "../lib/auth.js";
+import { signOutStudent, studentInfo } from "../lib/auth.js";
+import { setTheme } from "../lib/theme.js";
 const logOutBtn = document.getElementById("sign-out");
 const greeting = document.getElementById("greeting");
+const profileImg = document.getElementById("profile-img");
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeSidebar();
@@ -78,20 +80,35 @@ function renderCalendar() {
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDay = new Date(currentYear, currentMonth, 1).getDay();
 
+  const tests = [10, 11, 12];
+  const exams = [24, 26, 27];
+
   for (let i = 0; i < firstDay; i++) {
     const emptyDay = document.createElement("div");
-    emptyDay.style.background = "#f5f5f5";
+    emptyDay.style.background = "var(--background)";
     calendar.appendChild(emptyDay);
   }
 
   for (let i = 1; i <= daysInMonth; i++) {
     const dayElement = document.createElement("div");
+    let pinElement = document.createElement("span");
     dayElement.textContent = i;
     if (i === currentDate.getDate()) {
-      dayElement.style.background = "#e6f7ff";
+      dayElement.style.background = "var(--background)";
       dayElement.style.fontWeight = "bold";
-      dayElement.style.border = "1px solid #1890ff";
+      dayElement.style.border = "1px solid var(--primary)";
     }
+
+    if (tests.includes(i)) {
+      pinElement.style.background = "#00ff00";
+      dayElement.appendChild(pinElement);
+    }
+
+    if (exams.includes(i)) {
+      pinElement.style.background = "#ff0000";
+      dayElement.appendChild(pinElement);
+    }
+
     calendar.appendChild(dayElement);
   }
 }
@@ -202,6 +219,7 @@ const showGreeting = () => {
         studentDetails.first_name.toUpperCase() +
         " " +
         studentDetails.last_name.toUpperCase();
+      profileImg.src = studentDetails.profileImage;
     } catch (e) {
       console.error("Error parsing student data:", e);
       greeting.innerText = "Hi, Student";
@@ -236,13 +254,25 @@ document
     window.location.href = "../pages/resources.html";
   });
 
+document
+  .querySelector(".nav-item.settings")
+  .addEventListener("click", function () {
+    window.location.href = "../pages/settings.html";
+  });
+
 logOutBtn.addEventListener("click", () => {
   signOutStudent();
 });
 
 window.addEventListener("load", () => {
+  let currTheme = localStorage.getItem("theme");
+  if (!currTheme) {
+    currTheme = "light";
+  }
+  setTheme(currTheme);
   if (isLoggedIn()) {
     showGreeting();
+    studentInfo();
   } else {
     location.href = "../index.html";
   }
