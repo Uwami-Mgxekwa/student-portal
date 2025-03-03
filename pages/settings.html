@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GCC Dashboard</title>
     <link rel="icon" type="image/png" href="../assets/logo.png" />
-    <link rel="stylesheet" href="../css/dashboard-styles.css" />
+    <link rel="stylesheet" href="../css/settings-styles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -20,16 +20,12 @@
         <img src="../assets/logo.png" alt="School Logo" class="school-logo" />
         <p>Gauteng City College</p>
       </div>
-      <div class="greeting-wrapper">
-        <p class="greeting" id="greeting">Hi</p>
-        <img id="profile-img" src="" />
-      </div>
     </header>
 
     <div class="content-wrapper">
       <div class="sidebar collapsed" id="sidebar">
         <nav>
-          <div class="nav-item active">
+          <div class="nav-item dashboard">
             <i class="fas fa-home"></i>
             <span>Dashboard</span>
           </div>
@@ -49,7 +45,7 @@
             <i class="fas fa-bell"></i>
             <span>Events</span>
           </div>
-          <div class="nav-item settings">
+          <div class="nav-item settings active">
             <i class="fas fa-cog"></i>
             <span>Settings</span>
           </div>
@@ -62,35 +58,25 @@
       <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
       <div class="main-content" id="mainContent">
-        <div class="calendar-section">
-          <h2>Calendar</h2>
-          <div class="month-name" id="month-name"></div>
-          <div class="calendar" id="calendar"></div>
-          <div class="legend-wrapper">
-            <p><span class="legend legend-test"></span>Tests</p>
-            <p><span class="legend legend-exam"></span>Exams</p>
-          </div>
-        </div>
+        <div class="settings-wrapper">
+          <h2 class="page-title">Settings</h2>
+          <strong>Themes</strong>
+          <p>Switch themes to your preference</p>
 
-        <div class="assignments">
-          <div class="assignments-header">
-            <h2>Assignments</h2>
-            <span
-              >24 Completed • Last updated on <span id="lastUpdated"></span
-            ></span>
+          <div class="theme-wrapper">
+            <div class="theme-label">
+              <strong>Enable Dark Mode</strong>
+              <p>Switches to dark theme</p>
+            </div>
+            <div class="theme-toggle">
+              <input type="checkbox" id="dark-theme-toggle" />
+              <span></span>
+            </div>
           </div>
-          <div id="assignmentsList"></div>
-        </div>
-      </div>
-
-      <div class="right-sidebar">
-        <div class="trending-courses">
-          <h3>Trending now</h3>
-          <div id="coursesList"></div>
         </div>
       </div>
     </div>
 
-    <script type="module" src="../js/dashboard-script.js"></script>
+    <script type="module" src="../js/settings-script.js"></script>
   </body>
 </html>

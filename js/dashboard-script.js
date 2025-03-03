@@ -1,5 +1,6 @@
 import { isLoggedIn } from "../lib/check-login.js";
 import { signOutStudent, studentInfo } from "../lib/auth.js";
+import { setTheme } from "../lib/theme.js";
 const logOutBtn = document.getElementById("sign-out");
 const greeting = document.getElementById("greeting");
 const profileImg = document.getElementById("profile-img");
@@ -84,7 +85,7 @@ function renderCalendar() {
 
   for (let i = 0; i < firstDay; i++) {
     const emptyDay = document.createElement("div");
-    emptyDay.style.background = "#f5f5f5";
+    emptyDay.style.background = "var(--background)";
     calendar.appendChild(emptyDay);
   }
 
@@ -93,9 +94,9 @@ function renderCalendar() {
     let pinElement = document.createElement("span");
     dayElement.textContent = i;
     if (i === currentDate.getDate()) {
-      dayElement.style.background = "#e6f7ff";
+      dayElement.style.background = "var(--background)";
       dayElement.style.fontWeight = "bold";
-      dayElement.style.border = "1px solid #1890ff";
+      dayElement.style.border = "1px solid var(--primary)";
     }
 
     if (tests.includes(i)) {
@@ -253,11 +254,22 @@ document
     window.location.href = "../pages/resources.html";
   });
 
+document
+  .querySelector(".nav-item.settings")
+  .addEventListener("click", function () {
+    window.location.href = "../pages/settings.html";
+  });
+
 logOutBtn.addEventListener("click", () => {
   signOutStudent();
 });
 
 window.addEventListener("load", () => {
+  let currTheme = localStorage.getItem("theme");
+  if (!currTheme) {
+    currTheme = "light";
+  }
+  setTheme(currTheme);
   if (isLoggedIn()) {
     showGreeting();
     studentInfo();

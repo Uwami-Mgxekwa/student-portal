@@ -1,9 +1,10 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+@import url("./color-scheme.css");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -11,7 +12,7 @@
 }
 
 body {
-  background: #f5f5f5;
+  background: var(--background);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -22,8 +23,9 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
-  background: white;
-  border-bottom: 1px solid #e5e5e5;
+  background: var(--background);
+  color: var(--text);
+  border-bottom: 1px solid var(--accent);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -53,7 +55,7 @@ body {
 }
 
 .menu-toggle:hover {
-  background: #f5f5f5;
+  background: var(--background);
 }
 
 .greeting-wrapper{
@@ -80,9 +82,10 @@ body {
 
 .sidebar {
   width: 250px;
-  background: white;
+  background: var(--background);
+  color: var(--text);
   padding: 24px;
-  border-right: 1px solid #e5e5e5;
+  border-right: 1px solid var(--accent);
   transition:
     transform 0.3s ease,
     width 0.3s ease;
@@ -106,15 +109,15 @@ body {
   margin-bottom: 8px;
   cursor: pointer;
   border-radius: 6px;
-  color: #333;
+  color: var(--text);
 }
 
 .nav-item:hover {
-  background: #f5f5f5;
+  background: var(--secondary);
 }
 
 .nav-item.active {
-  background: #f0f0f0;
+  background: var(--secondary);
 }
 
 .main-content {
@@ -127,10 +130,11 @@ body {
 }
 
 .calendar-section {
-  background: white;
+  background: var(--background);
+  color: var(--text);
   padding: 16px;
   border-radius: 8px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--accent);
   text-align: center;
   margin-bottom: 32px;
   width: 100%;
@@ -144,20 +148,23 @@ body {
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
   padding: 12px;
-  background: #f5f5f5;
+  background: var(--secondary);
   border-radius: 8px;
   height: auto; 
   max-height: 350px; 
   overflow-y: auto; 
 }
+
 .calendar div {
   position: relative;
   padding: 6px 4px;
   background: white;
   border-radius: 4px;
-  text-align: center;
+  text-align: cen--primaryter;
   font-size: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--accent);
+  color: var(--text);
+  background: var(--background)
 }
 
 .calendar span{
@@ -193,19 +200,38 @@ body {
   background: #ff0000;
 }
 
+.loading-wrapper {
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  background: black;
+  opacity: 60%;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-wrapper h1 {
+  color: white;
+}
+
+
 @media (max-width: 768px) {
-  
+
   .calendar-section {
     max-height: none; 
     height: auto; 
   }
-  
+
   .calendar {
     max-height: none;
     font-size: 11px;
     overflow-y: visible; 
   }
-  
+
   .month-name {
     font-size: 28px; 
   }
@@ -215,23 +241,25 @@ body {
   .calendar-section {
     padding: 12px 8px; 
   }
-  
+
   .calendar {
     padding: 8px 4px; 
     gap: 2px; 
   }
-  
+
   .calendar div {
     padding: 3px 1px; 
   }
-  
+
   .month-name {
     font-size: 24px; 
     margin-bottom: 10px; 
   }
 }
+
 .assignments {
   margin-bottom: 32px;
+  color: var(--text);
   width: 100%;
 }
 
@@ -244,15 +272,15 @@ body {
 
 .assignments-header span {
   font-size: 14px;
-  color: #666;
+  color: var(--text);
 }
 
 .assignment-card {
-  background: white;
+  background: var(--background);
   width: 100%;
   padding: 16px;
   border-radius: 8px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--accent);
   margin-bottom: 16px;
   display: flex;
   justify-content: space-between;
@@ -268,7 +296,7 @@ body {
 .assignment-icon {
   width: 40px;
   height: 40px;
-  background: #f5f5f5;
+  background: var(--secondary);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -282,21 +310,22 @@ body {
 
 .assignment-details p {
   font-size: 14px;
-  color: #666;
+  color: var(--text);
 }
 
 .assignment-meta {
   display: flex;
   gap: 32px;
-  color: #666;
+  color: var(--text);
   font-size: 14px;
 }
 
 .right-sidebar {
   width: 320px;
-  background: white;
+  background: var(--background);
+  color: var(--text);
   padding: 24px;
-  border-left: 1px solid #e5e5e5;
+  border-left: 1px solid var(--accent);
 }
 
 .trending-courses h3 {
@@ -304,7 +333,7 @@ body {
 }
 
 .course-card {
-  background: #f5f5f5;
+  background: var(--secondary);
   padding: 16px;
   border-radius: 8px;
   margin-bottom: 16px;
@@ -322,11 +351,11 @@ body {
 
 .course-info p {
   font-size: 14px;
-  color: #666;
+  color: var(--text);
 }
 
 .course-badge {
-  background: #e5e5e5;
+  background: var(--primary);
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 14px;
@@ -336,38 +365,39 @@ body {
   .right-sidebar {
     display: none;
   }
-  
+
   body {
-    background: #f5f5f5;
+    background: var(--background);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
   }
-  
+
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 16px 24px;
-    background: white;
-    border-bottom: 1px solid #e5e5e5;
+    background: var(--background);
+    color: var(--text);
+    border-bottom: 1px solid var(--accent);
     position: sticky;
     top: 0;
     z-index: 100;
   }
-  
+
   .logo-container {
     display: flex;
     align-items: center;
   }
-  
+
   .school-logo {
     width: 30px;
     height: auto;
     margin-right: 10px;
     vertical-align: middle;
   }
-  
+
   .menu-toggle {
     display: flex;
     justify-content: center;
@@ -378,38 +408,39 @@ body {
     cursor: pointer;
     margin-right: 16px;
   }
-  
+
   .menu-toggle:hover {
-    background: #f5f5f5;
+    background: var(--secondary);
   }
-  
+
   .greeting {
     font-size: 16px;
     font-weight: bold;
   }
-  
+
   .content-wrapper {
     display: flex;
     flex: 1;
   }
-  
+
   .sidebar {
     width: 250px;
-    background: white;
+    background: var(--background);
+    color: var(--text);
     padding: 24px;
-    border-right: 1px solid #e5e5e5;
+    border-right: 1px solid var(--accent);
     transition: transform 0.3s ease, width 0.3s ease;
     height: calc(100vh - 70px);
     position: sticky;
     top: 70px;
     overflow-y: auto;
   }
-  
+
   .sidebar.collapsed {
     transform: translateX(-100%);
     width: 0;
   }
-  
+
   .nav-item {
     display: flex;
     align-items: center;
@@ -418,292 +449,300 @@ body {
     margin-bottom: 8px;
     cursor: pointer;
     border-radius: 6px;
-    color: #333;
+    color: var(--text);
   }
-  
+
   .nav-item:hover {
-    background: #f5f5f5;
+    background: var(--secondary);
   }
-  
+
   .nav-item.active {
-    background: #f0f0f0;
+    background: var(--secondary);
   }
-  
+
   .main-content {
     flex: 1;
     padding: 32px;
     transition: margin-left 0.3s ease;
   }
-  
+
   .calendar-section {
-    background: white;
+    background: var(--background);
+    color: var(--text);
     padding: 16px;
     border-radius: 8px;
-    border: 1px solid #e5e5e5;
+    border: 1px solid var(--accent);
     text-align: center;
     margin-bottom: 32px;
     max-width: 800px;
   }
-  
+
   .calendar-section h2 {
     font-size: 16px;
     margin-bottom: 12px;
   }
-  
+
   .calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
     padding: 12px;
-    background: #f5f5f5;
+    background: var(--secondary);
+    color: var(--text);
     border-radius: 8px;
   }
-  
+
   .calendar div {
     padding: 6px 4px;
-    background: white;
+    background: var(--background);
+    color: var(--text);
     border-radius: 4px;
     text-align: center;
     font-size: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--accent);
   }
-  
+
   .assignments {
     margin-bottom: 32px;
+    color: var(--text);
   }
-  
+
   .assignments-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
   }
-  
+
   .assignments-header span {
     font-size: 14px;
-    color: #666;
+    color: var(--text);
   }
-  
+
   .calendar-grid .last-row {
     margin-bottom: 10px;
   }
-    
+
 
   .assignment-card {
-    background: white;
+    background: var(--background);
+    color: var(--text);
     padding: 16px;
     border-radius: 8px;
-    border: 1px solid #e5e5e5;
+    border: 1px solid var(--accent);
     margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .assignment-info {
     display: flex;
     gap: 16px;
     align-items: center;
   }
-  
+
   .assignment-icon {
     width: 40px;
     height: 40px;
-    background: #f5f5f5;
+    background: var(--secondary);
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
+
   .assignment-details h3 {
     font-size: 16px;
     margin-bottom: 4px;
   }
-  
+
   .assignment-details p {
     font-size: 14px;
-    color: #666;
+    color: var(--text);
   }
-  
+
   .assignment-meta {
     display: flex;
     gap: 32px;
-    color: #666;
+    color: var(--text);
     font-size: 14px;
   }
-  
+
   .right-sidebar {
     width: 320px;
-    background: white;
+    background: var(--background);
+    color: var(--text);
     padding: 24px;
-    border-left: 1px solid #e5e5e5;
+    border-left: 1px solid var(--accent);
   }
-  
+
   .trending-courses h3 {
     margin-bottom: 16px;
   }
-  
+
   .course-card {
-    background: #f5f5f5;
+    background: var(--secondary);
+    color: var(--text);
     padding: 16px;
     border-radius: 8px;
     margin-bottom: 16px;
   }
-  
+
   .course-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .course-info h4 {
     margin-bottom: 4px;
   }
-  
+
   .course-info p {
     font-size: 14px;
-    color: #666;
+    color: var(--text);
   }
-  
+
   .course-badge {
-    background: #e5e5e5;
+    background: var(--primary);
+    color: var(--text);
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 14px;
   }
-  
+
   @media (max-width: 1200px) {
     .right-sidebar {
       display: none;
     }
   }
-  
+
   @media (max-width: 768px) {
     .header {
       padding: 12px 16px;
     }
-    
+
     .main-content {
       padding: 16px;
     }
-    
+
     .assignments-header {
       flex-direction: column;
       align-items: flex-start;
       gap: 8px;
     }
-    
+
     .assignment-card {
       flex-direction: column;
       align-items: flex-start;
       gap: 16px;
     }
-    
+
     .assignment-meta {
       width: 100%;
       justify-content: space-between;
     }
   }
 
-@media (max-width: 768px) {
+  @media (max-width: 768px) {
     .header {
-        padding: 12px 16px;
+      padding: 12px 16px;
     }
-    
+
     .logo-container p {
-        font-size: 14px;
-        max-width: 120px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      font-size: 14px;
+      max-width: 120px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    
+
     .sidebar {
-        position: fixed;
-        z-index: 99;
-        width: 80%;
-        max-width: 280px;
-        transform: translateX(-100%);
-        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      position: fixed;
+      z-index: 99;
+      width: 80%;
+      max-width: 280px;
+      transform: translateX(-100%);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
-    
+
     .sidebar:not(.collapsed) {
-        transform: translateX(0);
+      transform: translateX(0);
     }
-    
+
     .main-content {
-        padding: 16px;
-        width: 100%;
+      padding: 16px;
+      width: 100%;
     }
-    
+
     .assignments-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
     }
-    
+
     .assignment-card {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
     }
-    
+
     .assignment-meta {
-        width: 100%;
-        justify-content: space-between;
+      width: 100%;
+      justify-content: space-between;
     }
-    
+
     .calendar {
-        font-size: 11px;
+      font-size: 11px;
     }
-    
+
     .calendar div {
-        padding: 4px 2px;
+      padding: 4px 2px;
     }
-}
+  }
 
-@media (max-width: 480px) {
+  @media (max-width: 480px) {
     .greeting {
-        max-width: 120px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
-    
-    .assignment-meta {
-        flex-direction: column;
-        gap: 8px;
-        align-items: flex-start;
-    }
-    
-    .calendar {
-        font-size: 10px;
-    }
-}
 
-@media (max-width: 768px) {
+    .assignment-meta {
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .calendar {
+      font-size: 10px;
+    }
+  }
+
+  @media (max-width: 768px) {
     .content-wrapper {
-        position: relative;
+      position: relative;
     }
-    
+
     .sidebar {
-        height: calc(100vh - 60px);
+      height: calc(100vh - 60px);
     }
-    
+
     .sidebar-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.3);
-        z-index: 98;
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 98;
     }
-    
+
     .sidebar:not(.collapsed) + .sidebar-overlay {
-        display: block;
+      display: block;
     }
   }
 }
