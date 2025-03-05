@@ -1,18 +1,14 @@
+@import url("./color-scheme.css");
+@import url("./global-styles.css");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
 
 body {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
+  background-image: url("../assets/deco-bg.png");
+  background-size: contain;
 }
 
 .college-header {
@@ -29,6 +25,7 @@ body {
 
 .college-header h1 {
   font-size: 24px;
+  color: var(--text);
 }
 
 .wrapper {
@@ -37,7 +34,7 @@ body {
   width: 100%;
   border-radius: 12px;
   padding: 20px 30px 120px;
-  background: orange;
+  background: var(--primary);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
@@ -51,7 +48,7 @@ body {
   padding: 20px 140px;
   border-radius: 50%;
   height: 100%;
-  background: #fff;
+  background: var(--background);
   transition: all 0.6s ease;
 }
 
@@ -64,13 +61,13 @@ body {
 .form header {
   font-size: 30px;
   text-align: center;
-  color: #fff;
+  color: var(--text);
   font-weight: 600;
   cursor: pointer;
 }
 
 .form.login header {
-  color: #333;
+  color: var(--text);
   opacity: 0.6;
 }
 
@@ -98,17 +95,17 @@ form select,
   padding: 0 15px;
   font-size: 16px;
   font-weight: 400;
-  color: #333;
+  color: var(--text);
   border-radius: 8px;
-  background: #fff;
+  background: var(--background);
 }
 
 .form.login input {
-  border: 1px solid #aaa;
+  border: 1px solid var(--accent);
 }
 
 .form.login input:focus {
-  box-shadow: 0 1px 0 #ddd;
+  box-shadow: 0 1px 0 var(--accent);
 }
 
 form .checkbox {
@@ -120,17 +117,17 @@ form .checkbox {
 .checkbox input[type="checkbox"] {
   height: 16px;
   width: 16px;
-  accent-color: #fff;
+  accent-color: var(--accent);
   cursor: pointer;
 }
 
 form .checkbox label {
   cursor: pointer;
-  color: #fff;
+  color: var(--text);
 }
 
 form a {
-  color: #333;
+  color: var(--text);
   text-decoration: none;
 }
 
@@ -144,33 +141,16 @@ form a:hover {
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
+  border: 2px solid var(--background);
 }
 
 .form-btn:hover {
-  background: orange;
-  color: #fff;
-  border: 2px solid #fff;
+  background: var(--primary);
+  color: var(--text);
+  border: 2px solid var(--text);
   transition:
     color 0.5s,
     border 0.2s;
-}
-
-.loading-wrapper {
-  position: absolute;
-  top: 0;
-  z-index: 1000;
-  background: black;
-  opacity: 60%;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.loading-wrapper h1 {
-  color: white;
 }
 
 .alert {
@@ -186,7 +166,7 @@ form a:hover {
   padding: 1rem;
   border-radius: 0.375rem;
   background: red;
-  color: white;
+  color: var(--text);
   transition: all 0.5s ease-in-out;
 }
 

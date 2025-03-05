@@ -4,6 +4,7 @@ import { isLoggedIn } from "../lib/check-login.js";
 import postData from "../lib/post-data.js";
 import checkFormValidity from "../lib/validate-form.js";
 import { removeAlert, showAlert } from "../lib/pop-up.js";
+import { setTheme } from "../lib/theme.js";
 const loginForm = document.getElementById("login-form");
 const password = document.getElementById("password");
 const studentID = document.getElementById("id");
@@ -12,7 +13,7 @@ const loginUrl = CONFIG.loginEP;
 //const loginUrl = "http://localhost:6969/api/login";
 
 const login = () => {
-  showLoading("logging in..");
+  showLoading("Logging in...");
   let data = {
     studentID: studentID.value,
     password: password.value,
@@ -47,4 +48,12 @@ loginBtn.addEventListener("click", (e) => {
   if (checkFormValidity(loginForm)) {
     login();
   }
+});
+
+window.addEventListener("load", () => {
+  let currTheme = localStorage.getItem("theme");
+  if (!currTheme) {
+    currTheme = "light";
+  }
+  setTheme(currTheme);
 });

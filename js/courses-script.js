@@ -68,6 +68,12 @@ document
     window.location.href = "../pages/resources.html";
   });
 
+document
+  .querySelector(".nav-item.settings")
+  .addEventListener("click", function () {
+    window.location.href = "../pages/settings.html";
+  });
+
 logOutBtn.addEventListener("click", () => {
   signOutStudent();
 });
