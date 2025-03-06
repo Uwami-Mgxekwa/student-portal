@@ -3,6 +3,7 @@ import checkFormValidity from "../lib/validate-form.js";
 import postData from "../lib/post-data.js";
 import { removeLoading, showLoading } from "../lib/loading.js";
 import { showAlert, removeAlert } from "../lib/pop-up.js";
+import { setTheme } from "../lib/theme.js";
 const signUpForm = document.getElementById("sign-up-form");
 const studentID = document.getElementById("id");
 const firstName = document.getElementById("first_name");
@@ -67,4 +68,12 @@ signUpBtn.addEventListener("click", (e) => {
   if (checkFormValidity(signUpForm)) {
     signUp();
   }
+});
+
+window.addEventListener("load", () => {
+  let currTheme = localStorage.getItem("theme");
+  if (!currTheme) {
+    currTheme = "light";
+  }
+  setTheme(currTheme);
 });

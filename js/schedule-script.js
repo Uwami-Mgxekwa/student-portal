@@ -48,8 +48,8 @@ function initializeSidebar() {
 
 const createTimeTable = (data) => {
   studentCourseHeading.innerText =
-    data.schedule[0].COURSE + " " + data.schedule[0].CERTIFICATE;
-  const timeTable = data.schedule[0].TABLE;
+    data.schedule.COURSE + " " + data.schedule.CERTIFICATE;
+  const timeTable = data.schedule.TABLE;
 
   timeTable.forEach((tTable) => {
     const column = document.createElement("table");
