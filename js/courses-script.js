@@ -218,7 +218,7 @@ function createCourseCard(course) {
   card.className = "course-card";
   card.setAttribute("data-status", course.status);
   
-  const imagePath = course.image || "../assets/courses/default.jpg";
+  const imagePath = course.image || "../assets/logo.png";
   
   let statusClass = "";
   let statusText = "";

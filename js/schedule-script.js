@@ -2,7 +2,7 @@ import CONFIG from "../config/config.js";
 import { signOutStudent, studentInfo } from "../lib/auth.js";
 import { isLoggedIn } from "../lib/check-login.js";
 import getData from "../lib/get-data.js";
-import { showLoading, removeLoading } from "../lib/loading.js";
+//import { showLoading, removeLoading } from "../lib/loading.js";
 import { showAlert } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
 const tableContainer = document.getElementById("table-container");
