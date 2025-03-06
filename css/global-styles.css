@@ -11,6 +11,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+/*body and sidebar styles*/
 body {
   background: var(--background);
   display: flex;
