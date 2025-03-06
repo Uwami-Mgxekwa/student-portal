@@ -1,9 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
+@import url("./color-scheme.css");
+@import url("./global-styles.css");
 
 body {
   color: #fff;
@@ -27,8 +23,8 @@ body {
 }
 
 .wrapper-content.left {
-  background: none;
   width: 40%;
+  background: none;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -37,7 +33,7 @@ body {
 .wrapper-content.right {
   width: 60%;
   background-image: url("../assets/deco-bg.png");
-  background-size: fit;
+  background-size: contain;
   color: black;
   display: flex;
   flex-direction: column;
@@ -74,7 +70,7 @@ body {
 }
 
 .sign-up-wrapper {
-  margin-top: 200px;
+  margin-top: 100px;
 }
 
 .sign-up-wrapper p {
@@ -100,7 +96,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   z-index: 1;
 }
 

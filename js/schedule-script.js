@@ -1,8 +1,10 @@
 import CONFIG from "../config/config.js";
 import { signOutStudent, studentInfo } from "../lib/auth.js";
+import { isLoggedIn } from "../lib/check-login.js";
 import getData from "../lib/get-data.js";
 import { showLoading, removeLoading } from "../lib/loading.js";
 import { showAlert } from "../lib/pop-up.js";
+import { setTheme } from "../lib/theme.js";
 const tableContainer = document.getElementById("table-container");
 const logOutBtn = document.getElementById("sign-out");
 const dateAndTime = document.getElementById("dateandtime");
@@ -178,6 +180,12 @@ document
     window.location.href = "../pages/resources.html";
   });
 
+document
+  .querySelector(".nav-item.settings")
+  .addEventListener("click", function () {
+    window.location.href = "../pages/settings.html";
+  });
+
 logOutBtn.addEventListener("click", () => {
   signOutStudent();
 });
@@ -193,3 +201,15 @@ getSchedule
 setInterval(() => {
   updateDateAndTime();
 }, 1000);
+
+window.addEventListener("load", () => {
+  let currTheme = localStorage.getItem("theme");
+  if (!currTheme) {
+    currTheme = "light";
+  }
+  setTheme(currTheme);
+  if (isLoggedIn()) {
+  } else {
+    location.href = "../index.html";
+  }
+});

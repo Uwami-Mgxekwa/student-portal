@@ -1,114 +1,5 @@
-:root {
-  --primary-color: #f7a41d; 
-  --secondary-color: #e08c00; 
-  --accent-color: #1f75c5; 
-  --dark-accent: #155a9c; 
-  --text-color: #333;
-  --light-bg: #f9f7f2; 
-  --border-color: #e0e0e0;
-  --business-color: #1f75c5; 
-  --economics-color: #e08c00; 
-  --accounting-color: #4caf50; 
-  --language-color: #9c27b0; 
-  --computing-color: #ff5722; 
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-body {
-  background: #f5f5f5;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  background: white;
-  border-bottom: 1px solid #e5e5e5;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-
-.school-logo {
-  width: 30px;
-  height: auto;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-
-.menu-toggle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  margin-right: 16px;
-}
-
-.menu-toggle:hover {
-  background: #f5f5f5;
-}
-
-.content-wrapper {
-  display: flex;
-
-}
-
-.sidebar {
-  width: 250px;
-  background: white;
-  padding: 24px;
-  border-right: 1px solid #e5e5e5;
-  transition:
-    transform 0.3s ease,
-    width 0.3s ease;
-  height: calc(100vh - 70px);
-  position: sticky;
-  top: 70px;
-  overflow-y: auto;
-}
-
-.sidebar.collapsed {
-  transform: translateX(-100%);
-  width: 0;
-  padding: 0;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  border-radius: 6px;
-  color: #333;
-}
-
-.nav-item:hover {
-  background: #f5f5f5;
-}
-
-.nav-item.active {
-  background: #f0f0f0;
-}
+@import url("./color-scheme.css");
+@import url("./global-styles.css");
 
 .main-wrapper {
   width: 100%;
@@ -119,6 +10,7 @@ body {
 
 .container {
   padding: 20px;
+  color: var(--text);
 }
 
 .page-title {
@@ -126,16 +18,16 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  background-color: white;
+  background-color: var(--background);
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  border-left: 4px solid var(--accent-color);
+  border: 1px solid var(--accent);
 }
 
 .btn {
-  background-color: var(--accent-color);
-  color: white;
+  background-color: var(--primary);
+  color: var(--text);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -146,7 +38,7 @@ body {
 }
 
 .btn:hover {
-  background-color: var(--dark-accent);
+  background-color: var(--secondary);
 }
 
 .btn-group .btn {
@@ -156,7 +48,7 @@ body {
 .schedule-heading {
   display: flex;
   justify-content: space-between;
-  background-color: white;
+  background-color: var(--background);
   padding: 1rem;
   font-weight: bold;
   border-radius: 8px;
@@ -165,12 +57,12 @@ body {
 
 .schedule-container {
   display: flex;
-  background-color: white;
+  background-color: var(--background);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   overflow-x: auto; 
   margin-bottom: 2rem;
-  border-top: 4px solid var(--primary-color);
+  border-top: 4px solid var(--primary);
   width: 100%;
   min-height: calc(100vh / 2);
 }
@@ -180,7 +72,7 @@ body {
   flex-direction: column;
   min-width: 120px; 
   flex: 1;
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--primary);
 }
 
 .column-header {
@@ -196,20 +88,17 @@ body {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 10px 0 10px 0;
+  padding-top: 10px;
 }
 
 .column-data td {
-  border-top: 1px solid var(--primary-color);
+  border-top: 1px solid var(--primary);
   height: calc((100vh / 2) / 7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
   text-align: center;
-<<<<<<< HEAD
-=======
-  padding: 8px 4px;
->>>>>>> 37731c2a0eb795c3e5145de655249adaff1e310e
+  text-overflow: ellipsis;
+  padding: 4px 4px;
+  background: var(--secondary);
 }
 
 .upcoming-container {
@@ -221,16 +110,16 @@ body {
 
 .upcoming-card {
   width: calc(100%/3);
-  background-color: white;
+  background-color: var(--background);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  border-top: 4px solid var(--primary-color);
+  border-top: 4px solid var(--primary);
 }
 
 .upcoming-header {
-  background-color: var(--accent-color);
-  color: white;
+  background-color: var(--secondary);
+  color: var(--text);
   padding: 1rem;
   font-weight: bold;
 }
@@ -257,21 +146,21 @@ body {
 }
 
 .upcoming-date {
-  color: #777;
+  color: var(--text);
   font-size: 0.875rem;
 }
 
 footer {
-  background-color: var(--primary-color);
-  color: #333;
+  background-color: var(--primary);
+  color: var(--text);
   text-align: center;
   padding: 1rem;
   margin-top: 2rem;
-  border-top: 4px solid var(--accent-color);
+  border-top: 4px solid var(--accent);
 }
 
 footer a {
-  color: var(--accent-color);
+  color: var(--accent);
   font-weight: bold;
 }
 
@@ -325,22 +214,6 @@ footer a {
   }
 }
 
-.loading-wrapper {
-  position: absolute;
-  z-index: 1000;
-  background: black;
-  opacity: 60%;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.loading-wrapper h1 {
-  color: white;
-}
 
 @media (max-width: 768px) {
   .content-wrapper {
