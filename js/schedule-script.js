@@ -51,14 +51,12 @@ const createTimeTable = (data) => {
     data.schedule.COURSE + " " + data.schedule.CERTIFICATE;
   const timeTable = data.schedule.TABLE;
   
-  // Define the number of periods/modules you want to show per day
-  const totalModulesPerDay = 8; // Adjust this number based on your needs
+  const totalModulesPerDay = 8; 
 
   timeTable.forEach((tTable) => {
     const column = document.createElement("table");
     column.classList.add("table-column");
     
-    // Create header
     let tableHTML = `
       <thead>
         <tr class="column-header">
@@ -69,14 +67,11 @@ const createTimeTable = (data) => {
         <tr class="column-data">
     `;
     
-    // Always create the same number of cells, regardless of data
     for (let i = 0; i < totalModulesPerDay; i++) {
-      // Use the module value if it exists, otherwise show an empty cell
       const moduleValue = (tTable.MODULES && tTable.MODULES[i]) ? tTable.MODULES[i] : '';
       tableHTML += `<td>${moduleValue}</td>`;
     }
     
-    // Close the row and table body
     tableHTML += `
         </tr>
       </tbody>
@@ -119,7 +114,8 @@ const getSchedule = new Promise(async (resolve, reject) => {
   const jsonStuInfo = localStorage.getItem("stu-info");
   const jsonStuSchedule = localStorage.getItem("stu-schedule");
 
-  // Use mock data as a fallback when debugging
+  //let us use mock data for now till we figure it out 
+  
   const mockScheduleData = {
     schedule: {
       COURSE: "Computer Science",
@@ -174,10 +170,10 @@ const getSchedule = new Promise(async (resolve, reject) => {
       const studentData = JSON.parse(jsonStuInfo);
       console.log("Student data structure:", studentData);
       
-      // Try different possible paths to find course and certificate
       let course, certificate;
       
-      // Check various possible structures
+
+      //for debugging purposes 
       if (studentData.studentInfo && studentData.studentInfo.COURSE) {
         course = studentData.studentInfo.COURSE;
         certificate = studentData.studentInfo.CERTIFICATE;
@@ -194,7 +190,6 @@ const getSchedule = new Promise(async (resolve, reject) => {
       
       if (!course || !certificate) {
         console.error("Could not find course and certificate in student data");
-        // Use mock data as fallback
         onFail("Missing student course information");
         return;
       }
@@ -217,7 +212,6 @@ const getSchedule = new Promise(async (resolve, reject) => {
     } catch (error) {
       console.error("Error parsing student data:", error);
       showAlert("Session error", error.message);
-      // Use mock data as fallback
       resolve(mockScheduleData);
     }
   } else {
