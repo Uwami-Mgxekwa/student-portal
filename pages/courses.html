@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GCC Dashboard</title>
+    <title>GCC Courses</title>
     <link rel="icon" type="image/png" href="../assets/logo.png" />
+    <link rel="stylesheet" href="../css/dashboard-styles.css" />
     <link rel="stylesheet" href="../css/courses-styles.css" />
     <link
       rel="stylesheet"
@@ -20,16 +21,20 @@
         <img src="../assets/logo.png" alt="School Logo" class="school-logo" />
         <p>Gauteng City College</p>
       </div>
+      <div class="greeting-wrapper">
+        <p class="greeting" id="greeting">Hi</p>
+        <img id="profile-img" src="" />
+      </div>
     </header>
 
     <div class="content-wrapper">
       <div class="sidebar collapsed" id="sidebar">
         <nav>
-          <div class="nav-item dashboard">
+          <div class="nav-item">
             <i class="fas fa-home"></i>
             <span>Dashboard</span>
           </div>
-          <div class="nav-item active courses">
+          <div class="nav-item courses active">
             <i class="fas fa-book"></i>
             <span>Courses</span>
           </div>
@@ -56,6 +61,86 @@
         </nav>
       </div>
       <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+      <div class="main-content" id="mainContent">
+        <div class="courses-header">
+          <h1>My Courses</h1>
+          <div class="courses-actions">
+            <div class="search-container">
+              <input type="text" id="courseSearch" placeholder="Search courses..." />
+              <i class="fas fa-search"></i>
+            </div>
+            <div class="filter-container">
+              <select id="courseFilter">
+                <option value="all">All Courses</option>
+                <option value="active">Active</option>
+                <option value="completed">Completed</option>
+                <option value="upcoming">Upcoming</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="courses-tabs">
+          <div class="tab active" data-tab="enrolled">Enrolled Courses</div>
+          <div class="tab" data-tab="recommended">Recommended</div>
+          <div class="tab" data-tab="completed">Completed</div>
+        </div>
+
+        <div class="courses-grid" id="enrolledCourses">
+          <!-- Course cards will be inserted here by JavaScript -->
+        </div>
+
+        <div class="courses-grid hidden" id="recommendedCourses">
+          <!-- Recommended courses will be inserted here -->
+        </div>
+
+        <div class="courses-grid hidden" id="completedCourses">
+          <!-- Completed courses will be inserted here -->
+        </div>
+      </div>
+
+      <div class="right-sidebar">
+        <div class="learning-progress">
+          <h3>Learning Progress</h3>
+          <div class="progress-section">
+            <div class="progress-item">
+              <div class="progress-info">
+                <span>Weekly Target</span>
+                <span>75%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-value" style="width: 75%"></div>
+              </div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-info">
+                <span>Assignments</span>
+                <span>60%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-value" style="width: 60%"></div>
+              </div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-info">
+                <span>Overall Progress</span>
+                <span>82%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-value" style="width: 82%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="upcoming-deadlines">
+          <h3>Upcoming Deadlines</h3>
+          <div class="deadline-list" id="deadlinesList">
+            <!-- Deadlines will be inserted here -->
+          </div>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="../js/courses-script.js"></script>

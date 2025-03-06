@@ -1,10 +1,9 @@
 @import url("./color-scheme.css");
 @import url("./global-styles.css");
 
-
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f7f7f7;
+  background-color: #f5f5f5;
   color: #333;
   line-height: 1.6;
   position: relative;
@@ -13,7 +12,7 @@ body {
 
 header {
   background-color: #F29100;
-  padding: 20px;
+  padding: 15px 20px;
   display: flex;
   align-items: center;
   position: relative;
@@ -50,14 +49,15 @@ header {
 }
 
 .logo img {
-  height: 50px;
-  margin-right: 15px;
+  height: 40px;
+  margin-right: 10px;
   border-radius: 50%;
 }
 
 .logo h1 {
-  font-size: 1.8em;
+  font-size: 1.6em;
   color: #fff;
+  margin: 0;
 }
 
 .sidebar {
@@ -79,7 +79,7 @@ header {
 
 .sidebar-header {
   background-color: #F29100;
-  padding: 20px;
+  padding: 15px;
   display: flex;
   align-items: center;
   color: white;
@@ -87,10 +87,15 @@ header {
 }
 
 .sidebar-header img {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   margin-right: 10px;
+}
+
+.sidebar-header h2 {
+  font-size: 1.2rem;
+  margin: 0;
 }
 
 .close-btn {
@@ -106,11 +111,13 @@ header {
 
 .menu-items {
   list-style: none;
-  padding: 20px 0;
+  padding: 0;
+  margin: 0;
 }
 
 .menu-items li {
-  margin-bottom: 5px;
+  margin: 0;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .menu-items a {
@@ -150,36 +157,45 @@ header {
 }
 
 main {
+  display: flex;
+  flex-direction: column;
   max-width: 1200px;
-  margin: 30px auto;
+  margin: 20px auto;
   padding: 0 20px;
 }
 
 .page-heading {
-  text-align: center;
-  margin-bottom: 40px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .page-heading h1 {
-  font-size: 2.8em;
+  font-size: 1.8em;
   color: #4B2D73;
-  margin-bottom: 10px;
+  margin: 0 0 5px 0;
 }
 
 .page-heading p {
-  font-size: 1.2em;
+  font-size: 1em;
   color: #666;
+  margin: 0;
 }
 
 .events {
-  margin-bottom: 60px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .events h2 {
-  margin-bottom: 30px;
-  font-size: 2em;
+  margin: 0 0 20px 0;
+  font-size: 1.4em;
   color: #4B2D73;
-  text-align: left;
   border-bottom: 2px solid #F29100;
   padding-bottom: 10px;
 }
@@ -187,21 +203,22 @@ main {
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
+  gap: 20px;
 }
 
 .card {
   background: #fff;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  border: 1px solid #eee;
 }
 
 .card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
 .card-badge {
@@ -210,17 +227,19 @@ main {
   right: 15px;
   background-color: #F29100;
   color: white;
-  padding: 5px 10px;
+  padding: 3px 8px;
   border-radius: 20px;
   font-weight: bold;
+  font-size: 0.8em;
   z-index: 10;
 }
 
 .card img {
   width: 100%;
-  height: 200px;
+  height: 150px;
   object-fit: cover;
   transition: transform 0.5s;
+  border-bottom: 1px solid #eee;
 }
 
 .card:hover img {
@@ -228,33 +247,34 @@ main {
 }
 
 .card-content {
-  padding: 25px;
-  text-align: left;
+  padding: 15px;
 }
 
 .card-content h3 {
-  margin-bottom: 15px;
-  font-size: 1.5em;
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
   color: #4B2D73;
 }
 
 .card-content p {
-  margin-bottom: 12px;
+  margin: 0 0 8px 0;
   color: #555;
+  font-size: 0.9em;
 }
 
 .card-content p i {
   color: #F29100;
-  width: 20px;
-  margin-right: 8px;
+  width: 15px;
+  margin-right: 5px;
 }
 
 .newsletter {
-  background-color: #4B2D73;
-  padding: 50px 30px;
-  border-radius: 10px;
-  margin-top: 50px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  border: 1px solid #eee;
 }
 
 .newsletter-content {
@@ -264,14 +284,14 @@ main {
 }
 
 .newsletter-content h2 {
-  color: white;
-  margin-bottom: 15px;
-  font-size: 2em;
+  color: #4B2D73;
+  margin: 0 0 10px 0;
+  font-size: 1.4em;
 }
 
 .newsletter-content p {
-  color: rgba(255,255,255,0.8);
-  margin-bottom: 25px;
+  color: #666;
+  margin: 0 0 15px 0;
 }
 
 .newsletter-form {
@@ -282,19 +302,19 @@ main {
 
 .newsletter-form input {
   flex: 1;
-  padding: 15px;
-  border: none;
-  border-radius: 5px 0 0 5px;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
   outline: none;
-  font-size: 1em;
+  font-size: 0.9em;
 }
 
 .newsletter-form button {
   background-color: #F29100;
   color: white;
   border: none;
-  padding: 0 25px;
-  border-radius: 0 5px 5px 0;
+  padding: 0 20px;
+  border-radius: 0 4px 4px 0;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
@@ -307,7 +327,8 @@ main {
 footer {
   background-color: #333;
   color: #fff;
-  padding: 50px 0 20px;
+  padding: 30px 0 15px;
+  margin-top: 20px;
 }
 
 .footer-content {
@@ -315,13 +336,13 @@ footer {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 40px;
+  gap: 30px;
   padding: 0 20px;
 }
 
 .footer-section h3 {
-  font-size: 1.3em;
-  margin-bottom: 20px;
+  font-size: 1.1em;
+  margin: 0 0 15px 0;
   color: #F29100;
   position: relative;
 }
@@ -331,27 +352,31 @@ footer {
   position: absolute;
   left: 0;
   bottom: -8px;
-  width: 50px;
+  width: 40px;
   height: 2px;
   background-color: #F29100;
 }
 
 .footer-section p {
-  margin-bottom: 10px;
+  margin: 0 0 8px 0;
+  font-size: 0.9em;
 }
 
 .footer-section ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .footer-section ul li {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .footer-section a {
   color: #ddd;
   text-decoration: none;
   transition: color 0.3s;
+  font-size: 0.9em;
 }
 
 .footer-section a:hover {
@@ -360,7 +385,7 @@ footer {
 
 .social-icons {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   margin-top: 15px;
 }
 
@@ -368,8 +393,8 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background-color: rgba(255,255,255,0.1);
   border-radius: 50%;
   transition: all 0.3s;
@@ -381,22 +406,22 @@ footer {
 }
 
 .social-icons i {
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 .footer-bottom {
   max-width: 1200px;
-  margin: 40px auto 0;
-  padding-top: 20px;
+  margin: 20px auto 0;
+  padding-top: 15px;
   border-top: 1px solid rgba(255,255,255,0.1);
   text-align: center;
-  font-size: 0.9em;
+  font-size: 0.8em;
   color: #aaa;
 }
 
 @media screen and (max-width: 768px) {
   .logo h1 {
-    font-size: 1.5em;
+    font-size: 1.3em;
   }
   
   .card-container {
@@ -408,13 +433,13 @@ footer {
   }
   
   .newsletter-form input {
-    border-radius: 5px;
+    border-radius: 4px;
     margin-bottom: 10px;
   }
   
   .newsletter-form button {
-    border-radius: 5px;
-    padding: 15px;
+    border-radius: 4px;
+    padding: 10px;
   }
   
   .footer-content {
