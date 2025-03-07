@@ -1,171 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GCC Events</title>
-    <link rel="stylesheet" href="../css/events-styles.css">
-    <script src="../js/events-script.js" defer></script>
-    <link rel="icon" type="image/png" href="../assets/logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <header>
-      <div class="hamburger-container">
-        <button class="hamburger-icon" id="hamburger-icon">
+    <link rel="icon" type="image/png" href="../assets/logo.png" />
+    <link rel="stylesheet" href="../css/events-styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo-container">
+        <div class="menu-toggle" id="menuToggle">
           <i class="fas fa-bars"></i>
-        </button>
-      </div>
-      <div class="logo">
-        <img src="../assets/logo.png" alt="Gauteng City College Logo" />
-        <h1>Gauteng City College</h1>
-      </div>
-      
-      <nav class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-          <img src="../assets/logo.png" alt="Gauteng City College Logo" />
-          <h2>Gauteng City College</h2>
-          <button class="close-btn" id="close-sidebar">
-            <i class="fas fa-times"></i>
-          </button>
         </div>
-        <ul class="menu-items">
-          <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
-          <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
-          <li><a href="schedule.html"><i class="fas fa-calendar-alt"></i> Schedule</a></li>
-          <li><a href="resources.html"><i class="fas fa-folder"></i> Resources</a></li>
-          <li><a href="events.html" class="active"><i class="fas fa-calendar-check"></i> Events</a></li>
-          <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
-          <li><a href="/index.html"><i class="fas fa-sign-out-alt"></i> Sign out</a></li>
-        </ul>
-      </nav>
-      <div class="overlay" id="overlay"></div>
+        <img src="../assets/logo.png" alt="School Logo" class="school-logo" />
+        <p>Gauteng City College</p>
+      </div>
+      <div class="greeting-wrapper">
+        <p class="greeting" id="greeting">Hi</p>
+        <img id="profile-img" src="" />
+      </div>
     </header>
-  
-    <main>
-      <div class="page-heading">
-        <h1>College Events</h1>
-        <p>Stay updated with our upcoming and ongoing events</p>
+
+    <div class="content-wrapper">
+      <div class="sidebar collapsed" id="sidebar">
+        <nav>
+          <div class="nav-item dashboard">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </div>
+          <div class="nav-item courses">
+            <i class="fas fa-book"></i>
+            <span>Courses</span>
+          </div>
+          <div class="nav-item schedule">
+            <i class="fas fa-calendar"></i>
+            <span>Schedule</span>
+          </div>
+          <div class="nav-item resources">
+            <i class="fas fa-file-alt"></i>
+            <span>Resources</span>
+          </div>
+          <div class="nav-item events active">
+            <i class="fas fa-bell"></i>
+            <span>Events</span>
+          </div>
+          <div class="nav-item settings">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </div>
+          <div class="nav-item sign-out" id="sign-out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sign out</span>
+          </div>
+        </nav>
+      </div>
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+      <div class="main-content" id="mainContent">
+        <div class="events-header">
+          <h2>Upcoming Events</h2>
+          <span>Last updated on <span id="lastUpdated"></span></span>
+        </div>
+
+        <div class="events-filter">
+          <div class="filter-option active" data-filter="all">All Events</div>
+          <div class="filter-option" data-filter="academic">Academic</div>
+          <div class="filter-option" data-filter="social">Social</div>
+          <div class="filter-option" data-filter="workshop">Workshops</div>
+        </div>
+
+        <div class="events-list" id="eventsList">
+          <!-- Events will be dynamically inserted here -->
+        </div>
       </div>
 
-      <section class="events">
-        <h2>Upcoming Events</h2>
-        <div class="card-container">
-          <div class="card">
-            <div class="card-badge">Mar 5</div>
-            <img src="../assets/tech.jpg" alt="Tech Conference">
-            <div class="card-content">
-              <h3>Tech Conference 2025</h3>
-              <p><i class="fas fa-calendar"></i> March 5, 2025</p>
-              <p><i class="fas fa-map-marker-alt"></i> Main Auditorium</p>
-              <p>A gathering of tech enthusiasts, professionals, and students.</p>
+      <div class="right-sidebar">
+        <div class="event-categories">
+          <h3>Event Categories</h3>
+          <div class="category-list">
+            <div class="category-item">
+              <span class="category-color academic"></span>
+              <span class="category-name">Academic</span>
             </div>
-          </div>
-  
-          <div class="card">
-            <div class="card-badge">Apr 10</div>
-            <img src="../assets/mrandmrs.jpg" alt="MR & MRS GCC">
-            <div class="card-content">
-              <h3>MR & MRS GCC</h3>
-              <p><i class="fas fa-calendar"></i> April 10-12, 2025</p>
-              <p><i class="fas fa-map-marker-alt"></i> Innovation Hub</p>
-              <p>Compete and collaborate on exciting challenges.</p>
+            <div class="category-item">
+              <span class="category-color social"></span>
+              <span class="category-name">Social</span>
             </div>
-          </div>
-  
-          <div class="card">
-            <div class="card-badge">May 20</div>
-            <img src="../assets/sports.jpg" alt="Sports Day">
-            <div class="card-content">
-              <h3>Intercollege Sports Day</h3>
-              <p><i class="fas fa-calendar"></i> May 20, 2025</p>
-              <p><i class="fas fa-map-marker-alt"></i> College Stadium</p>
-              <p>A day filled with sports competitions and fun activities.</p>
+            <div class="category-item">
+              <span class="category-color workshop"></span>
+              <span class="category-name">Workshops</span>
             </div>
           </div>
         </div>
-      </section>
-      
-      <section class="events">
-        <h2>Popular Events</h2>
-        <div class="card-container">
-          <div class="card">
-            <div class="card-badge">Trending</div>
-            <img src="../assets/netball.jpg" alt="Netball">
-            <div class="card-content">
-              <h3>Netball Tournament</h3>
-              <p><i class="fas fa-calendar"></i> March 15, 2025</p>
-              <p><i class="fas fa-map-marker-alt"></i> Sports Complex</p>
-              <p>Join our annual netball competition and show your skills.</p>
-            </div>
-          </div>
-  
-          <div class="card">
-            <div class="card-badge">New!</div>
-            <img src="../assets/freshers.jpg" alt="Freshers">
-            <div class="card-content">
-              <h3>Freshers Welcome Party</h3>
-              <p><i class="fas fa-calendar"></i> February 10, 2025</p>
-              <p><i class="fas fa-map-marker-alt"></i> College Hall</p>
-              <p>Welcome celebration for all new students joining our community.</p>
-            </div>
-          </div>
-  
-          <div class="card">
-            <div class="card-badge">Important</div>
-            <img src="../assets/logo.png" alt="Opening day">
-            <div class="card-content">
-              <h3>Opening Day Orientation</h3>
-              <p><i class="fas fa-calendar"></i> January 15, 2025</p>
-              <p><i class="fas fa-map-marker-alt"></i> College Auditorium</p>
-              <p>A day filled with fun and loads of important information.</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <section class="newsletter">
-        <div class="newsletter-content">
-          <h2>Stay Updated</h2>
-          <p>Subscribe to our newsletter to get notifications about upcoming events</p>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Enter your email address" required>
-            <button type="submit">Subscribe</button>
-          </form>
-        </div>
-      </section>
-    </main>
-  
-    <footer>
-      <div class="footer-content">
-        <div class="footer-section">
-          <h3>Contact Us</h3>
-          <p><i class="fas fa-map-marker-alt"></i> 123 College Avenue, Gauteng</p>
-          <p><i class="fas fa-phone"></i> (012) 345-6789</p>
-          <p><i class="fas fa-envelope"></i> info@gcc.edu.za</p>
-        </div>
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Academic Calendar</a></li>
-            <li><a href="#">Campus Map</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3>Follow Us</h3>
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
+        <div class="featured-event">
+          <h3>Featured Event</h3>
+          <div class="featured-event-card">
+            <div class="event-date">
+              <span class="event-month">Mar</span>
+              <span class="event-day">15</span>
+            </div>
+            <div class="event-info">
+              <h4>Career Fair 2025</h4>
+              <p class="event-time"><i class="fas fa-clock"></i> 10:00 AM - 4:00 PM</p>
+              <p class="event-location"><i class="fas fa-map-marker-alt"></i> Main Campus</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; <span id="current-year">2025</span> Gauteng City College. All rights reserved.</p>
-      </div>
-    </footer>
+    </div>
+
+    <script type="module" src="../js/events-script.js"></script>
   </body>
-  </html>
+</html>
