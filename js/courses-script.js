@@ -49,7 +49,22 @@ function initializeSidebar() {
   }
 }
 
+darkThemeToggle.addEventListener("change", (e) => {
+  const isActive = e.target.checked;
+  if (isActive) {
+    saveTheme("dark");
+    let currTheme = localStorage.getItem("theme");
+    setTheme(currTheme);
+  } else {
+    saveTheme("light");
+    let currTheme = localStorage.getItem("theme");
+    setTheme(currTheme);
+  }
+});
+
 function setupEventListeners() {
+
+  
   tabs.forEach(tab => {
     tab.addEventListener("click", () => {
 
@@ -63,6 +78,11 @@ function setupEventListeners() {
       document.getElementById(`${tabName}Courses`).classList.remove("hidden");
     });
   });
+
+  function saveTheme(theme) {
+    localStorage.setItem("theme", theme);
+  }
+
 
   courseSearch.addEventListener("input", filterCourses);
   
@@ -87,6 +107,7 @@ function setupEventListeners() {
   document.querySelector(".nav-item.settings").addEventListener("click", function() {
     window.location.href = "../pages/settings.html";
   });
+
 }
 
 function filterCourses() {
