@@ -9,6 +9,7 @@
   align-items: center;
   margin-bottom: 24px;
   width: 100%;
+  color: var(--text);
 }
 
 .events-header span {
@@ -22,6 +23,7 @@
   margin-bottom: 24px;
   flex-wrap: wrap;
   width: 100%;
+  color: var(--text);
 }
 
 .filter-option {
@@ -32,11 +34,12 @@
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s ease;
+  color: var(--text);
 }
 
 .filter-option.active {
   background: var(--primary);
-  color: white;
+  color: var(--text);
   border-color: var(--primary);
 }
 
@@ -161,7 +164,7 @@
 
 .event-action-btn.primary {
   background: var(--primary);
-  color: white;
+  color: var(--text);
 }
 
 .event-action-btn.primary:hover {
@@ -277,3 +280,4 @@
     padding: 8px;
   }
 }
+

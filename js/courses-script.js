@@ -49,92 +49,82 @@ function initializeSidebar() {
   }
 }
 
-darkThemeToggle.addEventListener("change", (e) => {
-  const isActive = e.target.checked;
-  if (isActive) {
-    saveTheme("dark");
-    let currTheme = localStorage.getItem("theme");
-    setTheme(currTheme);
-  } else {
-    saveTheme("light");
-    let currTheme = localStorage.getItem("theme");
-    setTheme(currTheme);
-  }
-});
-
 function setupEventListeners() {
-
-  
-  tabs.forEach(tab => {
+  tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
-
-      tabs.forEach(t => t.classList.remove("active"));
+      tabs.forEach((t) => t.classList.remove("active"));
 
       tab.classList.add("active");
-      
-      coursesGrids.forEach(grid => grid.classList.add("hidden"));
+
+      coursesGrids.forEach((grid) => grid.classList.add("hidden"));
 
       const tabName = tab.getAttribute("data-tab");
       document.getElementById(`${tabName}Courses`).classList.remove("hidden");
     });
   });
 
-  function saveTheme(theme) {
-    localStorage.setItem("theme", theme);
-  }
-
-
   courseSearch.addEventListener("input", filterCourses);
-  
+
   courseFilter.addEventListener("change", filterCourses);
 
-  document.querySelector(".nav-item:not(.active)").addEventListener("click", function() {
-    window.location.href = "../pages/dashboard.html";
-  });
+  document
+    .querySelector(".nav-item:not(.active)")
+    .addEventListener("click", function () {
+      window.location.href = "../pages/dashboard.html";
+    });
 
-  document.querySelector(".nav-item.schedule").addEventListener("click", function() {
-    window.location.href = "../pages/schedule.html";
-  });
+  document
+    .querySelector(".nav-item.schedule")
+    .addEventListener("click", function () {
+      window.location.href = "../pages/schedule.html";
+    });
 
-  document.querySelector(".nav-item.resources").addEventListener("click", function() {
-    window.location.href = "../pages/resources.html";
-  });
+  document
+    .querySelector(".nav-item.resources")
+    .addEventListener("click", function () {
+      window.location.href = "../pages/resources.html";
+    });
 
-  document.querySelector(".nav-item.events").addEventListener("click", function() {
-    window.location.href = "../pages/events.html";
-  });
+  document
+    .querySelector(".nav-item.events")
+    .addEventListener("click", function () {
+      window.location.href = "../pages/events.html";
+    });
 
-  document.querySelector(".nav-item.settings").addEventListener("click", function() {
-    window.location.href = "../pages/settings.html";
-  });
-
+  document
+    .querySelector(".nav-item.settings")
+    .addEventListener("click", function () {
+      window.location.href = "../pages/settings.html";
+    });
 }
 
 function filterCourses() {
   const searchTerm = courseSearch.value.toLowerCase();
   const filterValue = courseFilter.value;
-  
-  const courseCards = document.querySelectorAll('.course-card');
-  
-  courseCards.forEach(card => {
-    const title = card.querySelector('.course-title').textContent.toLowerCase();
-    const instructor = card.querySelector('.course-instructor').textContent.toLowerCase();
-    const status = card.getAttribute('data-status');
-    
-    const matchesSearch = title.includes(searchTerm) || instructor.includes(searchTerm);
-    
-    const matchesFilter = filterValue === 'all' || status === filterValue;
-    
+
+  const courseCards = document.querySelectorAll(".course-card");
+
+  courseCards.forEach((card) => {
+    const title = card.querySelector(".course-title").textContent.toLowerCase();
+    const instructor = card
+      .querySelector(".course-instructor")
+      .textContent.toLowerCase();
+    const status = card.getAttribute("data-status");
+
+    const matchesSearch =
+      title.includes(searchTerm) || instructor.includes(searchTerm);
+
+    const matchesFilter = filterValue === "all" || status === filterValue;
+
     if (matchesSearch && matchesFilter) {
-      card.style.display = 'block';
+      card.style.display = "block";
     } else {
-      card.style.display = 'none';
+      card.style.display = "none";
     }
   });
 }
 
 function renderCourses() {
-
   const enrolledCourses = [
     {
       id: 1,
@@ -144,7 +134,7 @@ function renderCourses() {
       status: "active",
       image: "../assets/web-dev.jpg",
       lessons: 24,
-      duration: "8 weeks"
+      duration: "8 weeks",
     },
     {
       id: 2,
@@ -154,7 +144,7 @@ function renderCourses() {
       status: "active",
       image: "../assets/database.jpg",
       lessons: 18,
-      duration: "6 weeks"
+      duration: "6 weeks",
     },
     {
       id: 3,
@@ -164,7 +154,7 @@ function renderCourses() {
       status: "active",
       image: "../assets/research.jpg",
       lessons: 12,
-      duration: "10 weeks"
+      duration: "10 weeks",
     },
   ];
 
@@ -176,7 +166,7 @@ function renderCourses() {
       status: "upcoming",
       image: "../assets/mobile.jpg",
       lessons: 22,
-      duration: "8 weeks"
+      duration: "8 weeks",
     },
     {
       id: 5,
@@ -185,8 +175,8 @@ function renderCourses() {
       status: "upcoming",
       image: "../assets/data-science.jpg",
       lessons: 28,
-      duration: "12 weeks"
-    }
+      duration: "12 weeks",
+    },
   ];
 
   const completedCourses = [
@@ -198,7 +188,7 @@ function renderCourses() {
       status: "completed",
       image: "../assets/programming.jpg",
       lessons: 16,
-      duration: "6 weeks"
+      duration: "6 weeks",
     },
     {
       id: 7,
@@ -208,28 +198,29 @@ function renderCourses() {
       status: "completed",
       image: "../assets/web-design.jpg",
       lessons: 14,
-      duration: "4 weeks"
-    }
+      duration: "4 weeks",
+    },
   ];
 
   const enrolledCoursesContainer = document.getElementById("enrolledCourses");
   enrolledCoursesContainer.innerHTML = "";
-  
-  enrolledCourses.forEach(course => {
+
+  enrolledCourses.forEach((course) => {
     enrolledCoursesContainer.appendChild(createCourseCard(course));
   });
 
-  const recommendedCoursesContainer = document.getElementById("recommendedCourses");
+  const recommendedCoursesContainer =
+    document.getElementById("recommendedCourses");
   recommendedCoursesContainer.innerHTML = "";
-  
-  recommendedCourses.forEach(course => {
+
+  recommendedCourses.forEach((course) => {
     recommendedCoursesContainer.appendChild(createCourseCard(course));
   });
 
   const completedCoursesContainer = document.getElementById("completedCourses");
   completedCoursesContainer.innerHTML = "";
-  
-  completedCourses.forEach(course => {
+
+  completedCourses.forEach((course) => {
     completedCoursesContainer.appendChild(createCourseCard(course));
   });
 }
@@ -238,13 +229,13 @@ function createCourseCard(course) {
   const card = document.createElement("div");
   card.className = "course-card";
   card.setAttribute("data-status", course.status);
-  
+
   const imagePath = course.image || "../assets/logo.png";
-  
+
   let statusClass = "";
   let statusText = "";
-  
-  switch(course.status) {
+
+  switch (course.status) {
     case "active":
       statusClass = "status-active";
       statusText = "Active";
@@ -258,8 +249,10 @@ function createCourseCard(course) {
       statusText = "Completed";
       break;
   }
-  
-  const progressHtml = course.status !== "upcoming" ? `
+
+  const progressHtml =
+    course.status !== "upcoming"
+      ? `
     <div class="course-progress">
       <div class="progress-info">
         <span>Progress</span>
@@ -269,8 +262,9 @@ function createCourseCard(course) {
         <div class="progress-value" style="width: ${course.progress || 0}%"></div>
       </div>
     </div>
-  ` : '';
-  
+  `
+      : "";
+
   let actionButton = "";
   if (course.status === "active") {
     actionButton = `<div class="course-action">Continue</div>`;
@@ -279,7 +273,7 @@ function createCourseCard(course) {
   } else if (course.status === "completed") {
     actionButton = `<div class="course-action">Review</div>`;
   }
-  
+
   card.innerHTML = `
     <div class="course-image">
       <img src="${imagePath}" alt="${course.title}" onerror="this.src='../assets/courses/default.jpg'">
@@ -304,12 +298,12 @@ function createCourseCard(course) {
       </div>
     </div>
   `;
-  
+
   card.addEventListener("click", () => {
     // window.location.href = `../pages/course-details.html?id=${course.id}`;
     console.log(`Clicked on course: ${course.title}`);
   });
-  
+
   return card;
 }
 
@@ -318,35 +312,35 @@ function renderDeadlines() {
     {
       title: "Web Development Final Project",
       course: "Advanced Frontend Development",
-      date: "Mar 15, 2025"
+      date: "Mar 15, 2025",
     },
     {
       title: "Database Quiz",
       course: "Database Systems",
-      date: "Mar 12, 2025"
+      date: "Mar 12, 2025",
     },
     {
       title: "Research Paper Submission",
       course: "Research Methodology",
-      date: "Mar 22, 2025"
-    }
+      date: "Mar 22, 2025",
+    },
   ];
-  
+
   const deadlinesList = document.getElementById("deadlinesList");
   if (!deadlinesList) return;
-  
+
   deadlinesList.innerHTML = "";
-  
-  deadlines.forEach(deadline => {
+
+  deadlines.forEach((deadline) => {
     const deadlineItem = document.createElement("div");
     deadlineItem.className = "deadline-item";
-    
+
     deadlineItem.innerHTML = `
       <div class="deadline-date">${deadline.date}</div>
       <div class="deadline-title">${deadline.title}</div>
       <div class="deadline-course">${deadline.course}</div>
     `;
-    
+
     deadlinesList.appendChild(deadlineItem);
   });
 }
@@ -382,10 +376,8 @@ window.addEventListener("load", () => {
     currTheme = "light";
   }
   setTheme(currTheme);
-  if (isLoggedIn()) {
-    showGreeting();
-    studentInfo();
-  } else {
+  if (!isLoggedIn()) {
     location.href = "../index.html";
   }
 });
+

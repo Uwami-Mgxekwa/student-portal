@@ -1,4 +1,6 @@
 import { signOutStudent } from "../lib/auth.js";
+import { isLoggedIn } from "../lib/check-login.js";
+import { setTheme } from "../lib/theme.js";
 const logOutBtn = document.getElementById("sign-out");
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -223,4 +225,15 @@ document
 
 logOutBtn.addEventListener("click", () => {
   signOutStudent();
+});
+
+window.addEventListener("load", () => {
+  let currTheme = localStorage.getItem("theme");
+  if (!currTheme) {
+    currTheme = "light";
+  }
+  setTheme(currTheme);
+  if (!isLoggedIn()) {
+    location.href = "../index.html";
+  }
 });
