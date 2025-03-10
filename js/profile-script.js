@@ -1,8 +1,7 @@
 import { isLoggedIn } from "../lib/check-login.js";
 import { showSignOutModal } from "../lib/pop-up.js";
-import { saveTheme, setTheme } from "../lib/theme.js";
+import { setTheme } from "../lib/theme.js";
 const logOutBtn = document.getElementById("sign-out");
-const darkThemeToggle = document.getElementById("dark-theme-toggle");
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeSidebar();
@@ -40,18 +39,47 @@ function initializeSidebar() {
   }
 }
 
-darkThemeToggle.addEventListener("change", (e) => {
-  const isActive = e.target.checked;
-  if (isActive) {
-    saveTheme("dark");
-    let currTheme = localStorage.getItem("theme");
-    setTheme(currTheme);
+const showDetails = (stuData, stuDataInfo) => {
+  const imageInfo = document.getElementById("info-image");
+  const fullNameInfo = document.getElementById("info-fullname");
+  const idInfo = document.getElementById("info-id");
+  const campusInfo = document.getElementById("info-campus");
+  const courseInfo = document.getElementById("info-course");
+  const facultyInfo = document.getElementById("info-faculty");
+  const certificateInfo = document.getElementById("info-certificate");
+  const yearInfo = document.getElementById("info-year");
+  const genderInfo = document.getElementById("info-gender");
+  const emailInfo = document.getElementById("info-email");
+  const phoneInfo = document.getElementById("info-phone");
+  const addressInfo = document.getElementById("info-address");
+
+  imageInfo.src = stuData.profileImage || "../assets/fallback-icon.png";
+  fullNameInfo.innerText =
+    stuData.first_name.toUpperCase() + " " + stuData.last_name.toUpperCase();
+  idInfo.innerText = stuDataInfo.studentInfo.ID;
+  campusInfo.innerText = stuDataInfo.studentInfo.CAMPUS.toUpperCase();
+  courseInfo.innerText = stuDataInfo.studentInfo.COURSE.toUpperCase();
+  facultyInfo.innerText = stuDataInfo.studentInfo.FACULTY.toUpperCase();
+  certificateInfo.innerText = stuDataInfo.studentInfo.CERTIFICATE.toUpperCase();
+  yearInfo.innerText = stuDataInfo.studentInfo.YEAR;
+  genderInfo.innerText = stuDataInfo.studentInfo.GENDER.toUpperCase();
+  emailInfo.innerText = stuDataInfo.studentInfo.EMAIL;
+  phoneInfo.innerText = stuDataInfo.studentInfo.PHONE;
+  addressInfo.innerText = stuData.address;
+};
+
+const getStudentInfo = async () => {
+  const jsonStu = localStorage.getItem("stu");
+  const jsonStuInfo = localStorage.getItem("stu-info");
+
+  if (jsonStu && jsonStuInfo) {
+    const parsedStuData = JSON.parse(jsonStu);
+    const parsedStuInfoData = JSON.parse(jsonStuInfo);
+    showDetails(parsedStuData, parsedStuInfoData);
   } else {
-    saveTheme("light");
-    let currTheme = localStorage.getItem("theme");
-    setTheme(currTheme);
+    studentInfo();
   }
-});
+};
 
 document
   .querySelector(".nav-item.dashboard")
@@ -84,9 +112,9 @@ document
   });
 
 document
-  .querySelector(".nav-item.resources")
+  .querySelector(".nav-item.settings")
   .addEventListener("click", function () {
-    window.location.href = "../pages/resources.html";
+    window.location.href = "../pages/settings.html";
   });
 
 logOutBtn.addEventListener("click", () => {
@@ -98,12 +126,9 @@ window.addEventListener("load", () => {
   if (!currTheme) {
     currTheme = "light";
   }
-  if (currTheme == "dark") {
-    darkThemeToggle.checked = true;
-  }
   setTheme(currTheme);
-  if (isLoggedIn()) {
-  } else {
+  getStudentInfo();
+  if (!isLoggedIn()) {
     location.href = "../index.html";
   }
 });

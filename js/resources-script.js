@@ -1,5 +1,5 @@
-import { signOutStudent } from "../lib/auth.js";
 import { isLoggedIn } from "../lib/check-login.js";
+import { showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
 const logOutBtn = document.getElementById("sign-out");
 
@@ -224,7 +224,7 @@ document
   });
 
 logOutBtn.addEventListener("click", () => {
-  signOutStudent();
+  showSignOutModal();
 });
 
 window.addEventListener("load", () => {

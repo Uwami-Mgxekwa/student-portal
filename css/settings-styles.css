@@ -14,12 +14,6 @@
   color: var(--text);
 }
 
-.page-title {
-  margin-bottom: 20px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--accent);
-}
-
 .theme-wrapper {
   width: 100%;
   margin-top: 20px;

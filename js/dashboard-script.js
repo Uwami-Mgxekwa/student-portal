@@ -1,6 +1,7 @@
 import { isLoggedIn } from "../lib/check-login.js";
-import { signOutStudent, studentInfo } from "../lib/auth.js";
 import { setTheme } from "../lib/theme.js";
+import { studentInfo } from "../lib/auth.js";
+import { showAlert, showSignOutModal } from "../lib/pop-up.js";
 const logOutBtn = document.getElementById("sign-out");
 const greeting = document.getElementById("greeting");
 const profileImg = document.getElementById("profile-img");
@@ -219,7 +220,8 @@ const showGreeting = () => {
         studentDetails.first_name.toUpperCase() +
         " " +
         studentDetails.last_name.toUpperCase();
-      profileImg.src = studentDetails.profileImage;
+      profileImg.src =
+        studentDetails.profileImage || "../assets/fallback-icon.png";
     } catch (e) {
       console.error("Error parsing student data:", e);
       greeting.innerText = "Hi, Student";
@@ -261,7 +263,7 @@ document
   });
 
 logOutBtn.addEventListener("click", () => {
-  signOutStudent();
+  showSignOutModal();
 });
 
 window.addEventListener("load", () => {

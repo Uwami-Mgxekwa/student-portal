@@ -138,8 +138,8 @@
 }
 
 .courses-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 24px;
   margin-bottom: 32px;
 }
@@ -151,6 +151,7 @@
 .course-card {
   background: var(--background);
   border: 1px solid var(--accent);
+  width: 300px;
   border-radius: 8px;
   overflow: hidden;
   transition:
@@ -353,7 +354,7 @@
   }
 
   .courses-grid {
-    grid-template-columns: 1fr;
+    justify-content: center;
   }
 }
 
@@ -369,4 +370,3 @@
     gap: 8px;
   }
 }
-
