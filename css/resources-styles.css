@@ -6,12 +6,12 @@
   flex: 1;
   flex-direction: column;
   align-items: center;
-  padding: 32px;
   transition: margin-left 0.3s ease;
+  width: 100%;
+  padding: 1rem;
 }
 
 .container {
-  padding: 1rem;
   width: 100%;
 }
 
@@ -567,6 +567,11 @@
 
   .sidebar:not(.collapsed) + .sidebar-overlay {
     display: block;
+  }
+
+  .resource-card{
+    flex-direction: column;
+    gap: 20px;
   }
 }
 
