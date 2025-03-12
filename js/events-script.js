@@ -1,6 +1,6 @@
 import { isLoggedIn } from "../lib/check-login.js";
-import { signOutStudent, studentInfo } from "../lib/auth.js";
 import { setTheme } from "../lib/theme.js";
+import { showSignOutModal } from "../lib/pop-up.js";
 
 const logOutBtn = document.getElementById("sign-out");
 const greeting = document.getElementById("greeting");
@@ -8,7 +8,6 @@ const profileImg = document.getElementById("profile-img");
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeSidebar();
-  updateLastUpdatedTime();
   renderEvents();
   initializeEventFilters();
 });
@@ -43,16 +42,6 @@ function initializeSidebar() {
   } else {
     sidebar.classList.remove("collapsed");
   }
-}
-
-function updateLastUpdatedTime() {
-  const lastUpdatedElement = document.getElementById("lastUpdated");
-  if (lastUpdatedElement) {
-    const now = new Date();
-    const formattedDate = now.toLocaleString();
-    lastUpdatedElement.textContent = formattedDate;
-  }
-  setTimeout(updateLastUpdatedTime, 60000);
 }
 
 function renderEvents() {
@@ -136,8 +125,8 @@ function renderEventsList(events) {
         <p class="event-description">${event.description}</p>
         <div class="event-footer">
           <span class="event-badge ${event.type}">${
-      event.type.charAt(0).toUpperCase() + event.type.slice(1)
-    }</span>
+            event.type.charAt(0).toUpperCase() + event.type.slice(1)
+          }</span>
           <div class="event-actions">
             <button class="event-action-btn">Add to Calendar</button>
             <button class="event-action-btn primary">Register</button>
@@ -156,14 +145,16 @@ function initializeEventFilters() {
 
   filterOptions.forEach((option) => {
     option.addEventListener("click", () => {
-
       filterOptions.forEach((opt) => opt.classList.remove("active"));
       option.classList.add("active");
 
       const filterValue = option.getAttribute("data-filter");
 
       eventCards.forEach((card) => {
-        if (filterValue === "all" || card.getAttribute("data-type") === filterValue) {
+        if (
+          filterValue === "all" ||
+          card.getAttribute("data-type") === filterValue
+        ) {
           card.style.display = "flex";
         } else {
           card.style.display = "none";
@@ -194,28 +185,38 @@ const showGreeting = () => {
   }
 };
 
-document.querySelector(".nav-item.dashboard").addEventListener("click", function () {
-  window.location.href = "../pages/dashboard.html";
-});
+document
+  .querySelector(".nav-item.dashboard")
+  .addEventListener("click", function () {
+    window.location.href = "../pages/dashboard.html";
+  });
 
-document.querySelector(".nav-item.courses").addEventListener("click", function () {
-  window.location.href = "../pages/courses.html";
-});
+document
+  .querySelector(".nav-item.courses")
+  .addEventListener("click", function () {
+    window.location.href = "../pages/courses.html";
+  });
 
-document.querySelector(".nav-item.schedule").addEventListener("click", function () {
-  window.location.href = "../pages/schedule.html";
-});
+document
+  .querySelector(".nav-item.schedule")
+  .addEventListener("click", function () {
+    window.location.href = "../pages/schedule.html";
+  });
 
-document.querySelector(".nav-item.resources").addEventListener("click", function () {
-  window.location.href = "../pages/resources.html";
-});
+document
+  .querySelector(".nav-item.resources")
+  .addEventListener("click", function () {
+    window.location.href = "../pages/resources.html";
+  });
 
-document.querySelector(".nav-item.settings").addEventListener("click", function () {
-  window.location.href = "../pages/settings.html";
-});
+document
+  .querySelector(".nav-item.settings")
+  .addEventListener("click", function () {
+    window.location.href = "../pages/settings.html";
+  });
 
 logOutBtn.addEventListener("click", () => {
-  signOutStudent();
+  showSignOutModal();
 });
 
 window.addEventListener("load", () => {

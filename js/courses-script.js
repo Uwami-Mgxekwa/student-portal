@@ -1,10 +1,8 @@
 import { isLoggedIn } from "../lib/check-login.js";
-import { signOutStudent, studentInfo } from "../lib/auth.js";
+import { showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
 
 const logOutBtn = document.getElementById("sign-out");
-const greeting = document.getElementById("greeting");
-const profileImg = document.getElementById("profile-img");
 const courseSearch = document.getElementById("courseSearch");
 const courseFilter = document.getElementById("courseFilter");
 const tabs = document.querySelectorAll(".tab");
@@ -345,29 +343,8 @@ function renderDeadlines() {
   });
 }
 
-const showGreeting = () => {
-  const jsonValue = localStorage.getItem("stu");
-  if (jsonValue) {
-    try {
-      const studentDetails = JSON.parse(jsonValue);
-      greeting.innerText =
-        "Hi, " +
-        studentDetails.first_name.toUpperCase() +
-        " " +
-        studentDetails.last_name.toUpperCase();
-      profileImg.src = studentDetails.profileImage;
-    } catch (e) {
-      console.error("Error parsing student data:", e);
-      greeting.innerText = "Hi, Student";
-    }
-  } else {
-    localStorage.clear();
-    location.href = "../index.html";
-  }
-};
-
 logOutBtn.addEventListener("click", () => {
-  signOutStudent();
+  showSignOutModal();
 });
 
 window.addEventListener("load", () => {
@@ -380,4 +357,3 @@ window.addEventListener("load", () => {
     location.href = "../index.html";
   }
 });
-

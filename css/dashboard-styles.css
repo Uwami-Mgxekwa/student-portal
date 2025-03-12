@@ -18,6 +18,11 @@
   border-radius: 100%;
 }
 
+.greeting-wrapper a{
+  color: var(--text);
+  text-decoration: none;
+}
+
 .main-content {
   display: flex;
   flex: 1;

@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GCC Settings</title>
+    <title>GCC Dashboard</title>
     <link rel="icon" type="image/png" href="../assets/logo.png" />
-    <link rel="stylesheet" href="../css/settings-styles.css" />
+    <link rel="stylesheet" href="../css/profile-styles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -45,7 +45,7 @@
             <i class="fas fa-bell"></i>
             <span>Events</span>
           </div>
-          <div class="nav-item settings active">
+          <div class="nav-item settings">
             <i class="fas fa-cog"></i>
             <span>Settings</span>
           </div>
@@ -58,27 +58,35 @@
       <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
       <div class="main-content" id="mainContent">
-        <h1 class="page-name">Settings</h1>
-        <div class="settings-wrapper">
-          <strong>Themes</strong>
-          <p>Switch themes to your preference</p>
-
-          <div class="theme-wrapper">
-            <div class="theme-label">
-              <strong>Enable Dark Mode</strong>
-              <p>Switches to dark theme</p>
+        <h1 class="page-name">My Profile</h1>
+        <div class="container">
+          <div class="student-card left">
+            <div class="left-info">
+              <img id="info-image"/>
+              <h2 id="info-fullname">Name Surname</h2>
             </div>
-            <div class="cl-toggle-switch">
-              <label class="cl-switch">
-                <input type="checkbox" id="dark-theme-toggle" />
-                <span></span>
-              </label>
-            </div>
+            <ul>
+              <li> <strong> ID:</strong><span id="info-id"> 1234567890</span></li>
+              <li> <strong>Campus</strong><span id="info-campus"> gcc campus</span></li>
+            </ul>
           </div>
+          <div class="student-card right">
+            <h1>General Information</h1>
+            <ul>
+              <li><strong>COURSE:</strong><span id="info-course">Details...</span> </li>
+              <li><strong>FACULTY:</strong><span id="info-faculty">Details...</span> </li>
+              <li><strong>CERTIFICATE:</strong><span id="info-certificate">Details...</span> </li>
+              <li><strong>YEAR:</strong><span id="info-year">Details...</span> </li>
+              <li><strong>GENDER:</strong><span id="info-gender">Details...</span> </li>
+              <li><strong>EMAIL:</strong><span id="info-email">Details...</span> </li>
+              <li><strong>PHONE:</strong><span id="info-phone">Details...</span> </li>
+              <li><strong>ADDRESS:</strong><span id="info-address">Details...</span> </li>
+            </ul>
+          </div>
+
         </div>
       </div>
-    </div>
-
-    <script type="module" src="../js/settings-script.js"></script>
+      
+    <script type="module" src="../js/profile-script.js"></script>
   </body>
 </html>
