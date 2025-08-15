@@ -76,8 +76,6 @@
   border: 1px solid var(--accent);
 }
 
-}
-
   @media (max-width: 768px) {
     .sidebar {
       position: fixed;
