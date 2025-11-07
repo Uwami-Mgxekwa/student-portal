@@ -1,8 +1,4 @@
-import CONFIG from "../config/config.js";
-import { studentInfo } from "../lib/auth.js";
-import { isLoggedIn } from "../lib/check-login.js";
-import getData from "../lib/get-data.js";
-import { showLoading, removeLoading } from "../lib/loading.js";
+import { isLoggedIn, getStudentInfo, getSchedule } from "../lib/supabase-auth.js";
 import { showAlert, showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
 const tableContainer = document.getElementById("table-container");
@@ -46,10 +42,10 @@ function initializeSidebar() {
   }
 }
 
-const createTimeTable = (data) => {
+const createTimeTable = (scheduleData) => {
   studentCourseHeading.innerText =
-    data.schedule.COURSE + " " + data.schedule.CERTIFICATE;
-  const timeTable = data.schedule.TABLE;
+    scheduleData.COURSE + " " + scheduleData.CERTIFICATE;
+  const timeTable = scheduleData.TABLE;
 
   timeTable.forEach((tTable) => {
     const column = document.createElement("table");
@@ -107,47 +103,25 @@ const updateDateAndTime = () => {
   dateAndTime.innerText = `${day} ${dayDate} ${month} | ${hour < 10 ? "0" + hour : hour}:${min < 10 ? "0" + min : min}`;
 };
 
-const getSchedule = new Promise(async (resolve, reject) => {
-  const jsonStuInfo = localStorage.getItem("stu-info");
-  const jsonStuSchedule = localStorage.getItem("stu-schedule");
-
-  if (jsonStuSchedule) {
-    const parsedData = JSON.parse(jsonStuSchedule);
-    resolve(parsedData);
-    return;
-  }
-
-  const onSuccess = () => {
-    removeLoading();
-  };
-
-  const onFail = (message) => {
-    let title = "Verification Error";
-    removeLoading();
-    showAlert(title, message);
-  };
-
-  if (jsonStuInfo) {
-    showLoading("Loading Schedule...");
-    try {
-      const studentInfo = JSON.parse(jsonStuInfo);
-      const scheduleUrl =
-        CONFIG.scheduleEP +
-        `?course=${studentInfo.studentInfo.COURSE}&certificate=${studentInfo.studentInfo.CERTIFICATE}`;
-
-      await getData(scheduleUrl, "stu-schedule", onSuccess, onFail);
-      const jsonData = localStorage.getItem("stu-schedule");
-      const parsedData = JSON.parse(jsonData);
-      resolve(parsedData);
-    } catch (error) {
-      console.error("Error parsing student data:", error);
-      showAlert("Session error", error.message);
-      reject(error);
+const loadScheduleData = async () => {
+  try {
+    const studentResult = await getStudentInfo();
+    if (!studentResult.success || !studentResult.studentInfo) {
+      showAlert("Error", "Student information not found");
+      return;
     }
-  } else {
-    studentInfo();
+
+    const { course, certificate } = studentResult.studentInfo;
+    const scheduleResult = await getSchedule(course, certificate);
+    
+    if (scheduleResult.success) {
+      createTimeTable(scheduleResult.schedule.schedule_data);
+    }
+  } catch (error) {
+    console.error("Error loading schedule:", error);
+    showAlert("Error", error.message);
   }
-});
+};
 
 document
   .querySelector(".nav-item.dashboard")
@@ -189,25 +163,20 @@ logOutBtn.addEventListener("click", () => {
   showSignOutModal();
 });
 
-getSchedule
-  .then((data) => {
-    createTimeTable(data);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-
 setInterval(() => {
   updateDateAndTime();
 }, 1000);
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   let currTheme = localStorage.getItem("theme");
   if (!currTheme) {
     currTheme = "light";
   }
   setTheme(currTheme);
-  if (isLoggedIn()) {
+  
+  const loggedIn = await isLoggedIn();
+  if (loggedIn) {
+    await loadScheduleData();
   } else {
     location.href = "../index.html";
   }

@@ -1,4 +1,4 @@
-import { isLoggedIn } from "../lib/check-login.js";
+import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
 import { setTheme } from "../lib/theme.js";
 import { showSignOutModal } from "../lib/pop-up.js";
 
@@ -164,21 +164,16 @@ function initializeEventFilters() {
   });
 }
 
-const showGreeting = () => {
-  const jsonValue = localStorage.getItem("stu");
-  if (jsonValue) {
-    try {
-      const studentDetails = JSON.parse(jsonValue);
-      greeting.innerText =
-        "Hi, " +
-        studentDetails.first_name.toUpperCase() +
-        " " +
-        studentDetails.last_name.toUpperCase();
-      profileImg.src = studentDetails.profileImage;
-    } catch (e) {
-      console.error("Error parsing student data:", e);
-      greeting.innerText = "Hi, Student";
-    }
+const showGreeting = async () => {
+  const result = await getStudentInfo();
+  if (result.success) {
+    const { student } = result;
+    greeting.innerText =
+      "Hi, " +
+      student.first_name.toUpperCase() +
+      " " +
+      student.last_name.toUpperCase();
+    profileImg.src = student.profile_image || "../assets/fallback-icon.png";
   } else {
     localStorage.clear();
     location.href = "../index.html";
@@ -219,15 +214,16 @@ logOutBtn.addEventListener("click", () => {
   showSignOutModal();
 });
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   let currTheme = localStorage.getItem("theme");
   if (!currTheme) {
     currTheme = "light";
   }
   setTheme(currTheme);
-  if (isLoggedIn()) {
-    showGreeting();
-    studentInfo();
+  
+  const loggedIn = await isLoggedIn();
+  if (loggedIn) {
+    await showGreeting();
   } else {
     location.href = "../index.html";
   }

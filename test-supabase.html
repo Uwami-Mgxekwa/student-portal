@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Supabase Connection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-box {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { border-left: 4px solid #4CAF50; }
+        .error { border-left: 4px solid #f44336; }
+        .info { border-left: 4px solid #2196F3; }
+        button {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #1976D2; }
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Supabase Connection Test</h1>
+    
+    <div class="test-box info">
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Open browser console (F12)</li>
+            <li>Click the test buttons below</li>
+            <li>Check the results here and in console</li>
+        </ol>
+    </div>
+
+    <div class="test-box">
+        <h3>Test 1: Check if Supabase loads</h3>
+        <button onclick="testSupabaseLoad()">Run Test</button>
+        <div id="test1-result"></div>
+    </div>
+
+    <div class="test-box">
+        <h3>Test 2: Check Supabase connection</h3>
+        <button onclick="testSupabaseConnection()">Run Test</button>
+        <div id="test2-result"></div>
+    </div>
+
+    <div class="test-box">
+        <h3>Test 3: Test signup function</h3>
+        <button onclick="testSignup()">Run Test</button>
+        <div id="test3-result"></div>
+    </div>
+
+    <div class="test-box">
+        <h3>Console Output:</h3>
+        <div id="console-output" style="max-height: 300px; overflow-y: auto;"></div>
+    </div>
+
+    <script type="module">
+        import { supabase } from './config/supabase.js';
+        import { signUpStudent } from './lib/supabase-auth.js';
+
+        // Make functions available globally
+        window.supabase = supabase;
+        window.signUpStudent = signUpStudent;
+
+        // Capture console logs
+        const consoleOutput = document.getElementById('console-output');
+        const originalLog = console.log;
+        const originalError = console.error;
+
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const div = document.createElement('div');
+            div.textContent = '✓ ' + args.join(' ');
+            div.style.color = '#4CAF50';
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        };
+
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            const div = document.createElement('div');
+            div.textContent = '✗ ' + args.join(' ');
+            div.style.color = '#f44336';
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        };
+
+        console.log('Test page loaded successfully');
+        console.log('Supabase client:', supabase ? '✓ Loaded' : '✗ Not loaded');
+
+        window.testSupabaseLoad = function() {
+            const result = document.getElementById('test1-result');
+            if (window.supabase) {
+                result.innerHTML = '<p style="color: green;">✓ Supabase client loaded successfully!</p>';
+                console.log('Supabase URL:', supabase.supabaseUrl);
+            } else {
+                result.innerHTML = '<p style="color: red;">✗ Supabase client failed to load</p>';
+                console.error('Supabase not available');
+            }
+        };
+
+        window.testSupabaseConnection = async function() {
+            const result = document.getElementById('test2-result');
+            result.innerHTML = '<p>Testing connection...</p>';
+            
+            try {
+                const { data, error } = await supabase.from('schedules').select('count');
+                
+                if (error) {
+                    result.innerHTML = `<p style="color: orange;">⚠ Connection works but query failed: ${error.message}</p>`;
+                    console.error('Query error:', error);
+                } else {
+                    result.innerHTML = '<p style="color: green;">✓ Connection successful! Database is accessible.</p>';
+                    console.log('Connection test passed');
+                }
+            } catch (err) {
+                result.innerHTML = `<p style="color: red;">✗ Connection failed: ${err.message}</p>`;
+                console.error('Connection error:', err);
+            }
+        };
+
+        window.testSignup = async function() {
+            const result = document.getElementById('test3-result');
+            result.innerHTML = '<p>Testing signup function...</p>';
+            
+            const testData = {
+                studentID: 'TEST' + Date.now(),
+                first_name: 'Test',
+                last_name: 'User',
+                email: 'test' + Date.now() + '@example.com',
+                phone: '071 234 5678',
+                address: '123 Test Street',
+                gender: 'male',
+                password: 'Test123!'
+            };
+
+            console.log('Testing signup with:', { ...testData, password: '***' });
+
+            try {
+                const signupResult = await signUpStudent(testData);
+                
+                if (signupResult.success) {
+                    result.innerHTML = '<p style="color: green;">✓ Signup function works! Test account created.</p>';
+                    console.log('Signup test passed');
+                } else {
+                    result.innerHTML = `<p style="color: orange;">⚠ Signup function ran but failed: ${signupResult.error}</p>`;
+                    console.error('Signup failed:', signupResult.error);
+                }
+            } catch (err) {
+                result.innerHTML = `<p style="color: red;">✗ Signup function error: ${err.message}</p>`;
+                console.error('Signup error:', err);
+            }
+        };
+    </script>
+</body>
+</html>

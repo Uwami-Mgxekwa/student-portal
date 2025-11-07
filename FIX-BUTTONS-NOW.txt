@@ -1,0 +1,166 @@
+╔══════════════════════════════════════════════════════════════╗
+║           BUTTONS NOT WORKING? FIX IT NOW!                   ║
+╚══════════════════════════════════════════════════════════════╝
+
+The problem is likely that you're opening the HTML file directly
+instead of using a web server.
+
+╔══════════════════════════════════════════════════════════════╗
+║                  QUICK FIX (30 seconds)                      ║
+╚══════════════════════════════════════════════════════════════╝
+
+METHOD 1: Use the Batch File (Easiest)
+───────────────────────────────────────────────────────────────
+1. Double-click: start-server.bat
+2. Wait for "Starting..." message
+3. Open browser to: http://localhost:8000
+4. Navigate to: http://localhost:8000/pages/login.html
+5. Try the buttons now!
+
+
+METHOD 2: Manual Python Server
+───────────────────────────────────────────────────────────────
+1. Open Command Prompt in this folder
+2. Type: python -m http.server 8000
+3. Press Enter
+4. Open browser to: http://localhost:8000/pages/login.html
+
+
+METHOD 3: VS Code Live Server
+───────────────────────────────────────────────────────────────
+1. Open this folder in VS Code
+2. Install "Live Server" extension
+3. Right-click index.html
+4. Click "Open with Live Server"
+
+
+╔══════════════════════════════════════════════════════════════╗
+║                  WHY DOESN'T IT WORK?                        ║
+╚══════════════════════════════════════════════════════════════╝
+
+When you open HTML files directly (file://), browsers block:
+  ✗ ES6 module imports
+  ✗ Fetch requests
+  ✗ CORS requests
+
+This is a security feature.
+
+SOLUTION: Use a local web server (http://localhost)
+  ✓ ES6 modules work
+  ✓ Fetch works
+  ✓ Everything works!
+
+
+╔══════════════════════════════════════════════════════════════╗
+║                  HOW TO CHECK IF IT WORKS                    ║
+╚══════════════════════════════════════════════════════════════╝
+
+1. Look at the browser address bar:
+
+   ✗ WRONG:  file:///C:/Users/You/project/pages/login.html
+   ✓ RIGHT:  http://localhost:8000/pages/login.html
+
+2. Open browser console (F12):
+
+   ✗ WRONG:  Red CORS errors
+   ✓ RIGHT:  "Login script loaded" or "Sign-up script loaded"
+
+3. Click the button:
+
+   ✗ WRONG:  Nothing happens
+   ✓ RIGHT:  Loading spinner or error message appears
+
+
+╔══════════════════════════════════════════════════════════════╗
+║                  TEST YOUR SETUP                             ║
+╚══════════════════════════════════════════════════════════════╝
+
+After starting the server:
+
+1. Open: http://localhost:8000/test-supabase.html
+2. Click "Run Test" on each test
+3. All should show green checkmarks ✓
+
+If tests pass but buttons still don't work:
+  → See BUTTON-NOT-WORKING.md for advanced troubleshooting
+
+
+╔══════════════════════════════════════════════════════════════╗
+║                  DEBUGGING STEPS                             ║
+╚══════════════════════════════════════════════════════════════╝
+
+1. Start local server (see methods above)
+
+2. Open: http://localhost:8000/pages/login.html
+
+3. Press F12 to open console
+
+4. You should see:
+   "Login script loaded"
+   "Login button: <button>"
+
+5. Fill in the form:
+   Student ID: GCC2024001
+   Password: Test123!
+
+6. Click Login button
+
+7. You should see in console:
+   "Login button clicked"
+   "Form is valid, calling login"
+   "Login function called"
+
+8. If you see errors, read them carefully!
+
+
+╔══════════════════════════════════════════════════════════════╗
+║                  COMMON ERRORS & FIXES                       ║
+╚══════════════════════════════════════════════════════════════╝
+
+ERROR: "CORS policy blocked"
+FIX:   Use a local server (see methods above)
+
+ERROR: "Failed to fetch"
+FIX:   Check internet connection (needs to load Supabase CDN)
+
+ERROR: "Cannot find module"
+FIX:   Make sure config/supabase.js exists
+
+ERROR: "Form validation failed"
+FIX:   Fill in ALL required fields
+
+ERROR: Nothing in console
+FIX:   Make sure you're on http://localhost, not file://
+
+
+╔══════════════════════════════════════════════════════════════╗
+║                  STILL NOT WORKING?                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+1. Read: BUTTON-NOT-WORKING.md (detailed guide)
+
+2. Run: test-supabase.html (diagnostic tool)
+
+3. Check console for exact error message
+
+4. Make sure you:
+   ✓ Started a local server
+   ✓ Opened http://localhost (not file://)
+   ✓ Have internet connection
+   ✓ Ran supabase-setup.sql in Supabase
+   ✓ Enabled email auth in Supabase
+
+
+╔══════════════════════════════════════════════════════════════╗
+║                  QUICK CHECKLIST                             ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ ] Started local server (start-server.bat or python command)
+[ ] Opened http://localhost:8000 (not file://)
+[ ] Browser console shows "Login script loaded"
+[ ] Filled in all form fields
+[ ] Clicked the button
+[ ] Checked console for errors
+
+If all checked and still not working:
+  → Share the console error message for help

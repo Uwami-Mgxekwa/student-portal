@@ -1,9 +1,10 @@
-import CONFIG from "../config/config.js";
+import { signUpStudent } from "../lib/supabase-auth.js";
 import checkFormValidity from "../lib/validate-form.js";
-import postData from "../lib/post-data.js";
-import { removeLoading, showLoading } from "../lib/loading.js";
-import { showAlert, removeAlert } from "../lib/pop-up.js";
+import { removeAlert } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
+
+console.log("Sign-up script loaded");
+
 const signUpForm = document.getElementById("sign-up-form");
 const studentID = document.getElementById("id");
 const firstName = document.getElementById("first_name");
@@ -13,10 +14,9 @@ const phone = document.getElementById("phone");
 const address = document.getElementById("address");
 const gender = document.getElementById("gender");
 const password = document.getElementById("password");
-const signupCheck = document.getElementById("signupCheck");
 const signUpBtn = document.getElementById("sign-up-btn");
-const registerUrl = CONFIG.registerEP;
-//const registerUrl = "http://localhost:6969/api/register";
+
+console.log("Sign-up button:", signUpBtn);
 
 const cleanseString = (string) => {
   return string
@@ -25,8 +25,9 @@ const cleanseString = (string) => {
     .trim();
 };
 
-const signUp = () => {
-  showLoading("Signing up...");
+const signUp = async () => {
+  console.log("Sign-up function called");
+  
   let data = {
     studentID: studentID.value,
     first_name: cleanseString(firstName.value),
@@ -36,39 +37,38 @@ const signUp = () => {
     address: address.value,
     gender: gender.value,
     password: password.value,
-    signupCheck: signupCheck.value,
   };
 
-  const onSuccess = () => {
-    removeLoading();
-    const timer = setTimeout(() => {
-      location.reload();
-      if (isLoggedIn()) {
-        window.location.href = "dashboard.html";
-      }
-      clearTimeout(timer);
+  console.log("Sign-up data:", { ...data, password: "***" });
+
+  const result = await signUpStudent(data);
+  console.log("Sign-up result:", result);
+  
+  if (result.success) {
+    setTimeout(() => {
+      window.location.href = "dashboard.html";
     }, 2000);
-  };
-
-  const onFail = (message) => {
-    let title = "Sign up error";
-    removeLoading();
-    showAlert(title, message);
-    const timer = setTimeout(() => {
+  } else {
+    setTimeout(() => {
       removeAlert();
-      clearTimeout(timer);
     }, 2000);
-  };
-
-  postData(registerUrl, data, onSuccess, onFail);
+  }
 };
 
-signUpBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (checkFormValidity(signUpForm)) {
-    signUp();
-  }
-});
+if (signUpBtn) {
+  signUpBtn.addEventListener("click", (e) => {
+    console.log("Sign-up button clicked");
+    e.preventDefault();
+    if (checkFormValidity(signUpForm)) {
+      console.log("Form is valid, calling signUp");
+      signUp();
+    } else {
+      console.log("Form validation failed");
+    }
+  });
+} else {
+  console.error("Sign-up button not found!");
+}
 
 window.addEventListener("load", () => {
   let currTheme = localStorage.getItem("theme");

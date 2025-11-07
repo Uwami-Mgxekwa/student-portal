@@ -1,4 +1,4 @@
-import { isLoggedIn } from "../lib/check-login.js";
+import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
 import { showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
 const logOutBtn = document.getElementById("sign-out");
@@ -39,7 +39,7 @@ function initializeSidebar() {
   }
 }
 
-const showDetails = (stuData, stuDataInfo) => {
+const showDetails = (student, studentInfo) => {
   const imageInfo = document.getElementById("info-image");
   const fullNameInfo = document.getElementById("info-fullname");
   const idInfo = document.getElementById("info-id");
@@ -53,31 +53,25 @@ const showDetails = (stuData, stuDataInfo) => {
   const phoneInfo = document.getElementById("info-phone");
   const addressInfo = document.getElementById("info-address");
 
-  imageInfo.src = stuData.profileImage || "../assets/fallback-icon.png";
+  imageInfo.src = student.profile_image || "../assets/fallback-icon.png";
   fullNameInfo.innerText =
-    stuData.first_name.toUpperCase() + " " + stuData.last_name.toUpperCase();
-  idInfo.innerText = stuDataInfo.studentInfo.ID;
-  campusInfo.innerText = stuDataInfo.studentInfo.CAMPUS.toUpperCase();
-  courseInfo.innerText = stuDataInfo.studentInfo.COURSE.toUpperCase();
-  facultyInfo.innerText = stuDataInfo.studentInfo.FACULTY.toUpperCase();
-  certificateInfo.innerText = stuDataInfo.studentInfo.CERTIFICATE.toUpperCase();
-  yearInfo.innerText = stuDataInfo.studentInfo.YEAR;
-  genderInfo.innerText = stuDataInfo.studentInfo.GENDER.toUpperCase();
-  emailInfo.innerText = stuDataInfo.studentInfo.EMAIL;
-  phoneInfo.innerText = stuDataInfo.studentInfo.PHONE;
-  addressInfo.innerText = stuData.address;
+    student.first_name.toUpperCase() + " " + student.last_name.toUpperCase();
+  idInfo.innerText = student.student_id;
+  campusInfo.innerText = studentInfo?.campus?.toUpperCase() || "N/A";
+  courseInfo.innerText = studentInfo?.course?.toUpperCase() || "N/A";
+  facultyInfo.innerText = studentInfo?.faculty?.toUpperCase() || "N/A";
+  certificateInfo.innerText = studentInfo?.certificate?.toUpperCase() || "N/A";
+  yearInfo.innerText = studentInfo?.year || "N/A";
+  genderInfo.innerText = student.gender?.toUpperCase() || "N/A";
+  emailInfo.innerText = student.email;
+  phoneInfo.innerText = student.phone || "N/A";
+  addressInfo.innerText = student.address || "N/A";
 };
 
-const getStudentInfo = async () => {
-  const jsonStu = localStorage.getItem("stu");
-  const jsonStuInfo = localStorage.getItem("stu-info");
-
-  if (jsonStu && jsonStuInfo) {
-    const parsedStuData = JSON.parse(jsonStu);
-    const parsedStuInfoData = JSON.parse(jsonStuInfo);
-    showDetails(parsedStuData, parsedStuInfoData);
-  } else {
-    studentInfo();
+const loadStudentProfile = async () => {
+  const result = await getStudentInfo();
+  if (result.success) {
+    showDetails(result.student, result.studentInfo);
   }
 };
 
@@ -121,14 +115,17 @@ logOutBtn.addEventListener("click", () => {
   showSignOutModal();
 });
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   let currTheme = localStorage.getItem("theme");
   if (!currTheme) {
     currTheme = "light";
   }
   setTheme(currTheme);
-  getStudentInfo();
-  if (!isLoggedIn()) {
+  
+  const loggedIn = await isLoggedIn();
+  if (loggedIn) {
+    await loadStudentProfile();
+  } else {
     location.href = "../index.html";
   }
 });

@@ -1,0 +1,130 @@
+╔══════════════════════════════════════════════════════════════╗
+║         SUPABASE MIGRATION - SETUP CHECKLIST                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+📖 READ FIRST: START-HERE.md
+
+╔══════════════════════════════════════════════════════════════╗
+║ STEP 1: DATABASE SETUP                                       ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ ] Open Supabase: https://qnroaigdrpoceasbqtmh.supabase.co
+[ ] Click "SQL Editor"
+[ ] Copy ALL of supabase-setup.sql
+[ ] Paste and click "RUN"
+[ ] See "Success. No rows returned"
+
+╔══════════════════════════════════════════════════════════════╗
+║ STEP 2: ENABLE AUTH                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ ] Go to Authentication → Providers
+[ ] Enable "Email" provider
+[ ] Go to Authentication → Settings
+[ ] Turn OFF "Enable email confirmations"
+[ ] Click "Save"
+
+╔══════════════════════════════════════════════════════════════╗
+║ STEP 3: ADD SAMPLE DATA                                      ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ ] In SQL Editor, open sample-data.sql
+[ ] Copy SCHEDULES section (lines 10-280)
+[ ] Paste and click "RUN"
+[ ] Verify: SELECT * FROM schedules; (should show 4 rows)
+
+╔══════════════════════════════════════════════════════════════╗
+║ STEP 4: CREATE TEST ACCOUNT (DO THIS FIRST!)                ║
+╚══════════════════════════════════════════════════════════════╝
+
+⚠️  YOU MUST DO THIS BEFORE STEP 5!
+
+[ ] Open index.html in browser
+[ ] Click "Sign Up"
+[ ] Fill in EXACTLY:
+    Student ID: GCC2024001
+    First Name: John
+    Last Name: Doe
+    Email: john.doe@example.com
+    Phone: 071 234 5678
+    Address: 123 Main Street, Johannesburg
+    Gender: male
+    Password: Test123!
+[ ] Click "Sign Up" button
+[ ] Wait for success message or redirect
+[ ] ✅ Account created successfully
+
+╔══════════════════════════════════════════════════════════════╗
+║ STEP 5: ADD STUDENT INFO (ONLY AFTER STEP 4!)               ║
+╚══════════════════════════════════════════════════════════════╝
+
+⚠️  This will FAIL if you didn't complete Step 4 first!
+
+[ ] Back to Supabase SQL Editor
+[ ] Copy STUDENT INFO section from sample-data.sql
+    (The INSERT for GCC2024001 only - around line 470)
+[ ] Paste and click "RUN"
+[ ] Should see "Success. 1 row affected"
+[ ] Verify: SELECT * FROM student_info; (should show 1 row)
+
+╔══════════════════════════════════════════════════════════════╗
+║ STEP 6: TEST LOGIN                                           ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ ] Go to login page
+[ ] Enter Student ID: GCC2024001
+[ ] Enter Password: Test123!
+[ ] Click Login
+[ ] Dashboard loads and shows "Hi, JOHN DOE"
+[ ] Click Profile - shows all details
+[ ] Click Schedule - shows IT timetable
+[ ] Click Courses - page loads
+[ ] Click Events - page loads
+[ ] Click Resources - page loads
+[ ] Click Settings - page loads
+[ ] Click Sign Out - returns to login
+
+╔══════════════════════════════════════════════════════════════╗
+║ STEP 7: CLEAN UP (ONLY IF ALL TESTS PASS)                   ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ ] Open PowerShell in project folder
+[ ] Run this command:
+
+Remove-Item lib/auth.js, lib/get-data.js, lib/post-data.js, lib/local-storage.js, lib/check-login.js, config/config.js, assets/backvideo.mp4, assets/bg-video.mp4
+
+[ ] Verify files deleted
+[ ] Test app still works
+[ ] Delete migration docs (optional):
+
+Remove-Item supabase-setup.sql, sample-data.sql, START-HERE.md, MIGRATION-GUIDE.md, TEST-ACCOUNTS.md, FILES-TO-DELETE.md, DELETE-THESE-FILES.txt, SUPABASE-MIGRATION-SUMMARY.md, QUICK-REFERENCE.md, SETUP-CHECKLIST.txt
+
+╔══════════════════════════════════════════════════════════════╗
+║ ✅ MIGRATION COMPLETE!                                       ║
+╚══════════════════════════════════════════════════════════════╝
+
+Your app now:
+✓ Uses Supabase (no custom backend)
+✓ Costs $0/month (free tier)
+✓ Has better security (RLS)
+✓ Has 36% fewer files
+✓ Is easier to maintain
+
+╔══════════════════════════════════════════════════════════════╗
+║ 📚 DOCUMENTATION                                             ║
+╚══════════════════════════════════════════════════════════════╝
+
+START-HERE.md              → Main guide (start here!)
+TEST-ACCOUNTS.md           → 5 test accounts to create
+MIGRATION-GUIDE.md         → Detailed migration guide
+QUICK-REFERENCE.md         → Quick lookup reference
+sample-data.sql            → Sample data SQL
+supabase-setup.sql         → Database schema SQL
+
+╔══════════════════════════════════════════════════════════════╗
+║ 🆘 NEED HELP?                                                ║
+╚══════════════════════════════════════════════════════════════╝
+
+Check browser console (F12) for errors
+Read MIGRATION-GUIDE.md troubleshooting section
+Verify Supabase URL/key in config/supabase.js

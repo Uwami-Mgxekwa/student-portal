@@ -1,4 +1,4 @@
-import { isLoggedIn } from "../lib/check-login.js";
+import { isLoggedIn } from "../lib/supabase-auth.js";
 import { showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
 const logOutBtn = document.getElementById("sign-out");
@@ -227,13 +227,15 @@ logOutBtn.addEventListener("click", () => {
   showSignOutModal();
 });
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   let currTheme = localStorage.getItem("theme");
   if (!currTheme) {
     currTheme = "light";
   }
   setTheme(currTheme);
-  if (!isLoggedIn()) {
+  
+  const loggedIn = await isLoggedIn();
+  if (!loggedIn) {
     location.href = "../index.html";
   }
 });

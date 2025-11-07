@@ -1,0 +1,66 @@
+========================================
+FILES TO DELETE AFTER MIGRATION TESTING
+========================================
+
+⚠️ IMPORTANT: Only delete these AFTER you've tested everything works!
+
+=== OLD BACKEND FILES (DELETE) ===
+lib/auth.js
+lib/get-data.js
+lib/post-data.js
+lib/local-storage.js
+lib/check-login.js
+config/config.js
+
+=== UNUSED VIDEO FILES (DELETE - SAVES ~50MB+) ===
+assets/backvideo.mp4
+assets/bg-video.mp4
+
+Note: Only bg-vid-vertical.mp4 is used in index.html
+
+=== MIGRATION DOCUMENTATION (DELETE AFTER DONE) ===
+supabase-setup.sql
+MIGRATION-GUIDE.md
+FILES-TO-DELETE.md
+SUPABASE-MIGRATION-SUMMARY.md
+DELETE-THESE-FILES.txt
+
+========================================
+QUICK DELETE COMMANDS
+========================================
+
+Windows PowerShell:
+-------------------
+Remove-Item lib/auth.js
+Remove-Item lib/get-data.js
+Remove-Item lib/post-data.js
+Remove-Item lib/local-storage.js
+Remove-Item lib/check-login.js
+Remove-Item config/config.js
+Remove-Item assets/backvideo.mp4
+Remove-Item assets/bg-video.mp4
+
+Windows CMD:
+------------
+del lib\auth.js
+del lib\get-data.js
+del lib\post-data.js
+del lib\local-storage.js
+del lib\check-login.js
+del config\config.js
+del assets\backvideo.mp4
+del assets\bg-video.mp4
+
+========================================
+TESTING CHECKLIST BEFORE DELETING
+========================================
+[ ] SQL ran successfully in Supabase
+[ ] Can sign up new student
+[ ] Can log in with student ID
+[ ] Dashboard shows student name
+[ ] Profile page loads
+[ ] Schedule page works
+[ ] Sign out works
+[ ] No console errors
+
+========================================

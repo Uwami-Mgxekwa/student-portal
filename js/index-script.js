@@ -1,10 +1,12 @@
-import { isLoggedIn } from "../lib/check-login.js";
+import { isLoggedIn } from "../lib/supabase-auth.js";
+
 const loginBtn = document.getElementById("login");
 const signUpBtn = document.getElementById("sign-up");
 const mainWeb = document.getElementById("mainWeb");
 
-function redirectToLogin() {
-  if (isLoggedIn()) {
+async function redirectToLogin() {
+  const loggedIn = await isLoggedIn();
+  if (loggedIn) {
     window.location.href = "pages/dashboard.html";
   } else {
     window.location.href = "pages/login.html";
