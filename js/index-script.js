@@ -17,19 +17,21 @@ function redirectToSignup() {
   window.location.href = "pages/sign-up.html";
 }
 
-//function redirectToSupport() {
-//  alert("Support page is under construction. Check back soon!");
-//  // window.location.href = "https://example.com/support";
-//}
-//
-//function redirectToFAQ() {
-//  alert("FAQ page is under construction. Check back soon!");
-//  // window.location.href = "https://example.com/faq";
-//}
+function redirectToSupport() {
+  window.location.href = "pages/faq.html";
+}
+
+function redirectToFAQ() {
+  window.location.href = "pages/faq.html";
+}
 
 function redirectToWebsite() {
   window.location.href = "https://www.gcc-ed.com/";
 }
+
+// Make functions available globally for onclick handlers
+window.redirectToSupport = redirectToSupport;
+window.redirectToFAQ = redirectToFAQ;
 
 loginBtn.addEventListener("click", () => {
   redirectToLogin();

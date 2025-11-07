@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ & Support - GCC</title>
+    <link rel="icon" href="../assets/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/faq-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="module" src="../js/faq-script.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="faq-header">
+            <img src="../assets/logo.png" alt="GCC Logo" class="logo">
+            <h1>FAQ & Support</h1>
+            <p>Find answers to common questions or contact us for help</p>
+            <button class="back-btn" onclick="window.location.href='../index.html'">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+        </header>
+
+        <div class="search-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search for answers...">
+            </div>
+        </div>
+
+        <div class="category-tabs">
+            <button class="tab-btn active" data-category="all">All</button>
+            <button class="tab-btn" data-category="login">Login & Account</button>
+            <button class="tab-btn" data-category="registration">Registration</button>
+            <button class="tab-btn" data-category="courses">Courses & Schedule</button>
+            <button class="tab-btn" data-category="technical">Technical Issues</button>
+        </div>
+
+        <div class="faq-content">
+            <!-- Login & Account -->
+            <div class="faq-item" data-category="login">
+                <div class="faq-question">
+                    <h3>How do I log in to the student portal?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To log in:</p>
+                    <ol>
+                        <li>Click the "Click to Login" button on the home page</li>
+                        <li>Enter your Student ID (e.g., GCC2024001)</li>
+                        <li>Enter your password</li>
+                        <li>Click "Login"</li>
+                    </ol>
+                    <p>If you don't have an account yet, click "Sign Up Now" to create one.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="login">
+                <div class="faq-question">
+                    <h3>I forgot my password. What should I do?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>If you forgot your password:</p>
+                    <ol>
+                        <li>Click the "Still need help?" button below</li>
+                        <li>Select "Password Reset" as the issue type</li>
+                        <li>Provide your Student ID and registered email</li>
+                        <li>Our support team will help you reset your password within 24 hours</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="login">
+                <div class="faq-question">
+                    <h3>My Student ID is not being recognized. What's wrong?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Common reasons and solutions:</p>
+                    <ul>
+                        <li><strong>Not registered yet:</strong> Make sure you've completed the signup process</li>
+                        <li><strong>Typo in Student ID:</strong> Double-check your Student ID spelling and format</li>
+                        <li><strong>Case sensitivity:</strong> Student IDs are case-insensitive, but make sure there are
+                            no extra spaces</li>
+                    </ul>
+                    <p>If the issue persists, contact support using the form below.</p>
+                </div>
+            </div>
+
+            <!-- Registration -->
+            <div class="faq-item" data-category="registration">
+                <div class="faq-question">
+                    <h3>How do I create a new account?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To create an account:</p>
+                    <ol>
+                        <li>Click "Sign Up" on the home page</li>
+                        <li>Fill in all required fields (Student ID, Name, Email, Phone, Address, Gender, Password)</li>
+                        <li>Check the "I accept all terms & conditions" box</li>
+                        <li>Click "Sign Up"</li>
+                        <li>You'll be automatically logged in and redirected to your dashboard</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="registration">
+                <div class="faq-question">
+                    <h3>What should I use as my Student ID?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Your Student ID should be provided by the college administration. It typically follows the
+                        format: <strong>GCC2024001</strong></p>
+                    <p>If you don't have a Student ID yet, please contact the admissions office.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="registration">
+                <div class="faq-question">
+                    <h3>Can I change my Student ID after registration?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>No, Student IDs cannot be changed after registration as they are your unique identifier in the
+                        system. If you entered the wrong Student ID, please contact support immediately.</p>
+                </div>
+            </div>
+
+            <!-- Courses & Schedule -->
+            <div class="faq-item" data-category="courses">
+                <div class="faq-question">
+                    <h3>How do I view my class schedule?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To view your schedule:</p>
+                    <ol>
+                        <li>Log in to your account</li>
+                        <li>Click on "Schedule" in the sidebar menu</li>
+                        <li>Your weekly timetable will be displayed</li>
+                    </ol>
+                    <p>Note: Your schedule is based on your enrolled course and certificate type.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="courses">
+                <div class="faq-question">
+                    <h3>Where can I see my enrolled courses?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To view your courses:</p>
+                    <ol>
+                        <li>Log in to your account</li>
+                        <li>Click on "Courses" in the sidebar menu</li>
+                        <li>You'll see your enrolled courses, recommended courses, and completed courses</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="courses">
+                <div class="faq-question">
+                    <h3>How do I access course materials and assignments?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Course materials and assignments can be accessed through:</p>
+                    <ul>
+                        <li><strong>Courses page:</strong> Click on any course card to view details</li>
+                        <li><strong>Resources page:</strong> Access downloadable materials, forms, and documents</li>
+                        <li><strong>Dashboard:</strong> View upcoming assignments and deadlines</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Technical Issues -->
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question">
+                    <h3>The portal is not loading. What should I do?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Try these troubleshooting steps:</p>
+                    <ol>
+                        <li><strong>Refresh the page:</strong> Press Ctrl+R (Windows) or Cmd+R (Mac)</li>
+                        <li><strong>Clear browser cache:</strong> Press Ctrl+Shift+Delete and clear cached data</li>
+                        <li><strong>Try a different browser:</strong> Use Chrome, Firefox, or Edge</li>
+                        <li><strong>Check internet connection:</strong> Make sure you're connected to the internet</li>
+                    </ol>
+                    <p>If the issue persists, contact support.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question">
+                    <h3>Why can't I see my profile information?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>If your profile shows "N/A" for some fields:</p>
+                    <ul>
+                        <li>Your academic information might not be set up yet</li>
+                        <li>Contact the admissions office to complete your enrollment</li>
+                        <li>Make sure you're logged in with the correct Student ID</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question">
+                    <h3>How do I enable dark mode?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To enable dark mode:</p>
+                    <ol>
+                        <li>Log in to your account</li>
+                        <li>Click on "Settings" in the sidebar</li>
+                        <li>Toggle the "Dark Theme" switch</li>
+                        <li>The theme will be saved automatically</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- General -->
+            <div class="faq-item" data-category="all">
+                <div class="faq-question">
+                    <h3>How do I update my personal information?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To update your information:</p>
+                    <ol>
+                        <li>Go to your Profile page</li>
+                        <li>Click the "Edit" button (if available)</li>
+                        <li>Update your details</li>
+                        <li>Click "Save Changes"</li>
+                    </ol>
+                    <p>Note: Some information like Student ID and course enrollment can only be changed by
+                        administration.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="all">
+                <div class="faq-question">
+                    <h3>How do I sign out of my account?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To sign out:</p>
+                    <ol>
+                        <li>Click the "Sign Out" button in the sidebar (bottom)</li>
+                        <li>Confirm you want to sign out</li>
+                        <li>You'll be redirected to the home page</li>
+                    </ol>
+                    <p>Always remember to sign out when using a shared computer!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="support-section">
+            <div class="support-card">
+                <i class="fas fa-question-circle"></i>
+                <h2>Still need help?</h2>
+                <p>Can't find the answer you're looking for? Our support team is here to help!</p>
+                <button class="support-btn" id="open-support-form">
+                    <i class="fas fa-envelope"></i> Contact Support
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Form Modal -->
+    <div class="modal-overlay" id="support-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Contact Support</h2>
+                <button class="close-btn" id="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="support-form">
+                <div class="form-group">
+                    <label for="support-name">Full Name *</label>
+                    <input type="text" id="support-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="support-student-id">Student ID *</label>
+                    <input type="text" id="support-student-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="support-email">Email *</label>
+                    <input type="email" id="support-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="support-issue-type">Issue Type *</label>
+                    <select id="support-issue-type" required>
+                        <option value="">Select an issue type</option>
+                        <option value="login">Login Issues</option>
+                        <option value="password">Password Reset</option>
+                        <option value="registration">Registration Problem</option>
+                        <option value="schedule">Schedule/Courses</option>
+                        <option value="technical">Technical Issue</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="support-message">Message *</label>
+                    <textarea id="support-message" rows="5" required
+                        placeholder="Please describe your issue in detail..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Request
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
