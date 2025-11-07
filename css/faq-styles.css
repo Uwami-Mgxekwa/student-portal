@@ -6,7 +6,7 @@
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #FDB927 0%, #F39C12 100%);
   min-height: 100vh;
   padding: 20px;
 }
@@ -45,7 +45,7 @@ body {
 }
 
 .back-btn {
-  background: #667eea;
+  background: #2C3E7C;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -56,7 +56,7 @@ body {
 }
 
 .back-btn:hover {
-  background: #5568d3;
+  background: #1e2a54;
   transform: translateY(-2px);
 }
 
@@ -76,7 +76,7 @@ body {
 }
 
 .search-box i {
-  color: #667eea;
+  color: #2C3E7C;
   font-size: 1.2rem;
 }
 
@@ -118,7 +118,7 @@ body {
 }
 
 .tab-btn.active {
-  background: #667eea;
+  background: #2C3E7C;
   color: white;
 }
 
@@ -161,7 +161,7 @@ body {
 }
 
 .faq-question i {
-  color: #667eea;
+  color: #2C3E7C;
   font-size: 1.2rem;
   transition: transform 0.3s;
 }
@@ -219,7 +219,7 @@ body {
 
 .support-card i {
   font-size: 4rem;
-  color: #667eea;
+  color: #2C3E7C;
   margin-bottom: 20px;
 }
 
@@ -236,7 +236,7 @@ body {
 }
 
 .support-btn {
-  background: #667eea;
+  background: #2C3E7C;
   color: white;
   border: none;
   padding: 15px 40px;
@@ -244,13 +244,13 @@ body {
   cursor: pointer;
   font-size: 1.1rem;
   transition: all 0.3s;
-  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 5px 20px rgba(44, 62, 124, 0.3);
 }
 
 .support-btn:hover {
-  background: #5568d3;
+  background: #1e2a54;
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 25px rgba(44, 62, 124, 0.4);
 }
 
 /* Modal */
@@ -288,6 +288,7 @@ body {
     opacity: 0;
     transform: translateY(50px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -352,7 +353,7 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #2C3E7C;
 }
 
 .form-group textarea {
@@ -361,7 +362,7 @@ body {
 
 .submit-btn {
   width: 100%;
-  background: #667eea;
+  background: #2C3E7C;
   color: white;
   border: none;
   padding: 15px;
@@ -373,7 +374,7 @@ body {
 }
 
 .submit-btn:hover {
-  background: #5568d3;
+  background: #1e2a54;
   transform: translateY(-2px);
 }
 
