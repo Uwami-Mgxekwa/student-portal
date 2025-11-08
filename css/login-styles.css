@@ -178,3 +178,29 @@ form a:hover {
     transform: translate(-50%, -100%);
   }
 }
+
+/* Creator Credit */
+.creator-credit {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.creator-credit p {
+  font-size: 14px;
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.creator-credit a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.creator-credit a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
