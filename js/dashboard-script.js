@@ -1,6 +1,8 @@
 import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
 import { setTheme } from "../lib/theme.js";
 import { showSignOutModal } from "../lib/pop-up.js";
+import { supabase } from "../config/supabase.js";
+
 const logOutBtn = document.getElementById("sign-out");
 const greeting = document.getElementById("greeting");
 const profileImg = document.getElementById("profile-img");
@@ -8,8 +10,7 @@ const profileImg = document.getElementById("profile-img");
 document.addEventListener("DOMContentLoaded", () => {
   initializeSidebar();
   renderCalendar();
-  updateLastUpdatedTime();
-  renderAssignments();
+  loadRecentFiles();
   renderTrendingCourses();
 });
 
@@ -113,63 +114,83 @@ function renderCalendar() {
   }
 }
 
-function updateLastUpdatedTime() {
-  const lastUpdatedElement = document.getElementById("lastUpdated");
-  if (lastUpdatedElement) {
-    const now = new Date();
-    const formattedDate = now.toLocaleString();
-    lastUpdatedElement.textContent = formattedDate;
+async function loadRecentFiles() {
+  const filesList = document.getElementById("recentFilesList");
+  const filesUpdateInfo = document.getElementById("filesUpdateInfo");
+  
+  try {
+    // Get student info to filter by year
+    const studentResult = await getStudentInfo();
+    if (!studentResult.success) {
+      filesList.innerHTML = '<div class="no-files">Please log in to view files</div>';
+      return;
+    }
+    
+    const studentYear = studentResult.student.year;
+    
+    // Fetch recent files from Supabase
+    const { data: files, error } = await supabase
+      .from('resources')
+      .select('*')
+      .eq('is_active', true)
+      .or(`year.eq.${studentYear},year.eq.all`)
+      .order('created_at', { ascending: false })
+      .limit(5);
+    
+    if (error) throw error;
+    
+    if (!files || files.length === 0) {
+      filesList.innerHTML = '<div class="no-files">No files available yet</div>';
+      filesUpdateInfo.textContent = 'No files uploaded';
+      return;
+    }
+    
+    // Update info text
+    const latestDate = new Date(files[0].created_at);
+    filesUpdateInfo.textContent = `${files.length} files • Last updated ${latestDate.toLocaleDateString()}`;
+    
+    // Render files
+    filesList.innerHTML = '';
+    files.forEach((file) => {
+      const card = document.createElement("div");
+      card.className = "assignment-card file-card";
+      
+      const fileSize = formatFileSize(file.file_size);
+      const uploadDate = new Date(file.created_at).toLocaleDateString();
+      
+      card.innerHTML = `
+        <div class="assignment-info">
+          <div class="assignment-icon file-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="assignment-details">
+            <h3>${file.title}</h3>
+            <p>${file.category} • Year ${file.year === 'all' ? 'All' : file.year}</p>
+          </div>
+        </div>
+        <div class="assignment-meta">
+          <span>${fileSize} • ${uploadDate}</span>
+          <a href="${file.file_url}" target="_blank" class="download-btn" title="Download">
+            <i class="fas fa-download"></i>
+          </a>
+        </div>
+      `;
+      
+      filesList.appendChild(card);
+    });
+    
+  } catch (error) {
+    console.error('Error loading files:', error);
+    filesList.innerHTML = '<div class="error-files">Failed to load files</div>';
+    filesUpdateInfo.textContent = 'Error loading files';
   }
-  setTimeout(updateLastUpdatedTime, 60000);
 }
 
-function renderAssignments() {
-  const assignments = [
-    {
-      title: "Web Development Final Project",
-      course: "Advanced Frontend Development",
-      dueDate: "Mar 15, 2025",
-      status: "In Progress",
-    },
-    {
-      title: "Research Paper Submission",
-      course: "Research Methodology",
-      dueDate: "Mar 22, 2025",
-      status: "Not Started",
-    },
-    {
-      title: "Database Design Quiz",
-      course: "Database Systems",
-      dueDate: "Mar 12, 2025",
-      status: "Upcoming",
-    },
-  ];
-
-  const assignmentsList = document.getElementById("assignmentsList");
-  assignmentsList.innerHTML = "";
-
-  assignments.forEach((assignment) => {
-    const card = document.createElement("div");
-    card.className = "assignment-card";
-
-    card.innerHTML = `
-<div class="assignment-info">
-  <div class="assignment-icon">
-    <i class="fas fa-file-alt"></i>
-  </div>
-  <div class="assignment-details">
-    <h3>${assignment.title}</h3>
-    <p>${assignment.course}</p>
-  </div>
-</div>
-<div class="assignment-meta">
-  <span>Due: ${assignment.dueDate}</span>
-  <span>${assignment.status}</span>
-</div>
-`;
-
-    assignmentsList.appendChild(card);
-  });
+function formatFileSize(bytes) {
+  if (!bytes) return 'Unknown';
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
 }
 
 function renderTrendingCourses() {

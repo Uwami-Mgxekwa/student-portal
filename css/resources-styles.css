@@ -576,3 +576,64 @@
 }
 
 
+
+
+/* Timeline Loading and Error States */
+.timeline-loading,
+.timeline-empty,
+.timeline-error {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.timeline-error {
+  color: var(--danger);
+}
+
+.timeline-empty {
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* Timeline Meta Info */
+.timeline-meta {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.file-category-badge,
+.file-size-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.file-category-badge {
+  background: var(--primary);
+  color: white;
+  text-transform: capitalize;
+}
+
+.file-size-badge {
+  background: var(--background);
+  color: var(--text-light);
+  border: 1px solid var(--border);
+}
+
+/* Download Button in Timeline */
+.timeline-content .resource-btn-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.timeline-content .resource-btn-small i {
+  font-size: 0.9rem;
+}

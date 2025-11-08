@@ -630,3 +630,54 @@
     }
   }
 }
+
+
+/* Recent Files Styling */
+.loading-files,
+.no-files,
+.error-files {
+  text-align: center;
+  padding: 30px;
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.error-files {
+  color: var(--danger);
+}
+
+.file-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.file-icon {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+  background: var(--primary-dark);
+  transform: scale(1.1);
+}
+
+.download-btn i {
+  font-size: 0.9rem;
+}

@@ -1,6 +1,8 @@
-import { isLoggedIn } from "../lib/supabase-auth.js";
+import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
 import { showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
+import { supabase } from "../config/supabase.js";
+
 const logOutBtn = document.getElementById("sign-out");
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -149,7 +151,85 @@ document.addEventListener("DOMContentLoaded", function () {
       loadTabContent(tabId);
     });
   });
+  
+  // Load recent files from Supabase
+  loadRecentFiles();
 });
+
+async function loadRecentFiles() {
+  const timeline = document.getElementById("recentFilesTimeline");
+  
+  try {
+    // Get student info to filter by year
+    const studentResult = await getStudentInfo();
+    if (!studentResult.success) {
+      timeline.innerHTML = '<div class="timeline-error">Please log in to view files</div>';
+      return;
+    }
+    
+    const studentYear = studentResult.student.year;
+    
+    // Fetch recent files from Supabase
+    const { data: files, error } = await supabase
+      .from('resources')
+      .select('*')
+      .eq('is_active', true)
+      .or(`year.eq.${studentYear},year.eq.all`)
+      .order('created_at', { ascending: false })
+      .limit(10);
+    
+    if (error) throw error;
+    
+    if (!files || files.length === 0) {
+      timeline.innerHTML = '<div class="timeline-empty">No files available yet. Check back soon!</div>';
+      return;
+    }
+    
+    // Render files in timeline
+    timeline.innerHTML = '';
+    files.forEach((file) => {
+      const uploadDate = new Date(file.created_at);
+      const formattedDate = uploadDate.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric', 
+        year: 'numeric' 
+      });
+      
+      const fileSize = formatFileSize(file.file_size);
+      
+      const timelineItem = document.createElement('div');
+      timelineItem.className = 'timeline-item';
+      
+      timelineItem.innerHTML = `
+        <div class="timeline-date">${formattedDate}</div>
+        <div class="timeline-content">
+          <h4>${file.title}</h4>
+          <p>${file.description || `${file.category} resource for Year ${file.year === 'all' ? 'All' : file.year}`}</p>
+          <div class="timeline-meta">
+            <span class="file-category-badge">${file.category}</span>
+            <span class="file-size-badge">${fileSize}</span>
+          </div>
+          <a href="${file.file_url}" target="_blank" class="btn resource-btn-small">
+            <i class="fas fa-download"></i> Download
+          </a>
+        </div>
+      `;
+      
+      timeline.appendChild(timelineItem);
+    });
+    
+  } catch (error) {
+    console.error('Error loading recent files:', error);
+    timeline.innerHTML = '<div class="timeline-error">Failed to load recent files</div>';
+  }
+}
+
+function formatFileSize(bytes) {
+  if (!bytes) return 'Unknown';
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeSidebar();

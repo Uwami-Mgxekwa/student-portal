@@ -1,103 +1,103 @@
 <!doctype html>
 <html lang="en" data-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GCC Dashboard</title>
-    <!-- Favicon for all platforms -->
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/logo.png">
-    <link rel="shortcut icon" href="../assets/logo.png">
-    <link rel="stylesheet" href="../css/dashboard-styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <header class="header">
-      <div class="logo-container">
-        <div class="menu-toggle" id="menuToggle">
-          <i class="fas fa-bars"></i>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GCC Dashboard</title>
+  <!-- Favicon for all platforms -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/logo.png">
+  <link rel="shortcut icon" href="../assets/logo.png">
+  <link rel="stylesheet" href="../css/dashboard-styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="logo-container">
+      <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <img src="../assets/logo.png" alt="School Logo" class="school-logo" />
+      <p>Gauteng City College</p>
+    </div>
+    <div class="greeting-wrapper">
+      <a href="../pages/profile.html">
+        <p class="greeting" id="greeting">Hi</p>
+      </a>
+      <img id="profile-img" src="" />
+    </div>
+  </header>
+
+  <div class="content-wrapper">
+    <div class="sidebar collapsed" id="sidebar">
+      <nav>
+        <div class="nav-item active">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
         </div>
-        <img src="../assets/logo.png" alt="School Logo" class="school-logo" />
-        <p>Gauteng City College</p>
-      </div>
-      <div class="greeting-wrapper">
-        <a href="../pages/profile.html">
-          <p class="greeting" id="greeting">Hi</p>
-        </a>
-        <img id="profile-img" src="" />
-      </div>
-    </header>
-
-    <div class="content-wrapper">
-      <div class="sidebar collapsed" id="sidebar">
-        <nav>
-          <div class="nav-item active">
-            <i class="fas fa-home"></i>
-            <span>Dashboard</span>
-          </div>
-          <div class="nav-item courses">
-            <i class="fas fa-book"></i>
-            <span>Courses</span>
-          </div>
-          <div class="nav-item schedule">
-            <i class="fas fa-calendar"></i>
-            <span>Schedule</span>
-          </div>
-          <div class="nav-item resources">
-            <i class="fas fa-file-alt"></i>
-            <span>Resources</span>
-          </div>
-          <div class="nav-item events">
-            <i class="fas fa-bell"></i>
-            <span>Events</span>
-          </div>
-          <div class="nav-item settings">
-            <i class="fas fa-cog"></i>
-            <span>Settings</span>
-          </div>
-          <div class="nav-item sign-out" id="sign-out">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Sign out</span>
-          </div>
-        </nav>
-      </div>
-      <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-      <div class="main-content" id="mainContent">
-        <h1 class="page-name">Dashboard</h1>
-        <div class="calendar-section">
-          <h2>Calendar</h2>
-          <div class="month-name" id="month-name"></div>
-          <div class="calendar" id="calendar"></div>
-          <div class="legend-wrapper">
-            <p><span class="legend legend-test"></span>Tests</p>
-            <p><span class="legend legend-exam"></span>Exams</p>
-          </div>
+        <div class="nav-item courses">
+          <i class="fas fa-book"></i>
+          <span>Courses</span>
         </div>
+        <div class="nav-item schedule">
+          <i class="fas fa-calendar"></i>
+          <span>Schedule</span>
+        </div>
+        <div class="nav-item resources">
+          <i class="fas fa-file-alt"></i>
+          <span>Resources</span>
+        </div>
+        <div class="nav-item events">
+          <i class="fas fa-bell"></i>
+          <span>Events</span>
+        </div>
+        <div class="nav-item settings">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </div>
+        <div class="nav-item sign-out" id="sign-out">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Sign out</span>
+        </div>
+      </nav>
+    </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <div class="assignments">
-          <div class="assignments-header">
-            <h2>Assignments</h2>
-            <span
-              >24 Completed • Last updated on <span id="lastUpdated"></span
-            ></span>
-          </div>
-          <div id="assignmentsList"></div>
+    <div class="main-content" id="mainContent">
+      <h1 class="page-name">Dashboard</h1>
+      <div class="calendar-section">
+        <h2>Calendar</h2>
+        <div class="month-name" id="month-name"></div>
+        <div class="calendar" id="calendar"></div>
+        <div class="legend-wrapper">
+          <p><span class="legend legend-test"></span>Tests</p>
+          <p><span class="legend legend-exam"></span>Exams</p>
         </div>
       </div>
 
-      <div class="right-sidebar">
-        <div class="trending-courses">
-          <h3>Trending now</h3>
-          <div id="coursesList"></div>
+      <div class="assignments">
+        <div class="assignments-header">
+          <h2>Recently Added Files</h2>
+          <span id="filesUpdateInfo">Loading...</span>
+        </div>
+        <div id="recentFilesList">
+          <div class="loading-files">Loading recent files...</div>
         </div>
       </div>
     </div>
 
-    <script type="module" src="../js/dashboard-script.js"></script>
-  </body>
+    <div class="right-sidebar">
+      <div class="trending-courses">
+        <h3>Trending now</h3>
+        <div id="coursesList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/dashboard-script.js"></script>
+</body>
+
 </html>
