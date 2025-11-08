@@ -118,17 +118,31 @@ async function loadRecentFiles() {
   const filesList = document.getElementById("recentFilesList");
   const filesUpdateInfo = document.getElementById("filesUpdateInfo");
   
+  console.log('🔍 Loading recent files...');
+  
   try {
     // Get student info to filter by year
     const studentResult = await getStudentInfo();
+    console.log('👤 Student info:', studentResult);
+    
     if (!studentResult.success) {
+      console.log('❌ Student info failed');
       filesList.innerHTML = '<div class="no-files">Please log in to view files</div>';
       return;
     }
     
-    const studentYear = studentResult.student.year;
+    const studentYear = studentResult.studentInfo?.year;
+    console.log('📚 Student year:', studentYear);
+    
+    if (!studentYear) {
+      console.log('⚠️ Student has no year assigned');
+      filesList.innerHTML = '<div class="no-files">Your year is not set. Please contact admin.</div>';
+      filesUpdateInfo.textContent = 'Year not set';
+      return;
+    }
     
     // Fetch recent files from Supabase
+    console.log('🔎 Fetching files with query: year =', studentYear, 'or year = all');
     const { data: files, error } = await supabase
       .from('resources')
       .select('*')
@@ -136,6 +150,9 @@ async function loadRecentFiles() {
       .or(`year.eq.${studentYear},year.eq.all`)
       .order('created_at', { ascending: false })
       .limit(5);
+    
+    console.log('📦 Files received:', files);
+    console.log('❗ Error:', error);
     
     if (error) throw error;
     

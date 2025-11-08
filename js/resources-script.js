@@ -151,25 +151,38 @@ document.addEventListener("DOMContentLoaded", function () {
       loadTabContent(tabId);
     });
   });
-  
+
   // Load recent files from Supabase
   loadRecentFiles();
 });
 
 async function loadRecentFiles() {
   const timeline = document.getElementById("recentFilesTimeline");
-  
+
+  console.log('🔍 [Resources] Loading recent files...');
+
   try {
     // Get student info to filter by year
     const studentResult = await getStudentInfo();
+    console.log('👤 [Resources] Student info:', studentResult);
+
     if (!studentResult.success) {
+      console.log('❌ [Resources] Student info failed');
       timeline.innerHTML = '<div class="timeline-error">Please log in to view files</div>';
       return;
     }
+
+    const studentYear = studentResult.studentInfo?.year;
+    console.log('📚 [Resources] Student year:', studentYear);
     
-    const studentYear = studentResult.student.year;
-    
+    if (!studentYear) {
+      console.log('⚠️ [Resources] Student has no year assigned');
+      timeline.innerHTML = '<div class="timeline-error">Your year is not set. Please contact admin.</div>';
+      return;
+    }
+
     // Fetch recent files from Supabase
+    console.log('🔎 [Resources] Fetching files with query: year =', studentYear, 'or year = all');
     const { data: files, error } = await supabase
       .from('resources')
       .select('*')
@@ -177,29 +190,32 @@ async function loadRecentFiles() {
       .or(`year.eq.${studentYear},year.eq.all`)
       .order('created_at', { ascending: false })
       .limit(10);
-    
+
+    console.log('📦 [Resources] Files received:', files);
+    console.log('❗ [Resources] Error:', error);
+
     if (error) throw error;
-    
+
     if (!files || files.length === 0) {
       timeline.innerHTML = '<div class="timeline-empty">No files available yet. Check back soon!</div>';
       return;
     }
-    
+
     // Render files in timeline
     timeline.innerHTML = '';
     files.forEach((file) => {
       const uploadDate = new Date(file.created_at);
-      const formattedDate = uploadDate.toLocaleDateString('en-US', { 
-        month: 'short', 
-        day: 'numeric', 
-        year: 'numeric' 
+      const formattedDate = uploadDate.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
       });
-      
+
       const fileSize = formatFileSize(file.file_size);
-      
+
       const timelineItem = document.createElement('div');
       timelineItem.className = 'timeline-item';
-      
+
       timelineItem.innerHTML = `
         <div class="timeline-date">${formattedDate}</div>
         <div class="timeline-content">
@@ -214,10 +230,10 @@ async function loadRecentFiles() {
           </a>
         </div>
       `;
-      
+
       timeline.appendChild(timelineItem);
     });
-    
+
   } catch (error) {
     console.error('Error loading recent files:', error);
     timeline.innerHTML = '<div class="timeline-error">Failed to load recent files</div>';
@@ -313,7 +329,7 @@ window.addEventListener("load", async () => {
     currTheme = "light";
   }
   setTheme(currTheme);
-  
+
   const loggedIn = await isLoggedIn();
   if (!loggedIn) {
     location.href = "../index.html";

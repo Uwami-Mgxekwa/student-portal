@@ -502,6 +502,10 @@ async function deleteFile(fileId, storagePath) {
   }
 }
 
+// Expose functions globally for onclick handlers
+window.downloadFile = downloadFile;
+window.deleteFile = deleteFile;
+
 async function handleSignOut() {
   if (confirm('Are you sure you want to sign out?')) {
     if (!DEMO_MODE) {
