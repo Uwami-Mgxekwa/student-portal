@@ -107,7 +107,15 @@ const loadScheduleData = async () => {
   try {
     const studentResult = await getStudentInfo();
     if (!studentResult.success || !studentResult.studentInfo) {
-      showAlert("Error", "Student information not found");
+      // Show friendly message instead of error
+      studentCourseHeading.innerText = "Schedule Not Available";
+      tableContainer.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; color: var(--text); width: 100%; min-height: 400px;">
+          <i class="fas fa-calendar-times" style="font-size: 60px; margin-bottom: 20px; opacity: 0.5;"></i>
+          <h3 style="margin-bottom: 10px;">No Schedule Found</h3>
+          <p style="max-width: 500px;">Your academic information is not yet set up. Please contact the admissions office to complete your enrollment.</p>
+        </div>
+      `;
       return;
     }
 
@@ -116,10 +124,27 @@ const loadScheduleData = async () => {
     
     if (scheduleResult.success) {
       createTimeTable(scheduleResult.schedule.schedule_data);
+    } else {
+      // Show friendly message for missing schedule
+      studentCourseHeading.innerText = "Schedule Not Available";
+      tableContainer.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; color: var(--text); width: 100%; min-height: 400px;">
+          <i class="fas fa-calendar-times" style="font-size: 60px; margin-bottom: 20px; opacity: 0.5;"></i>
+          <h3 style="margin-bottom: 10px;">Schedule Not Found</h3>
+          <p style="max-width: 500px;">No schedule is available for your course yet. Please check back later or contact support.</p>
+        </div>
+      `;
     }
   } catch (error) {
     console.error("Error loading schedule:", error);
-    showAlert("Error", error.message);
+    studentCourseHeading.innerText = "Error Loading Schedule";
+    tableContainer.innerHTML = `
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; color: var(--text); width: 100%; min-height: 400px;">
+        <i class="fas fa-exclamation-triangle" style="font-size: 60px; margin-bottom: 20px; color: #ef4444;"></i>
+        <h3 style="margin-bottom: 10px;">Error Loading Schedule</h3>
+        <p style="max-width: 500px;">${error.message}</p>
+      </div>
+    `;
   }
 };
 

@@ -1,71 +1,67 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gauteng City College</title>
-    <!-- Favicon for all platforms -->
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/logo.png">
-    <link rel="shortcut icon" href="./assets/logo.png">
-    <link rel="stylesheet" href="./css/index-styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-  </head>
-  <body>
-    <video autoplay muted loop class="video-bg" playsinline>
-      <source src="./assets/bg-vid-vertical.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
 
-    <div class="overlay"></div>
-    <div class="wrapper">
-      <div class="wrapper-content left">
-        <div class="heading-wrapper heading-left">
-          <img src="assets/logo.png" />
-          <h1>Gauteng City College</h1>
-          <p>Knowledge Intergrity Archievement</p>
-        </div>
-        <div class="buttons">
-          <button class="btn btn-support" onclick="redirectToSupport()">
-            <i class="fas fa-life-ring"></i> Support
-          </button>
-          <button class="btn btn-faq" onclick="redirectToFAQ()">
-            <i class="fas fa-question-circle"></i> FAQ
-          </button>
-          <button
-            class="btn btn-website"
-            id="mainWeb"
-            onclick="redirectToWebsite()"
-          >
-            <i class="fas fa-globe"></i> Visit Main Website
-          </button>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gauteng City College</title>
+  <!-- Favicon for all platforms -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/logo.png">
+  <link rel="shortcut icon" href="./assets/logo.png">
+  <link rel="stylesheet" href="./css/index-styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+  <video autoplay muted loop class="video-bg" playsinline>
+    <source src="./assets/bg-vid-vertical.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="overlay"></div>
+  <div class="wrapper">
+    <div class="wrapper-content left">
+      <div class="heading-wrapper heading-left">
+        <img src="assets/logo.png" />
+        <h1>Gauteng City College</h1>
+        <p>Knowledge Intergrity Archievement</p>
       </div>
-      <div class="wrapper-content right">
-        <div class="heading-wrapper">
-          <p>Welcome to</p>
-          <h1 class="sign">GCC STUDENT PORTAL</h1>
-        </div>
-        <div class="login-wrapper">
-          <div class="glyph-wrapper">
-            <img class="glyph" src="./assets/student.png" />
-          </div>
-          <button class="btn btn-login" id="login">
-            <i class="fas fa-sign-in-alt"></i> Click to Login
-          </button>
-        </div>
-        <div class="sign-up-wrapper">
-          <p>Dont have an account? Click to sign up now</p>
-          <button class="btn btn-signup" id="sign-up">
-            <i class="fas fa-user-plus"></i> Sign Up
-          </button>
-        </div>
+      <div class="buttons">
+        <button class="btn btn-support" onclick="redirectToSupport()">
+          <i class="fas fa-life-ring"></i> Support
+        </button>
+        <button class="btn btn-faq" onclick="redirectToFAQ()">
+          <i class="fas fa-question-circle"></i> FAQ
+        </button>
+        <button class="btn btn-website" id="mainWeb" onclick="redirectToWebsite()">
+          <i class="fas fa-globe"></i> Visit Main Website
+        </button>
       </div>
     </div>
-    <script type="module" src="./js/index-script.js"></script>
-  </body>
+    <div class="wrapper-content right">
+      <div class="heading-wrapper">
+        <p>Welcome to</p>
+        <h1 class="sign">GCC STUDENT PORTAL</h1>
+      </div>
+      <div class="login-wrapper">
+        <div class="glyph-wrapper">
+          <img class="glyph" src="./assets/student.png" />
+        </div>
+        <button class="btn btn-login" id="login">
+          <i class="fas fa-sign-in-alt"></i> Click to Login
+        </button>
+      </div>
+      <div class="sign-up-wrapper">
+        <p>Dont have an account? Click to sign up now</p>
+        <button class="btn btn-signup" id="sign-up">
+          <i class="fas fa-user-plus"></i> Sign Up
+        </button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="./js/index-script.js"></script>
+</body>
+
 </html>
