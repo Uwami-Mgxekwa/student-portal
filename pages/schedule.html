@@ -12,6 +12,7 @@
     <link rel="shortcut icon" href="../assets/logo.png">
     <link rel="stylesheet" href="../css/schedule-styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   </head>
   <body>
     <header class="header">
@@ -63,9 +64,14 @@
         <h1 class="page-name">My Schedule</h1>
         <div class="container">
           <div class="page-title">
-            <p>Get your schedule in pdf</p>
+            <p>Get your schedule in PDF</p>
             <div class="btn-group">
-              <a href="#" class="btn">Dowload Timetable</a>
+              <button id="download-pdf-btn" class="btn">
+                <i class="fas fa-download"></i> Download Timetable
+              </button>
+              <button id="print-btn" class="btn">
+                <i class="fas fa-print"></i> Print
+              </button>
             </div>
           </div>
           <div class="schedule-heading">

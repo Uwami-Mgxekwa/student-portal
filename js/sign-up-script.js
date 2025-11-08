@@ -13,6 +13,9 @@ const email = document.getElementById("email");
 const phone = document.getElementById("phone");
 const address = document.getElementById("address");
 const gender = document.getElementById("gender");
+const course = document.getElementById("course");
+const certificate = document.getElementById("certificate");
+const year = document.getElementById("year");
 const password = document.getElementById("password");
 const signUpBtn = document.getElementById("sign-up-btn");
 
@@ -36,6 +39,9 @@ const signUp = async () => {
     phone: phone.value,
     address: address.value,
     gender: gender.value,
+    course: course.value,
+    certificate: certificate.value,
+    year: year.value,
     password: password.value,
   };
 

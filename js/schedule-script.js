@@ -188,6 +188,33 @@ logOutBtn.addEventListener("click", () => {
   showSignOutModal();
 });
 
+// Download PDF functionality
+const downloadPdfBtn = document.getElementById("download-pdf-btn");
+const printBtn = document.getElementById("print-btn");
+
+if (downloadPdfBtn) {
+  downloadPdfBtn.addEventListener("click", () => {
+    const element = document.getElementById("table-container");
+    const studentCourse = document.getElementById("student-course").innerText;
+    
+    const opt = {
+      margin: 10,
+      filename: `${studentCourse.replace(/\s+/g, '_')}_Timetable.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+    };
+
+    html2pdf().set(opt).from(element).save();
+  });
+}
+
+if (printBtn) {
+  printBtn.addEventListener("click", () => {
+    window.print();
+  });
+}
+
 setInterval(() => {
   updateDateAndTime();
 }, 1000);
