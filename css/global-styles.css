@@ -265,6 +265,14 @@ body {
   animation: 0.5s fadeInUp;
 }
 
+.alert-success {
+  background: #10b981 !important; /* Green for success */
+}
+
+.alert-error {
+  background: #ef4444 !important; /* Red for errors */
+}
+
 .alert h1 {
   font-size: 30px;
   font-weight: 500;

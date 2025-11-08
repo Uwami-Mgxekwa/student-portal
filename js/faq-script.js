@@ -118,7 +118,8 @@ supportForm.addEventListener("submit", async (e) => {
     removeLoading();
     showAlert(
       "Request Submitted!",
-      "Thank you for contacting us. Our support team will respond within 24 hours."
+      "Thank you for contacting us. Our support team will respond within 24 hours.",
+      "success"
     );
 
     // Close modal and reset form
@@ -130,7 +131,8 @@ supportForm.addEventListener("submit", async (e) => {
     removeLoading();
     showAlert(
       "Submission Error",
-      "There was an error submitting your request. Please try again or email us directly."
+      "There was an error submitting your request. Please try again or email us directly.",
+      "error"
     );
   }
 });
