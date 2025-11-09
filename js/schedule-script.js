@@ -119,8 +119,8 @@ const loadScheduleData = async () => {
       return;
     }
 
-    const { course, certificate } = studentResult.studentInfo;
-    const scheduleResult = await getSchedule(course, certificate);
+    const { course, certificate, year } = studentResult.studentInfo;
+    const scheduleResult = await getSchedule(course, certificate, year);
     
     if (scheduleResult.success) {
       createTimeTable(scheduleResult.schedule.schedule_data);

@@ -1,18 +1,22 @@
 -- ============================================
--- ADD SAMPLE SCHEDULES FOR IT STUDENTS
+-- YEAR-SPECIFIC SCHEDULES FOR IT STUDENTS
 -- ============================================
+-- Run add-year-to-schedules.sql FIRST before running this!
 
--- Delete existing schedules first (if any)
+-- Delete existing schedules
 DELETE FROM schedules WHERE course = 'Information Technology';
 
--- Insert schedule for Information Technology - National Certificate
-INSERT INTO schedules (course, certificate, schedule_data)
+-- ============================================
+-- NATIONAL CERTIFICATE - YEAR 1
+-- ============================================
+INSERT INTO schedules (course, certificate, year, schedule_data)
 VALUES (
   'Information Technology',
   'National Certificate',
+  '1',
   '{
     "COURSE": "Information Technology",
-    "CERTIFICATE": "National Certificate",
+    "CERTIFICATE": "National Certificate - Year 1",
     "TABLE": [
       {
         "DAY": "Monday",
@@ -83,14 +87,17 @@ VALUES (
   }'::jsonb
 );
 
--- Insert schedule for Information Technology - National Diploma
-INSERT INTO schedules (course, certificate, schedule_data)
+-- ============================================
+-- NATIONAL DIPLOMA - YEAR 2
+-- ============================================
+INSERT INTO schedules (course, certificate, year, schedule_data)
 VALUES (
   'Information Technology',
   'National Diploma',
+  '2',
   '{
     "COURSE": "Information Technology",
-    "CERTIFICATE": "National Diploma",
+    "CERTIFICATE": "National Diploma - Year 2",
     "TABLE": [
       {
         "DAY": "Monday",
@@ -161,14 +168,17 @@ VALUES (
   }'::jsonb
 );
 
--- Insert schedule for Information Technology - Higher Certificate
-INSERT INTO schedules (course, certificate, schedule_data)
+-- ============================================
+-- HIGHER CERTIFICATE - YEAR 1
+-- ============================================
+INSERT INTO schedules (course, certificate, year, schedule_data)
 VALUES (
   'Information Technology',
   'Higher Certificate',
+  '1',
   '{
     "COURSE": "Information Technology",
-    "CERTIFICATE": "Higher Certificate",
+    "CERTIFICATE": "Higher Certificate - Year 1",
     "TABLE": [
       {
         "DAY": "Monday",
@@ -242,8 +252,9 @@ VALUES (
 -- Verify schedules were added
 SELECT 
   course, 
-  certificate, 
+  certificate,
+  year,
   created_at
 FROM schedules
 WHERE course = 'Information Technology'
-ORDER BY certificate;
+ORDER BY certificate, year;
