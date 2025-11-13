@@ -231,12 +231,15 @@
 }
 
 @media (max-width: 600px) {
+  /* Don't hide table, make it scrollable instead */
   .table-container {
-    display: none;
-  }
-
-  .mobile-card-view {
     display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .data-table {
+    min-width: 600px; /* Force minimum width so table doesn't collapse */
   }
 
   .mobile-card {
