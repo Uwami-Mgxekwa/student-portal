@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Finances - GCC</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/logo.png">
+    <link rel="shortcut icon" href="../assets/logo.png">
+    <link rel="stylesheet" href="../css/dashboard-styles.css" />
+    <link rel="stylesheet" href="../css/finances-styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo-container">
+        <div class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <img src="../assets/logo.png" alt="School Logo" class="school-logo" />
+        <p>Gauteng City College</p>
+      </div>
+    </header>
+
+    <div class="content-wrapper">
+      <div class="sidebar collapsed" id="sidebar">
+        <nav>
+          <div class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </div>
+          <div class="nav-item courses">
+            <i class="fas fa-book"></i>
+            <span>Courses</span>
+          </div>
+          <div class="nav-item schedule">
+            <i class="fas fa-calendar"></i>
+            <span>Schedule</span>
+          </div>
+          <div class="nav-item resources">
+            <i class="fas fa-file-alt"></i>
+            <span>Resources</span>
+          </div>
+          <div class="nav-item finances active">
+            <i class="fas fa-wallet"></i>
+            <span>Finances</span>
+          </div>
+          <div class="nav-item events">
+            <i class="fas fa-bell"></i>
+            <span>Events</span>
+          </div>
+          <div class="nav-item settings">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </div>
+          <div class="nav-item sign-out" id="sign-out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sign out</span>
+          </div>
+        </nav>
+      </div>
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+      <div class="main-content" id="mainContent">
+        <h1 class="page-name">My Finances</h1>
+        <p class="page-subtitle">View your account balance and payment history</p>
+
+        <!-- Account Summary Cards -->
+        <div class="finance-summary">
+          <div class="summary-card total-fees">
+            <div class="card-icon">
+              <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            <div class="card-content">
+              <h3>Total Fees</h3>
+              <p class="amount" id="totalFees">R 0.00</p>
+              <span class="card-label">Annual fees for 2025</span>
+            </div>
+          </div>
+
+          <div class="summary-card total-paid">
+            <div class="card-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="card-content">
+              <h3>Total Paid</h3>
+              <p class="amount" id="totalPaid">R 0.00</p>
+              <span class="card-label">Payments received</span>
+            </div>
+          </div>
+
+          <div class="summary-card outstanding">
+            <div class="card-icon">
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="card-content">
+              <h3>Outstanding Balance</h3>
+              <p class="amount" id="outstandingBalance">R 0.00</p>
+              <span class="card-label" id="dueDate">Due date: --</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fee Breakdown Section -->
+        <div class="finance-section">
+          <div class="section-header">
+            <h2><i class="fas fa-list"></i> Fee Breakdown</h2>
+            <p>Detailed breakdown of your fees</p>
+          </div>
+          <div class="fee-breakdown-container" id="feeBreakdownContainer">
+            <div class="loading">Loading fee breakdown...</div>
+          </div>
+        </div>
+
+        <!-- Payment History Section -->
+        <div class="finance-section">
+          <div class="section-header">
+            <h2><i class="fas fa-history"></i> Payment History</h2>
+            <p>Record of all your payments</p>
+          </div>
+          <div class="payment-history-container">
+            <table class="finance-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Method</th>
+                  <th>Reference</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody id="paymentHistoryTable">
+                <tr>
+                  <td colspan="5" class="loading">Loading payment history...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Payment Instructions -->
+        <div class="finance-section payment-info">
+          <div class="section-header">
+            <h2><i class="fas fa-info-circle"></i> Payment Information</h2>
+          </div>
+          <div class="payment-instructions">
+            <div class="instruction-card">
+              <h3><i class="fas fa-university"></i> Bank Details</h3>
+              <div class="bank-details">
+                <div class="detail-row">
+                  <span class="label">Bank:</span>
+                  <span class="value">First National Bank (FNB)</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">Account Name:</span>
+                  <span class="value">Gauteng City College</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">Account Number:</span>
+                  <span class="value">62XXXXXXXXXX</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">Branch Code:</span>
+                  <span class="value">250655</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">Reference:</span>
+                  <span class="value" id="paymentReference">Your Student ID</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="instruction-card">
+              <h3><i class="fas fa-money-bill-wave"></i> Payment Methods</h3>
+              <ul class="payment-methods">
+                <li><i class="fas fa-check"></i> Bank Transfer / EFT</li>
+                <li><i class="fas fa-check"></i> Cash at Campus Office</li>
+                <li><i class="fas fa-check"></i> Card Payment at Office</li>
+              </ul>
+              <div class="important-note">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p><strong>Important:</strong> Always use your Student ID as payment reference. Payments reflect within 24-48 hours.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="finance-section contact-section">
+          <div class="contact-card">
+            <i class="fas fa-question-circle"></i>
+            <h3>Have questions about your account?</h3>
+            <p>Contact the Finance Office for assistance</p>
+            <div class="contact-details">
+              <p><i class="fas fa-phone"></i> +27 11 XXX XXXX</p>
+              <p><i class="fas fa-envelope"></i> finance@gautengcitycollege.edu.za</p>
+              <p><i class="fas fa-clock"></i> Mon-Fri: 08:00 - 16:00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../js/finances-script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,437 @@
+@import url("color-scheme.css");
+
+.page-subtitle {
+  color: var(--text);
+  opacity: 0.7;
+  margin-top: -10px;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+/* Finance Summary Cards */
+.finance-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.summary-card {
+  background: var(--card-background);
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 2px solid var(--accent);
+  transition: all 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.summary-card .card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+
+.total-fees .card-icon {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+}
+
+.total-paid .card-icon {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.outstanding .card-icon {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+}
+
+.summary-card .card-content {
+  flex: 1;
+}
+
+.summary-card h3 {
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.7;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.summary-card .amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+
+.summary-card .card-label {
+  font-size: 0.85rem;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+/* Finance Sections */
+.finance-section {
+  background: var(--card-background);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+  border: 1px solid var(--accent);
+}
+
+.section-header {
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  font-size: 1.3rem;
+  color: var(--text);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-header p {
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+/* Fee Breakdown */
+.fee-breakdown-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.fee-item {
+  background: var(--background);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--accent);
+}
+
+.fee-item-info h4 {
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+
+.fee-item-info p {
+  font-size: 0.85rem;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.fee-item-amount {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Payment History Table */
+.payment-history-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.finance-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.finance-table thead {
+  background: var(--background);
+}
+
+.finance-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.9rem;
+  border-bottom: 2px solid var(--accent);
+}
+
+.finance-table td {
+  padding: 15px;
+  color: var(--text);
+  border-bottom: 1px solid var(--accent);
+  font-size: 0.9rem;
+}
+
+.finance-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.finance-table tbody tr:hover {
+  background: var(--background);
+}
+
+.finance-table .loading,
+.finance-table .no-data,
+.finance-table .error {
+  text-align: center;
+  padding: 40px;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.payment-amount {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.payment-method {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--background);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Payment Instructions */
+.payment-instructions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.instruction-card {
+  background: var(--background);
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid var(--accent);
+}
+
+.instruction-card h3 {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bank-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--accent);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row .label {
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+.detail-row .value {
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.payment-methods {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.payment-methods li {
+  padding: 10px 0;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+.payment-methods li i {
+  color: var(--primary);
+}
+
+.important-note {
+  background: rgba(251, 146, 60, 0.1);
+  border-left: 4px solid #fb923c;
+  padding: 15px;
+  border-radius: 6px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.important-note i {
+  color: #fb923c;
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+.important-note p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* Contact Section */
+.contact-section {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: none;
+}
+
+.contact-card {
+  text-align: center;
+  color: white;
+}
+
+.contact-card i {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+
+.contact-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.contact-card > p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.contact-details p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.contact-details i {
+  font-size: 1rem;
+}
+
+/* Loading States */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.error {
+  text-align: center;
+  padding: 40px;
+  color: #ef4444;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .finance-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    padding: 20px;
+  }
+
+  .summary-card .card-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .summary-card .amount {
+    font-size: 1.5rem;
+  }
+
+  .finance-section {
+    padding: 20px;
+  }
+
+  .section-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .fee-breakdown-container {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-instructions {
+    grid-template-columns: 1fr;
+  }
+
+  .finance-table {
+    font-size: 0.85rem;
+  }
+
+  .finance-table th,
+  .finance-table td {
+    padding: 10px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .summary-card .amount {
+    font-size: 1.3rem;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
