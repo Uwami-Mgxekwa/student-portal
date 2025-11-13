@@ -306,7 +306,7 @@
 
 /* Contact Section */
 .contact-section {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: var(--primary);
   border: none;
 }
 
