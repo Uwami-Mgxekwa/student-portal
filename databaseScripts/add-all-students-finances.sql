@@ -1,13 +1,8 @@
--- ============================================
--- ADD FINANCE DATA FOR ALL STUDENTS
--- ============================================
-
 -- Add finances for all students (varying amounts and payment statuses)
 INSERT INTO student_finances (student_id, total_fees, total_paid, payment_plan, due_date, notes)
 VALUES 
   ('0310070572089', 25000.00, 15000.00, 'installments', '2025-12-31', 'Payment plan: R5000 per term'),
   ('AB0892087', 30000.00, 30000.00, 'full', '2025-12-31', 'Paid in full'),
-  ('0307185652087', 28000.00, 10000.00, 'installments', '2025-12-31', 'Payment plan: R7000 per term'),
   ('0307015124083', 25000.00, 5000.00, 'installments', '2025-12-31', 'Payment plan: R5000 per term'),
   ('0710045636085', 30000.00, 20000.00, 'installments', '2025-12-31', 'Payment plan: R10000 per term'),
   ('0706231307085', 28000.00, 28000.00, 'full', '2025-12-31', 'Paid in full'),
@@ -40,13 +35,7 @@ VALUES
   ('AB0892087', 'Materials', 2000.00, 'Course materials', '2025'),
   ('AB0892087', 'Lab', 1000.00, 'Lab fees', '2025'),
   
-  -- Student 3: 0307185652087
-  ('0307185652087', 'Tuition', 23000.00, 'Annual tuition fees', '2025'),
-  ('0307185652087', 'Registration', 2000.00, 'Registration fee', '2025'),
-  ('0307185652087', 'Materials', 2000.00, 'Course materials', '2025'),
-  ('0307185652087', 'Lab', 1000.00, 'Lab fees', '2025'),
-  
-  -- Student 4: 0307015124083
+  -- Student 3: 0307015124083
   ('0307015124083', 'Tuition', 20000.00, 'Annual tuition fees', '2025'),
   ('0307015124083', 'Registration', 2000.00, 'Registration fee', '2025'),
   ('0307015124083', 'Materials', 2000.00, 'Course materials', '2025'),
@@ -148,10 +137,7 @@ VALUES
   -- Student 2: AB0892087 (R30,000 paid - FULL)
   ('AB0892087', '2025-01-15', 30000.00, 'Bank Transfer', 'REF003', 'Full payment for 2025', 'Admin'),
   
-  -- Student 3: 0307185652087 (R10,000 paid)
-  ('0307185652087', '2025-02-10', 10000.00, 'EFT', 'REF004', 'Initial payment', 'Admin'),
-  
-  -- Student 4: 0307015124083 (R5,000 paid)
+  -- Student 3: 0307015124083 (R5,000 paid)
   ('0307015124083', '2025-02-15', 5000.00, 'Cash', 'CASH002', 'First term payment', 'Admin'),
   
   -- Student 5: 0710045636085 (R20,000 paid)
