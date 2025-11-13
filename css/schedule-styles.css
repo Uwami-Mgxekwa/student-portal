@@ -125,7 +125,7 @@
 }
 
 .upcoming-header {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  background: var(--primary);
   color: white;
   padding: 1.2rem;
   font-weight: bold;
