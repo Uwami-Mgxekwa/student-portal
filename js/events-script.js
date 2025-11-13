@@ -47,54 +47,74 @@ function initializeSidebar() {
 function renderEvents() {
   const events = [
     {
-      title: "Career Fair 2025",
-      date: { month: "Mar", day: "15" },
-      time: "10:00 AM - 4:00 PM",
+      title: "Freshers",
+      date: { month: "Feb", day: "10" },
+      time: "9:00 AM - 5:00 PM",
       location: "Main Campus",
       description:
-        "Connect with top employers from various industries and explore career opportunities.",
-      type: "academic",
-      attendees: 120,
-    },
-    {
-      title: "Web Development Workshop",
-      date: { month: "Mar", day: "22" },
-      time: "2:00 PM - 5:00 PM",
-      location: "Computer Lab 3",
-      description:
-        "Learn modern web development techniques with hands-on exercises.",
-      type: "workshop",
-      attendees: 45,
-    },
-    {
-      title: "Campus Spring Festival",
-      date: { month: "Mar", day: "29" },
-      time: "12:00 PM - 8:00 PM",
-      location: "Campus Grounds",
-      description:
-        "Join us for food, music, games, and entertainment to celebrate the season.",
+        "Welcome event for new students to meet peers, explore campus, and learn about college life.",
       type: "social",
-      attendees: 350,
+      attendees: 250,
     },
     {
-      title: "AI Research Symposium",
-      date: { month: "Apr", day: "05" },
-      time: "9:00 AM - 3:00 PM",
-      location: "Conference Hall",
+      title: "MR and MRS GCC",
+      date: { month: "Mar", day: "15" },
+      time: "6:00 PM - 10:00 PM",
+      location: "College Auditorium",
       description:
-        "Presentations on the latest research in artificial intelligence and machine learning.",
+        "Annual pageant competition celebrating talent, personality, and school spirit.",
+      type: "social",
+      attendees: 180,
+    },
+    {
+      title: "Sports Day",
+      date: { month: "Apr", day: "22" },
+      time: "8:00 AM - 4:00 PM",
+      location: "Sports Complex",
+      description:
+        "Inter-campus sports competition featuring various athletic events and team games.",
+      type: "social",
+      attendees: 320,
+    },
+    {
+      title: "Exam Workshops",
+      date: { month: "May", day: "05" },
+      time: "10:00 AM - 3:00 PM",
+      location: "Lecture Hall A",
+      description:
+        "Comprehensive exam preparation workshops covering study techniques and time management.",
       type: "academic",
+      attendees: 150,
+    },
+    {
+      title: "Student Exam Workshops",
+      date: { month: "May", day: "12" },
+      time: "2:00 PM - 5:00 PM",
+      location: "Computer Lab 2",
+      description:
+        "Student-led peer tutoring sessions and exam revision workshops.",
+      type: "workshop",
       attendees: 85,
     },
     {
-      title: "Photography Masterclass",
-      date: { month: "Apr", day: "12" },
-      time: "1:00 PM - 4:00 PM",
-      location: "Media Studio",
+      title: "Heritage Day",
+      date: { month: "Sep", day: "24" },
+      time: "10:00 AM - 6:00 PM",
+      location: "Campus Grounds",
       description:
-        "Learn professional photography techniques with industry experts.",
-      type: "workshop",
-      attendees: 30,
+        "Celebrate South African culture with traditional food, music, dance, and cultural exhibitions.",
+      type: "social",
+      attendees: 400,
+    },
+    {
+      title: "GBV Awareness Day",
+      date: { month: "Nov", day: "25" },
+      time: "9:00 AM - 2:00 PM",
+      location: "Conference Hall",
+      description:
+        "Educational event raising awareness about gender-based violence with guest speakers and support resources.",
+      type: "academic",
+      attendees: 200,
     },
   ];
 
@@ -128,14 +148,23 @@ function renderEventsList(events) {
             event.type.charAt(0).toUpperCase() + event.type.slice(1)
           }</span>
           <div class="event-actions">
-            <button class="event-action-btn">Add to Calendar</button>
-            <button class="event-action-btn primary">Register</button>
+            <button class="event-action-btn primary add-to-calendar" data-event='${JSON.stringify(event)}'>
+              <i class="fas fa-calendar-plus"></i> Add to Calendar
+            </button>
           </div>
         </div>
       </div>
     `;
 
     eventsList.appendChild(card);
+  });
+
+  // Add event listeners for Add to Calendar buttons
+  document.querySelectorAll('.add-to-calendar').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const eventData = JSON.parse(e.currentTarget.getAttribute('data-event'));
+      addToCalendar(eventData);
+    });
   });
 }
 
@@ -162,6 +191,75 @@ function initializeEventFilters() {
       });
     });
   });
+}
+
+function addToCalendar(event) {
+  // Parse the date and time
+  const monthMap = {
+    'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+    'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+  };
+  
+  const year = 2025; // Current year for events
+  const month = monthMap[event.date.month];
+  const day = parseInt(event.date.day);
+  
+  // Parse start time (e.g., "10:00 AM - 4:00 PM")
+  const timeRange = event.time.split(' - ');
+  const startTime = parseTime(timeRange[0]);
+  const endTime = parseTime(timeRange[1]);
+  
+  const startDate = new Date(year, month, day, startTime.hours, startTime.minutes);
+  const endDate = new Date(year, month, day, endTime.hours, endTime.minutes);
+  
+  // Format dates for iCalendar (YYYYMMDDTHHMMSS)
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${year}${month}${day}T${hours}${minutes}00`;
+  };
+  
+  // Create iCalendar content
+  const icsContent = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Gauteng City College//Events//EN',
+    'BEGIN:VEVENT',
+    `DTSTART:${formatDate(startDate)}`,
+    `DTEND:${formatDate(endDate)}`,
+    `SUMMARY:${event.title}`,
+    `DESCRIPTION:${event.description}`,
+    `LOCATION:${event.location}`,
+    'STATUS:CONFIRMED',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+  
+  // Create and download the .ics file
+  const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `${event.title.replace(/\s+/g, '_')}.ics`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(link.href);
+}
+
+function parseTime(timeStr) {
+  const [time, period] = timeStr.trim().split(' ');
+  let [hours, minutes] = time.split(':').map(Number);
+  
+  if (period === 'PM' && hours !== 12) {
+    hours += 12;
+  } else if (period === 'AM' && hours === 12) {
+    hours = 0;
+  }
+  
+  return { hours, minutes };
 }
 
 const showGreeting = async () => {
@@ -202,6 +300,12 @@ document
   .querySelector(".nav-item.resources")
   .addEventListener("click", function () {
     window.location.href = "../pages/resources.html";
+  });
+
+document
+  .querySelector(".nav-item.finances")
+  .addEventListener("click", function () {
+    window.location.href = "../pages/finances.html";
   });
 
 document

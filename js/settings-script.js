@@ -84,9 +84,9 @@ document
   });
 
 document
-  .querySelector(".nav-item.resources")
+  .querySelector(".nav-item.finances")
   .addEventListener("click", function () {
-    window.location.href = "../pages/resources.html";
+    window.location.href = "../pages/finances.html";
   });
 
 logOutBtn.addEventListener("click", () => {
