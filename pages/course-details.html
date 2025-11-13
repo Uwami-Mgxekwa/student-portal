@@ -116,12 +116,105 @@
                   <th>Mark</th>
                   <th>Total</th>
                   <th>Percentage</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody id="assignmentsTable">
                 <!-- Assignments will be inserted here -->
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- Assignment Submission Modal -->
+        <div class="modal" id="submissionModal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2><i class="fas fa-upload"></i> Submit Assignment</h2>
+              <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <form id="submissionForm">
+                <div class="form-section">
+                  <h3>Assignment Details</h3>
+                  <div class="info-row">
+                    <div class="info-item">
+                      <label>Course:</label>
+                      <span id="modalCourse">-</span>
+                    </div>
+                    <div class="info-item">
+                      <label>Assignment:</label>
+                      <span id="modalAssignment">-</span>
+                    </div>
+                  </div>
+                  <div class="info-row">
+                    <div class="info-item">
+                      <label>Due Date:</label>
+                      <span id="modalDueDate">-</span>
+                    </div>
+                    <div class="info-item" id="lateWarning" style="display: none;">
+                      <span class="warning-text"><i class="fas fa-exclamation-triangle"></i> Late Submission</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-section">
+                  <h3>Student Information</h3>
+                  <div class="info-row">
+                    <div class="info-item">
+                      <label>Name:</label>
+                      <span id="modalStudentName">-</span>
+                    </div>
+                    <div class="info-item">
+                      <label>Student ID:</label>
+                      <span id="modalStudentID">-</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-section">
+                  <h3>Upload Your Work</h3>
+                  <div class="form-group">
+                    <label for="fileUpload" class="required">Select File *</label>
+                    <div class="file-upload-wrapper">
+                      <input type="file" id="fileUpload" accept=".pdf,.doc,.docx" required />
+                      <div class="file-upload-info">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click to choose file or drag and drop</p>
+                        <span>Accepted formats: PDF, DOC, DOCX (Max 10MB)</span>
+                      </div>
+                      <div class="file-selected" id="fileSelected" style="display: none;">
+                        <i class="fas fa-file"></i>
+                        <span id="fileName">-</span>
+                        <span id="fileSize">-</span>
+                        <button type="button" class="remove-file" id="removeFile">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="comments">Comments (Optional)</label>
+                    <textarea id="comments" rows="3" placeholder="Add any notes or comments about your submission..."></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="checkbox-label">
+                      <input type="checkbox" id="declaration" required />
+                      <span>I confirm this is my own work and I have not plagiarized</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" id="cancelSubmit">Cancel</button>
+                  <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Assignment
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
 

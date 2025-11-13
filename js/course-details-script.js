@@ -287,7 +287,7 @@ function renderAssignments(assignments) {
   if (assignments.length === 0) {
     tableBody.innerHTML = `
       <tr>
-        <td colspan="7" style="text-align: center; padding: 40px;">
+        <td colspan="8" style="text-align: center; padding: 40px;">
           <i class="fas fa-inbox" style="font-size: 48px; opacity: 0.3; margin-bottom: 10px;"></i>
           <p>No assignments yet</p>
         </td>
@@ -296,7 +296,7 @@ function renderAssignments(assignments) {
     return;
   }
 
-  assignments.forEach((assignment) => {
+  assignments.forEach((assignment, index) => {
     const row = document.createElement("tr");
     
     const percentage = assignment.mark !== null ? ((assignment.mark / assignment.total) * 100).toFixed(1) : "--";
@@ -306,6 +306,22 @@ function renderAssignments(assignments) {
       ? new Date(assignment.submittedDate).toLocaleDateString() 
       : "--";
 
+    // Action button based on status
+    let actionButton = "";
+    if (assignment.status === "Pending") {
+      actionButton = `
+        <button class="submit-action-btn" onclick="openSubmissionModal(${index})">
+          <i class="fas fa-upload"></i> Submit
+        </button>
+      `;
+    } else {
+      actionButton = `
+        <button class="view-action-btn" onclick="viewSubmission(${index})">
+          <i class="fas fa-eye"></i> View
+        </button>
+      `;
+    }
+
     row.innerHTML = `
       <td>${assignment.name}</td>
       <td>${new Date(assignment.dueDate).toLocaleDateString()}</td>
@@ -314,6 +330,7 @@ function renderAssignments(assignments) {
       <td>${markDisplay}</td>
       <td>${assignment.total}</td>
       <td>${percentage}%</td>
+      <td>${actionButton}</td>
     `;
 
     tableBody.appendChild(row);
@@ -384,6 +401,190 @@ function getGrade(percentage) {
   if (percent >= 60) return "C";
   if (percent >= 50) return "D";
   return "F";
+}
+
+// Global variables for modal
+let currentAssignmentIndex = null;
+let currentCourseCode = null;
+let studentInfo = null;
+
+// Open submission modal
+window.openSubmissionModal = async function(assignmentIndex) {
+  currentAssignmentIndex = assignmentIndex;
+  const urlParams = new URLSearchParams(window.location.search);
+  currentCourseCode = urlParams.get("code");
+  
+  if (!currentCourseCode || !courseData[currentCourseCode]) {
+    return;
+  }
+
+  const course = courseData[currentCourseCode];
+  const assignment = course.assignments[assignmentIndex];
+
+  // Get student info
+  const result = await getStudentInfo();
+  if (result.success) {
+    studentInfo = result.student;
+  }
+
+  // Populate modal
+  document.getElementById("modalCourse").textContent = `${course.title} (${course.code})`;
+  document.getElementById("modalAssignment").textContent = assignment.name;
+  document.getElementById("modalDueDate").textContent = new Date(assignment.dueDate).toLocaleDateString();
+  document.getElementById("modalStudentName").textContent = studentInfo 
+    ? `${studentInfo.first_name} ${studentInfo.last_name}` 
+    : "Loading...";
+  document.getElementById("modalStudentID").textContent = studentInfo?.student_id || "Loading...";
+
+  // Check if late submission
+  const dueDate = new Date(assignment.dueDate);
+  const today = new Date();
+  if (today > dueDate) {
+    document.getElementById("lateWarning").style.display = "flex";
+  } else {
+    document.getElementById("lateWarning").style.display = "none";
+  }
+
+  // Show modal
+  document.getElementById("submissionModal").classList.add("active");
+  document.body.style.overflow = "hidden";
+};
+
+// Close modal
+function closeSubmissionModal() {
+  document.getElementById("submissionModal").classList.remove("active");
+  document.body.style.overflow = "auto";
+  document.getElementById("submissionForm").reset();
+  document.getElementById("fileSelected").style.display = "none";
+  document.querySelector(".file-upload-info").style.display = "block";
+  currentAssignmentIndex = null;
+}
+
+// View submission (placeholder)
+window.viewSubmission = function(assignmentIndex) {
+  alert("View submission functionality - will show submission details and feedback");
+};
+
+// File upload handling
+document.addEventListener("DOMContentLoaded", () => {
+  const fileUpload = document.getElementById("fileUpload");
+  const fileSelected = document.getElementById("fileSelected");
+  const fileUploadInfo = document.querySelector(".file-upload-info");
+  const removeFileBtn = document.getElementById("removeFile");
+
+  fileUpload.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file size (10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        alert("File size must be less than 10MB");
+        fileUpload.value = "";
+        return;
+      }
+
+      // Validate file type
+      const allowedTypes = [".pdf", ".doc", ".docx"];
+      const fileExtension = "." + file.name.split(".").pop().toLowerCase();
+      if (!allowedTypes.includes(fileExtension)) {
+        alert("Only PDF, DOC, and DOCX files are allowed");
+        fileUpload.value = "";
+        return;
+      }
+
+      // Display file info
+      document.getElementById("fileName").textContent = file.name;
+      document.getElementById("fileSize").textContent = formatFileSize(file.size);
+      fileUploadInfo.style.display = "none";
+      fileSelected.style.display = "flex";
+    }
+  });
+
+  removeFileBtn.addEventListener("click", () => {
+    fileUpload.value = "";
+    fileSelected.style.display = "none";
+    fileUploadInfo.style.display = "block";
+  });
+
+  // Modal close handlers
+  document.getElementById("closeModal").addEventListener("click", closeSubmissionModal);
+  document.getElementById("cancelSubmit").addEventListener("click", closeSubmissionModal);
+
+  // Click outside modal to close
+  document.getElementById("submissionModal").addEventListener("click", (e) => {
+    if (e.target.id === "submissionModal") {
+      closeSubmissionModal();
+    }
+  });
+
+  // Form submission
+  document.getElementById("submissionForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const fileInput = document.getElementById("fileUpload");
+    const comments = document.getElementById("comments").value;
+    const declaration = document.getElementById("declaration").checked;
+
+    if (!fileInput.files[0]) {
+      alert("Please select a file to upload");
+      return;
+    }
+
+    if (!declaration) {
+      alert("Please confirm the declaration");
+      return;
+    }
+
+    // Disable submit button
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+    try {
+      // Here you would upload to Supabase Storage and save to database
+      // For now, we'll simulate the submission
+      await simulateSubmission(fileInput.files[0], comments);
+
+      // Update assignment status
+      const course = courseData[currentCourseCode];
+      course.assignments[currentAssignmentIndex].status = "Submitted";
+      course.assignments[currentAssignmentIndex].submittedDate = new Date().toISOString().split('T')[0];
+
+      // Show success message
+      alert("Assignment submitted successfully!");
+
+      // Close modal and refresh
+      closeSubmissionModal();
+      renderAssignments(course.assignments);
+      updateStats(course);
+
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("Failed to submit assignment. Please try again.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Assignment';
+    }
+  });
+});
+
+// Simulate submission (replace with actual Supabase upload later)
+async function simulateSubmission(file, comments) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("File:", file.name);
+      console.log("Comments:", comments);
+      console.log("Student:", studentInfo);
+      console.log("Course:", currentCourseCode);
+      console.log("Assignment Index:", currentAssignmentIndex);
+      resolve();
+    }, 1500);
+  });
+}
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + " B";
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+  return (bytes / (1024 * 1024)).toFixed(1) + " MB";
 }
 
 window.addEventListener("load", async () => {
