@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeSidebar();
   renderCalendar();
   loadRecentFiles();
-  renderTrendingCourses();
+  renderPendingAssignments();
 });
 
 function initializeSidebar() {
@@ -210,41 +210,83 @@ function formatFileSize(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
 }
 
-function renderTrendingCourses() {
-  const courses = [
+function renderPendingAssignments() {
+  // Sample data - will be replaced with database queries later
+  const pendingAssignments = [
     {
-      title: "Data Science Fundamentals",
-      instructor: "Dr. J. Smith",
-      students: 453,
+      title: "Programming Assignment 2",
+      course: "Introduction to Programming",
+      dueDate: "2025-11-20",
+      priority: "high",
     },
     {
-      title: "Mobile App Development",
-      instructor: "Prof. T. Johnson",
-      students: 328,
+      title: "Database Design Project",
+      course: "Database Management Systems",
+      dueDate: "2025-11-25",
+      priority: "medium",
+    },
+    {
+      title: "Programming Assignment 3",
+      course: "Introduction to Programming",
+      dueDate: "2025-12-05",
+      priority: "low",
     },
   ];
 
-  const coursesList = document.getElementById("coursesList");
-  if (coursesList) {
-    coursesList.innerHTML = "";
+  const assignmentsList = document.getElementById("pendingAssignmentsList");
+  if (!assignmentsList) return;
 
-    courses.forEach((course) => {
-      const card = document.createElement("div");
-      card.className = "course-card";
+  assignmentsList.innerHTML = "";
 
-      card.innerHTML = `
-<div class="course-card-header">
-  <div class="course-info">
-    <h4>${course.title}</h4>
-    <p>${course.instructor}</p>
-  </div>
-  <span class="course-badge">${course.students} students</span>
-</div>
-`;
-
-      coursesList.appendChild(card);
-    });
+  if (pendingAssignments.length === 0) {
+    assignmentsList.innerHTML = `
+      <div class="no-assignments">
+        <i class="fas fa-check-circle"></i>
+        <p>All caught up!</p>
+      </div>
+    `;
+    return;
   }
+
+  pendingAssignments.forEach((assignment) => {
+    const card = document.createElement("div");
+    card.className = "assignment-card-sidebar";
+
+    const dueDate = new Date(assignment.dueDate);
+    const today = new Date();
+    const daysUntilDue = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+    
+    let dueDateText = "";
+    let dueDateClass = "";
+    
+    if (daysUntilDue < 0) {
+      dueDateText = "Overdue";
+      dueDateClass = "overdue";
+    } else if (daysUntilDue === 0) {
+      dueDateText = "Due today";
+      dueDateClass = "due-today";
+    } else if (daysUntilDue === 1) {
+      dueDateText = "Due tomorrow";
+      dueDateClass = "due-soon";
+    } else if (daysUntilDue <= 3) {
+      dueDateText = `Due in ${daysUntilDue} days`;
+      dueDateClass = "due-soon";
+    } else {
+      dueDateText = dueDate.toLocaleDateString();
+      dueDateClass = "due-later";
+    }
+
+    card.innerHTML = `
+      <div class="assignment-header-sidebar">
+        <div class="assignment-priority ${assignment.priority}"></div>
+        <span class="due-date ${dueDateClass}">${dueDateText}</span>
+      </div>
+      <h4>${assignment.title}</h4>
+      <p class="assignment-course">${assignment.course}</p>
+    `;
+
+    assignmentsList.appendChild(card);
+  });
 }
 
 const showGreeting = async () => {

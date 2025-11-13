@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Details - GCC</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/logo.png">
+    <link rel="stylesheet" href="../css/dashboard-styles.css" />
+    <link rel="stylesheet" href="../css/course-details-styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo-container">
+        <div class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <img src="../assets/logo.png" alt="School Logo" class="school-logo" />
+        <p>Gauteng City College</p>
+      </div>
+    </header>
+
+    <div class="content-wrapper">
+      <div class="sidebar collapsed" id="sidebar">
+        <nav>
+          <div class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </div>
+          <div class="nav-item courses">
+            <i class="fas fa-book"></i>
+            <span>Courses</span>
+          </div>
+          <div class="nav-item schedule">
+            <i class="fas fa-calendar"></i>
+            <span>Schedule</span>
+          </div>
+          <div class="nav-item resources">
+            <i class="fas fa-file-alt"></i>
+            <span>Resources</span>
+          </div>
+          <div class="nav-item events">
+            <i class="fas fa-bell"></i>
+            <span>Events</span>
+          </div>
+          <div class="nav-item settings">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </div>
+          <div class="nav-item sign-out" id="sign-out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sign out</span>
+          </div>
+        </nav>
+      </div>
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+      <div class="main-content" id="mainContent">
+        <div class="breadcrumb">
+          <a href="../pages/courses.html"><i class="fas fa-arrow-left"></i> Back to Courses</a>
+        </div>
+
+        <div class="course-header">
+          <div class="course-header-content">
+            <h1 class="course-title" id="courseTitle">Loading...</h1>
+            <p class="course-code" id="courseCode">...</p>
+          </div>
+          <div class="course-header-stats">
+            <div class="stat-box">
+              <i class="fas fa-chart-line"></i>
+              <div>
+                <span class="stat-value" id="averageMark">--</span>
+                <span class="stat-label">Average Mark</span>
+              </div>
+            </div>
+            <div class="stat-box">
+              <i class="fas fa-tasks"></i>
+              <div>
+                <span class="stat-value" id="assignmentsCompleted">--</span>
+                <span class="stat-label">Assignments</span>
+              </div>
+            </div>
+            <div class="stat-box">
+              <i class="fas fa-file-alt"></i>
+              <div>
+                <span class="stat-value" id="testsCompleted">--</span>
+                <span class="stat-label">Tests</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="details-tabs">
+          <div class="detail-tab active" data-tab="assignments">
+            <i class="fas fa-tasks"></i> Assignments
+          </div>
+          <div class="detail-tab" data-tab="tests">
+            <i class="fas fa-file-alt"></i> Test Marks
+          </div>
+        </div>
+
+        <div class="tab-content active" id="assignmentsContent">
+          <div class="section-header">
+            <h2>Assignments</h2>
+            <p>Track your assignment submissions and grades</p>
+          </div>
+          
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Assignment</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Submitted</th>
+                  <th>Mark</th>
+                  <th>Total</th>
+                  <th>Percentage</th>
+                </tr>
+              </thead>
+              <tbody id="assignmentsTable">
+                <!-- Assignments will be inserted here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-content" id="testsContent">
+          <div class="section-header">
+            <h2>Test Marks</h2>
+            <p>View your test scores and performance</p>
+          </div>
+          
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Test</th>
+                  <th>Date</th>
+                  <th>Mark</th>
+                  <th>Total</th>
+                  <th>Percentage</th>
+                  <th>Grade</th>
+                </tr>
+              </thead>
+              <tbody id="testsTable">
+                <!-- Tests will be inserted here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../js/course-details-script.js"></script>
+  </body>
+</html>

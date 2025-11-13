@@ -3,10 +3,6 @@ import { showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
 
 const logOutBtn = document.getElementById("sign-out");
-const courseSearch = document.getElementById("courseSearch");
-const courseFilter = document.getElementById("courseFilter");
-const tabs = document.querySelectorAll(".tab");
-const coursesGrids = document.querySelectorAll(".courses-grid");
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeSidebar();
@@ -48,23 +44,6 @@ function initializeSidebar() {
 }
 
 function setupEventListeners() {
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      tabs.forEach((t) => t.classList.remove("active"));
-
-      tab.classList.add("active");
-
-      coursesGrids.forEach((grid) => grid.classList.add("hidden"));
-
-      const tabName = tab.getAttribute("data-tab");
-      document.getElementById(`${tabName}Courses`).classList.remove("hidden");
-    });
-  });
-
-  courseSearch.addEventListener("input", filterCourses);
-
-  courseFilter.addEventListener("change", filterCourses);
-
   document
     .querySelector(".nav-item:not(.active)")
     .addEventListener("click", function () {
@@ -96,107 +75,30 @@ function setupEventListeners() {
     });
 }
 
-function filterCourses() {
-  const searchTerm = courseSearch.value.toLowerCase();
-  const filterValue = courseFilter.value;
-
-  const courseCards = document.querySelectorAll(".course-card");
-
-  courseCards.forEach((card) => {
-    const title = card.querySelector(".course-title").textContent.toLowerCase();
-    const instructor = card
-      .querySelector(".course-instructor")
-      .textContent.toLowerCase();
-    const status = card.getAttribute("data-status");
-
-    const matchesSearch =
-      title.includes(searchTerm) || instructor.includes(searchTerm);
-
-    const matchesFilter = filterValue === "all" || status === filterValue;
-
-    if (matchesSearch && matchesFilter) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  });
-}
-
 function renderCourses() {
+  // Year 1 modules - will be dynamic based on student year later
   const enrolledCourses = [
     {
       id: 1,
-      title: "Advanced Frontend Development",
-      instructor: "Dr. Owami",
-      progress: 75,
-      status: "active",
-      image: "../assets/web-dev.jpg",
-      lessons: 24,
-      duration: "8 weeks",
+      code: "PROG101",
+      title: "Introduction to Programming",
+      instructor: "Your Instructor Name",
+      progress: 65,
+      image: "../assets/programming.jpg",
+      assignments: 3,
+      tests: 2,
+      averageMark: 75,
     },
     {
       id: 2,
-      title: "Database Systems",
-      instructor: "Prof. Michael Chang",
-      progress: 45,
-      status: "active",
+      code: "DBMS101",
+      title: "Introduction to Database Management Systems",
+      instructor: "Your Instructor Name",
+      progress: 58,
       image: "../assets/database.jpg",
-      lessons: 18,
-      duration: "6 weeks",
-    },
-    {
-      id: 3,
-      title: "Research Methodology",
-      instructor: "Dr. Emily Roberts",
-      progress: 30,
-      status: "active",
-      image: "../assets/research.jpg",
-      lessons: 12,
-      duration: "10 weeks",
-    },
-  ];
-
-  const recommendedCourses = [
-    {
-      id: 4,
-      title: "Mobile App Development",
-      instructor: "Prof. T. Johnson",
-      status: "upcoming",
-      image: "../assets/mobile.jpg",
-      lessons: 22,
-      duration: "8 weeks",
-    },
-    {
-      id: 5,
-      title: "Data Science Fundamentals",
-      instructor: "Dr. J. Smith",
-      status: "upcoming",
-      image: "../assets/data-science.jpg",
-      lessons: 28,
-      duration: "12 weeks",
-    },
-  ];
-
-  const completedCourses = [
-    {
-      id: 6,
-      title: "Introduction to Programming",
-      instructor: "Prof. Alan Turing",
-      progress: 100,
-      status: "completed",
-      image: "../assets/programming.jpg",
-      lessons: 16,
-      duration: "6 weeks",
-    },
-    {
-      id: 7,
-      title: "Web Design Fundamentals",
-      instructor: "Sarah Williams",
-      progress: 100,
-      status: "completed",
-      image: "../assets/web-design.jpg",
-      lessons: 14,
-      duration: "4 weeks",
+      assignments: 2,
+      tests: 1,
+      averageMark: 82,
     },
   ];
 
@@ -206,101 +108,53 @@ function renderCourses() {
   enrolledCourses.forEach((course) => {
     enrolledCoursesContainer.appendChild(createCourseCard(course));
   });
-
-  const recommendedCoursesContainer =
-    document.getElementById("recommendedCourses");
-  recommendedCoursesContainer.innerHTML = "";
-
-  recommendedCourses.forEach((course) => {
-    recommendedCoursesContainer.appendChild(createCourseCard(course));
-  });
-
-  const completedCoursesContainer = document.getElementById("completedCourses");
-  completedCoursesContainer.innerHTML = "";
-
-  completedCourses.forEach((course) => {
-    completedCoursesContainer.appendChild(createCourseCard(course));
-  });
 }
 
 function createCourseCard(course) {
   const card = document.createElement("div");
   card.className = "course-card";
-  card.setAttribute("data-status", course.status);
 
   const imagePath = course.image || "../assets/logo.png";
 
-  let statusClass = "";
-  let statusText = "";
-
-  switch (course.status) {
-    case "active":
-      statusClass = "status-active";
-      statusText = "Active";
-      break;
-    case "upcoming":
-      statusClass = "status-upcoming";
-      statusText = "Upcoming";
-      break;
-    case "completed":
-      statusClass = "status-completed";
-      statusText = "Completed";
-      break;
-  }
-
-  const progressHtml =
-    course.status !== "upcoming"
-      ? `
-    <div class="course-progress">
-      <div class="progress-info">
-        <span>Progress</span>
-        <span>${course.progress || 0}%</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-value" style="width: ${course.progress || 0}%"></div>
-      </div>
-    </div>
-  `
-      : "";
-
-  let actionButton = "";
-  if (course.status === "active") {
-    actionButton = `<div class="course-action">Continue</div>`;
-  } else if (course.status === "upcoming") {
-    actionButton = `<div class="course-action">Enroll</div>`;
-  } else if (course.status === "completed") {
-    actionButton = `<div class="course-action">Review</div>`;
-  }
-
   card.innerHTML = `
     <div class="course-image">
-      <img src="${imagePath}" alt="${course.title}" onerror="this.src='../assets/courses/default.jpg'">
-      <div class="course-status ${statusClass}">${statusText}</div>
+      <img src="${imagePath}" alt="${course.title}" onerror="this.src='../assets/logo.png'">
+      <div class="course-code">${course.code}</div>
     </div>
     <div class="course-content">
       <div class="course-title">${course.title}</div>
-      <div class="course-instructor">${course.instructor}</div>
-      ${progressHtml}
-      <div class="course-footer">
-        <div class="course-badge">
-          <i class="fas fa-book"></i>
-          <span>${course.lessons} lessons</span>
+      <div class="course-instructor"><i class="fas fa-user"></i> ${course.instructor}</div>
+      
+      <div class="course-progress">
+        <div class="progress-info">
+          <span>Course Progress</span>
+          <span>${course.progress || 0}%</span>
         </div>
-        <div class="course-badge">
-          <i class="fas fa-clock"></i>
-          <span>${course.duration}</span>
+        <div class="progress-bar">
+          <div class="progress-value" style="width: ${course.progress || 0}%"></div>
         </div>
       </div>
-      <div class="course-footer" style="margin-top: 12px;">
-        ${actionButton}
+
+      <div class="course-stats">
+        <div class="stat-item">
+          <i class="fas fa-tasks"></i>
+          <span>${course.assignments} Assignments</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-file-alt"></i>
+          <span>${course.tests} Tests</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-chart-line"></i>
+          <span>Avg: ${course.averageMark}%</span>
+        </div>
       </div>
+
+      <button class="course-action-btn" onclick="viewCourseDetails('${course.code}', '${course.title}')">
+        <i class="fas fa-eye"></i> View Details
+      </button>
     </div>
   `;
-
-  card.addEventListener("click", () => {
-    // window.location.href = `../pages/course-details.html?id=${course.id}`;
-    console.log(`Clicked on course: ${course.title}`);
-  });
 
   return card;
 }
@@ -308,19 +162,19 @@ function createCourseCard(course) {
 function renderDeadlines() {
   const deadlines = [
     {
-      title: "Web Development Final Project",
-      course: "Advanced Frontend Development",
-      date: "Mar 15, 2025",
+      title: "Programming Assignment 2",
+      course: "Introduction to Programming",
+      date: "Nov 20, 2025",
     },
     {
-      title: "Database Quiz",
-      course: "Database Systems",
-      date: "Mar 12, 2025",
+      title: "Database Design Project",
+      course: "Database Management Systems",
+      date: "Nov 25, 2025",
     },
     {
-      title: "Research Paper Submission",
-      course: "Research Methodology",
-      date: "Mar 22, 2025",
+      title: "Test 2 - Programming",
+      course: "Introduction to Programming",
+      date: "Dec 2, 2025",
     },
   ];
 
@@ -341,6 +195,11 @@ function renderDeadlines() {
 
     deadlinesList.appendChild(deadlineItem);
   });
+}
+
+// Function to navigate to course details
+window.viewCourseDetails = function(courseCode, courseTitle) {
+  window.location.href = `../pages/course-details.html?code=${courseCode}&title=${encodeURIComponent(courseTitle)}`;
 }
 
 logOutBtn.addEventListener("click", () => {
