@@ -6,6 +6,7 @@ const logOutBtn = document.getElementById("sign-out");
 
 // Sample data - will be replaced with database queries later
 const courseData = {
+  // Year 1 Courses
   "PROG101": {
     title: "Introduction to Programming",
     code: "PROG101",
@@ -78,6 +79,99 @@ const courseData = {
         name: "Test 1: Database Fundamentals",
         date: "2025-10-25",
         mark: 88,
+        total: 100,
+      },
+    ],
+  },
+  // Year 2 Courses
+  "PROG201": {
+    title: "Advanced Programming II",
+    code: "PROG201",
+    instructor: "Your Instructor Name",
+    assignments: [
+      {
+        name: "Assignment 1: Object-Oriented Programming",
+        dueDate: "2025-10-12",
+        status: "Submitted",
+        submittedDate: "2025-10-11",
+        mark: 72,
+        total: 100,
+      },
+      {
+        name: "Assignment 2: Data Structures",
+        dueDate: "2025-11-08",
+        status: "Submitted",
+        submittedDate: "2025-11-07",
+        mark: 65,
+        total: 100,
+      },
+      {
+        name: "Assignment 3: Algorithms",
+        dueDate: "2025-11-22",
+        status: "Pending",
+        submittedDate: null,
+        mark: null,
+        total: 100,
+      },
+      {
+        name: "Assignment 4: Final Project",
+        dueDate: "2025-12-10",
+        status: "Pending",
+        submittedDate: null,
+        mark: null,
+        total: 100,
+      },
+    ],
+    tests: [
+      {
+        name: "Test 1: OOP Concepts",
+        date: "2025-10-18",
+        mark: 68,
+        total: 100,
+      },
+      {
+        name: "Test 2: Advanced Topics",
+        date: "2025-12-01",
+        mark: null,
+        total: 100,
+      },
+    ],
+  },
+  "WEB201": {
+    title: "Web Development",
+    code: "WEB201",
+    instructor: "Your Instructor Name",
+    assignments: [
+      {
+        name: "Assignment 1: HTML & CSS",
+        dueDate: "2025-10-20",
+        status: "Submitted",
+        submittedDate: "2025-10-19",
+        mark: 82,
+        total: 100,
+      },
+      {
+        name: "Assignment 2: JavaScript Basics",
+        dueDate: "2025-11-15",
+        status: "Submitted",
+        submittedDate: "2025-11-14",
+        mark: 75,
+        total: 100,
+      },
+      {
+        name: "Assignment 3: Web Application",
+        dueDate: "2025-11-28",
+        status: "Pending",
+        submittedDate: null,
+        mark: null,
+        total: 100,
+      },
+    ],
+    tests: [
+      {
+        name: "Test 1: Frontend Fundamentals",
+        date: "2025-10-28",
+        mark: 78,
         total: 100,
       },
     ],

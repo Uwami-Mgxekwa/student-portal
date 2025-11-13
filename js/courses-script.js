@@ -1,4 +1,4 @@
-import { isLoggedIn } from "../lib/supabase-auth.js";
+import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
 import { showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
 
@@ -6,8 +6,7 @@ const logOutBtn = document.getElementById("sign-out");
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeSidebar();
-  renderCourses();
-  renderDeadlines();
+  loadStudentCourses();
   setupEventListeners();
 });
 
@@ -75,9 +74,9 @@ function setupEventListeners() {
     });
 }
 
-function renderCourses() {
-  // Year 1 modules - will be dynamic based on student year later
-  const enrolledCourses = [
+// Course data by year
+const coursesByYear = {
+  "1": [
     {
       id: 1,
       code: "PROG101",
@@ -100,14 +99,84 @@ function renderCourses() {
       tests: 1,
       averageMark: 82,
     },
-  ];
+  ],
+  "2": [
+    {
+      id: 3,
+      code: "PROG201",
+      title: "Advanced Programming II",
+      instructor: "Your Instructor Name",
+      progress: 45,
+      image: "../assets/programming.jpg",
+      assignments: 4,
+      tests: 2,
+      averageMark: 68,
+    },
+    {
+      id: 4,
+      code: "WEB201",
+      title: "Web Development",
+      instructor: "Your Instructor Name",
+      progress: 52,
+      image: "../assets/web-dev.jpg",
+      assignments: 3,
+      tests: 1,
+      averageMark: 73,
+    },
+  ],
+};
 
+async function loadStudentCourses() {
   const enrolledCoursesContainer = document.getElementById("enrolledCourses");
-  enrolledCoursesContainer.innerHTML = "";
-
-  enrolledCourses.forEach((course) => {
-    enrolledCoursesContainer.appendChild(createCourseCard(course));
-  });
+  
+  try {
+    // Get student info to determine year
+    const studentResult = await getStudentInfo();
+    
+    if (!studentResult.success || !studentResult.studentInfo) {
+      enrolledCoursesContainer.innerHTML = `
+        <div style="text-align: center; padding: 40px; color: var(--text);">
+          <i class="fas fa-exclamation-circle" style="font-size: 48px; opacity: 0.3; margin-bottom: 10px;"></i>
+          <p>Unable to load your courses. Please contact support.</p>
+        </div>
+      `;
+      return;
+    }
+    
+    const studentYear = studentResult.studentInfo.year;
+    console.log('Student Year:', studentYear);
+    
+    // Get courses for this year
+    const enrolledCourses = coursesByYear[studentYear] || [];
+    
+    if (enrolledCourses.length === 0) {
+      enrolledCoursesContainer.innerHTML = `
+        <div style="text-align: center; padding: 40px; color: var(--text);">
+          <i class="fas fa-book-open" style="font-size: 48px; opacity: 0.3; margin-bottom: 10px;"></i>
+          <p>No courses available for Year ${studentYear} yet.</p>
+        </div>
+      `;
+      return;
+    }
+    
+    // Render courses
+    enrolledCoursesContainer.innerHTML = "";
+    enrolledCourses.forEach((course) => {
+      enrolledCoursesContainer.appendChild(createCourseCard(course));
+    });
+    
+    // Update deadlines based on year
+    renderDeadlines(studentYear);
+    
+  } catch (error) {
+    console.error('Error loading courses:', error);
+    enrolledCoursesContainer.innerHTML = `
+      <div style="text-align: center; padding: 40px; color: var(--text);">
+        <i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #ef4444; margin-bottom: 10px;"></i>
+        <p>Error loading courses. Please try again.</p>
+      </div>
+    `;
+  }
 }
 
 function createCourseCard(course) {
@@ -159,29 +228,58 @@ function createCourseCard(course) {
   return card;
 }
 
-function renderDeadlines() {
-  const deadlines = [
-    {
-      title: "Programming Assignment 2",
-      course: "Introduction to Programming",
-      date: "Nov 20, 2025",
-    },
-    {
-      title: "Database Design Project",
-      course: "Database Management Systems",
-      date: "Nov 25, 2025",
-    },
-    {
-      title: "Test 2 - Programming",
-      course: "Introduction to Programming",
-      date: "Dec 2, 2025",
-    },
-  ];
+function renderDeadlines(studentYear) {
+  const deadlinesByYear = {
+    "1": [
+      {
+        title: "Programming Assignment 2",
+        course: "Introduction to Programming",
+        date: "Nov 20, 2025",
+      },
+      {
+        title: "Database Design Project",
+        course: "Database Management Systems",
+        date: "Nov 25, 2025",
+      },
+      {
+        title: "Test 2 - Programming",
+        course: "Introduction to Programming",
+        date: "Dec 2, 2025",
+      },
+    ],
+    "2": [
+      {
+        title: "Advanced Programming Project",
+        course: "Advanced Programming II",
+        date: "Nov 22, 2025",
+      },
+      {
+        title: "Web Development Assignment 3",
+        course: "Web Development",
+        date: "Nov 28, 2025",
+      },
+      {
+        title: "Test 2 - Web Development",
+        course: "Web Development",
+        date: "Dec 5, 2025",
+      },
+    ],
+  };
 
+  const deadlines = deadlinesByYear[studentYear] || [];
   const deadlinesList = document.getElementById("deadlinesList");
   if (!deadlinesList) return;
 
   deadlinesList.innerHTML = "";
+
+  if (deadlines.length === 0) {
+    deadlinesList.innerHTML = `
+      <div style="text-align: center; padding: 20px; color: var(--text); opacity: 0.6;">
+        <p>No upcoming deadlines</p>
+      </div>
+    `;
+    return;
+  }
 
   deadlines.forEach((deadline) => {
     const deadlineItem = document.createElement("div");
