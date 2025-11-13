@@ -8,6 +8,7 @@ const studentCourseHeading = document.getElementById("student-course");
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeSidebar();
+  renderUpcomingAssessments();
 });
 
 function initializeSidebar() {
@@ -213,6 +214,71 @@ if (printBtn) {
   printBtn.addEventListener("click", () => {
     window.print();
   });
+}
+
+function renderUpcomingAssessments() {
+  // Tests & Exams
+  const testsExams = [
+    {
+      name: "SETA Final Exams",
+      date: "December 1-12, 2025",
+      type: "exam"
+    }
+  ];
+
+  // Important Dates
+  const importantDates = [
+    {
+      name: "Final Exams Begin",
+      date: "December 1, 2025",
+      icon: "fa-calendar-day"
+    },
+    {
+      name: "Final Exams End",
+      date: "December 12, 2025",
+      icon: "fa-calendar-check"
+    }
+  ];
+
+  // Render Tests & Exams
+  const testsExamsContent = document.getElementById("testsExamsContent");
+  if (testsExamsContent) {
+    if (testsExams.length === 0) {
+      testsExamsContent.innerHTML = '<p class="no-items">No upcoming tests or exams</p>';
+    } else {
+      testsExamsContent.innerHTML = `
+        <ul class="upcoming-list">
+          ${testsExams.map(item => `
+            <li>
+              <span class="item-name">${item.name}</span>
+              <span class="upcoming-date">${item.date}</span>
+            </li>
+          `).join('')}
+        </ul>
+      `;
+    }
+  }
+
+  // Render Important Dates
+  const importantDatesContent = document.getElementById("importantDatesContent");
+  if (importantDatesContent) {
+    if (importantDates.length === 0) {
+      importantDatesContent.innerHTML = '<p class="no-items">No important dates</p>';
+    } else {
+      importantDatesContent.innerHTML = `
+        <ul class="upcoming-list">
+          ${importantDates.map(item => `
+            <li>
+              <span class="item-name">
+                <i class="fas ${item.icon}"></i> ${item.name}
+              </span>
+              <span class="upcoming-date">${item.date}</span>
+            </li>
+          `).join('')}
+        </ul>
+      `;
+    }
+  }
 }
 
 setInterval(() => {
