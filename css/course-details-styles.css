@@ -390,13 +390,23 @@
     position: sticky;
     left: 0;
     background: var(--card-background);
-    z-index: 1;
+    z-index: 2;
     min-width: 120px;
     white-space: normal;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   }
 
   .data-table thead th:first-child {
     background: var(--background);
+    z-index: 3;
+  }
+
+  /* Hide less important columns on mobile */
+  .data-table th:nth-child(4),
+  .data-table td:nth-child(4),
+  .data-table th:nth-child(6),
+  .data-table td:nth-child(6) {
+    display: none;
   }
 
   .status-badge {
@@ -453,6 +463,16 @@
   .data-table th:first-child,
   .data-table td:first-child {
     min-width: 100px;
+  }
+
+  /* On very small screens, hide even more columns */
+  .data-table th:nth-child(2),
+  .data-table td:nth-child(2) {
+    display: none;
+  }
+
+  .course-header .course-title {
+    font-size: 15px;
   }
 }
 
