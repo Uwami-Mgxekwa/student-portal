@@ -104,7 +104,7 @@ async function loadStudentProfile() {
   try {
     const result = await getStudentInfo();
     if (!result.success || !result.studentInfo) {
-      showAlert('Failed to load profile', 'error');
+      showAlert('Error', 'Failed to load profile', 'error');
       return;
     }
 
@@ -126,7 +126,7 @@ async function loadStudentProfile() {
     
   } catch (error) {
     console.error('Error loading profile:', error);
-    showAlert('Failed to load profile', 'error');
+    showAlert('Error', 'Failed to load profile', 'error');
   }
 }
 
@@ -217,18 +217,18 @@ async function handleProfilePictureUpload(e) {
   
   // Validate file type
   if (!file.type.startsWith('image/')) {
-    showAlert('Please select an image file', 'error');
+    showAlert('Invalid File', 'Please select an image file', 'error');
     return;
   }
   
   // Validate file size (2MB)
   if (file.size > 2 * 1024 * 1024) {
-    showAlert('Image size must be less than 2MB', 'error');
+    showAlert('File Too Large', 'Image size must be less than 2MB', 'error');
     return;
   }
   
   try {
-    showAlert('Uploading image...', 'info');
+    showAlert('Uploading', 'Uploading image...', 'info');
     
     // Compress image
     const compressedBlob = await compressImage(file);
@@ -267,11 +267,11 @@ async function handleProfilePictureUpload(e) {
     document.getElementById('profilePicture').src = publicUrl;
     currentStudent.profile_image = publicUrl;
     
-    showAlert('Profile picture updated successfully!', 'success');
+    showAlert('Success', 'Profile picture updated successfully!', 'success');
     
   } catch (error) {
     console.error('Error uploading image:', error);
-    showAlert('Failed to upload image: ' + error.message, 'error');
+    showAlert('Upload Failed', 'Failed to upload image: ' + error.message, 'error');
   }
 }
 
@@ -293,11 +293,11 @@ async function removeProfilePicture() {
     document.getElementById('profilePicture').src = '../assets/fallback-icon.png';
     currentStudent.profile_image = null;
     
-    showAlert('Profile picture removed', 'success');
+    showAlert('Success', 'Profile picture removed', 'success');
     
   } catch (error) {
     console.error('Error removing image:', error);
-    showAlert('Failed to remove image: ' + error.message, 'error');
+    showAlert('Error', 'Failed to remove image: ' + error.message, 'error');
   }
 }
 
@@ -327,11 +327,11 @@ async function handleProfileUpdate(e) {
     currentStudent.email = email;
     currentStudent.phone = phone;
     
-    showAlert('Profile updated successfully!', 'success');
+    showAlert('Success', 'Profile updated successfully!', 'success');
     
   } catch (error) {
     console.error('Error updating profile:', error);
-    showAlert('Failed to update profile: ' + error.message, 'error');
+    showAlert('Update Failed', 'Failed to update profile: ' + error.message, 'error');
   }
 }
 
@@ -344,13 +344,13 @@ async function handlePasswordChange(e) {
   
   // Validate passwords match
   if (newPassword !== confirmPassword) {
-    showAlert('New passwords do not match', 'error');
+    showAlert('Password Mismatch', 'New passwords do not match', 'error');
     return;
   }
   
   // Validate password length
   if (newPassword.length < 6) {
-    showAlert('Password must be at least 6 characters', 'error');
+    showAlert('Invalid Password', 'Password must be at least 6 characters', 'error');
     return;
   }
   
@@ -362,7 +362,7 @@ async function handlePasswordChange(e) {
     });
     
     if (signInError) {
-      showAlert('Current password is incorrect', 'error');
+      showAlert('Authentication Failed', 'Current password is incorrect', 'error');
       return;
     }
     
@@ -376,11 +376,11 @@ async function handlePasswordChange(e) {
     // Clear form
     document.getElementById('passwordForm').reset();
     
-    showAlert('Password changed successfully!', 'success');
+    showAlert('Success', 'Password changed successfully!', 'success');
     
   } catch (error) {
     console.error('Error changing password:', error);
-    showAlert('Failed to change password: ' + error.message, 'error');
+    showAlert('Password Change Failed', 'Failed to change password: ' + error.message, 'error');
   }
 }
 
