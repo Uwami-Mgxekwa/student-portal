@@ -191,6 +191,11 @@ const coursesByYear = {
 async function loadStudentCourses() {
   const enrolledCoursesContainer = document.getElementById("enrolledCourses");
   
+  // Show skeleton loaders while loading
+  const { createSkeletonLoader } = await import("../lib/loading.js");
+  enrolledCoursesContainer.innerHTML = "";
+  enrolledCoursesContainer.appendChild(createSkeletonLoader("card", 2));
+  
   try {
     // Get student info to determine year
     const studentResult = await getStudentInfo();
@@ -221,10 +226,18 @@ async function loadStudentCourses() {
       return;
     }
     
-    // Render courses
+    // Render courses with fade-in animation
     enrolledCoursesContainer.innerHTML = "";
-    enrolledCourses.forEach((course) => {
-      enrolledCoursesContainer.appendChild(createCourseCard(course));
+    enrolledCourses.forEach((course, index) => {
+      const card = createCourseCard(course);
+      card.style.opacity = "0";
+      enrolledCoursesContainer.appendChild(card);
+      
+      // Stagger animation
+      setTimeout(() => {
+        card.classList.add("fade-in");
+        card.style.opacity = "1";
+      }, index * 100);
     });
     
     // Update deadlines based on year

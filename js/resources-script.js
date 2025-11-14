@@ -24,25 +24,104 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchButton = document.getElementById("search-btn");
 
   function performSearch() {
-    const searchTerm = searchInput.value.toLowerCase();
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    
+    // If search is empty, show all cards
+    if (!searchTerm) {
+      const resourceCards = document.querySelectorAll(".resource-card");
+      resourceCards.forEach((card) => {
+        card.style.display = "flex";
+      });
+      removeNoResultsMessage();
+      return;
+    }
+
+    // Search across ALL tabs
     const resourceCards = document.querySelectorAll(".resource-card");
+    let visibleCount = 0;
 
     resourceCards.forEach((card) => {
       const title = card.querySelector("h4").textContent.toLowerCase();
       const description = card.querySelector("p").textContent.toLowerCase();
+      const meta = card.querySelector(".resource-meta")?.textContent.toLowerCase() || "";
 
-      if (title.includes(searchTerm) || description.includes(searchTerm)) {
+      if (title.includes(searchTerm) || description.includes(searchTerm) || meta.includes(searchTerm)) {
         card.style.display = "flex";
+        card.classList.add("search-result");
+        visibleCount++;
       } else {
         card.style.display = "none";
+        card.classList.remove("search-result");
+      }
+    });
+
+    // Show "no results" message if nothing found
+    if (visibleCount === 0) {
+      showNoResultsMessage(searchTerm);
+    } else {
+      removeNoResultsMessage();
+    }
+
+    // Highlight search term
+    highlightSearchTerm(searchTerm);
+  }
+
+  function showNoResultsMessage(searchTerm) {
+    removeNoResultsMessage();
+    
+    const activePanel = document.querySelector(".tab-panel.active");
+    const noResultsDiv = document.createElement("div");
+    noResultsDiv.className = "no-results-message";
+    noResultsDiv.innerHTML = `
+      <i class="fas fa-search"></i>
+      <h3>No results found</h3>
+      <p>No resources match "${searchTerm}"</p>
+      <button class="btn" onclick="document.getElementById('resource-search').value = ''; document.querySelector('#search-btn').click();">Clear Search</button>
+    `;
+    
+    activePanel.insertBefore(noResultsDiv, activePanel.firstChild);
+  }
+
+  function removeNoResultsMessage() {
+    const noResultsMsg = document.querySelector(".no-results-message");
+    if (noResultsMsg) {
+      noResultsMsg.remove();
+    }
+  }
+
+  function highlightSearchTerm(term) {
+    // Remove previous highlights
+    document.querySelectorAll(".search-highlight").forEach(el => {
+      el.classList.remove("search-highlight");
+    });
+
+    if (!term) return;
+
+    // Add highlight to matching cards
+    document.querySelectorAll(".resource-card.search-result h4").forEach(title => {
+      if (title.textContent.toLowerCase().includes(term)) {
+        title.classList.add("search-highlight");
       }
     });
   }
 
+  function clearSearch() {
+    searchInput.value = "";
+    performSearch();
+  }
+
   searchButton.addEventListener("click", performSearch);
+  
   searchInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
       performSearch();
+    }
+  });
+
+  // Real-time search as user types
+  searchInput.addEventListener("input", () => {
+    if (searchInput.value.length === 0) {
+      clearSearch();
     }
   });
 

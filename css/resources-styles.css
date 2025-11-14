@@ -637,3 +637,68 @@
 .timeline-content .resource-btn-small i {
   font-size: 0.9rem;
 }
+
+/* Search Enhancements */
+.search-result {
+  animation: highlightCard 0.3s ease;
+}
+
+@keyframes highlightCard {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(247, 164, 29, 0.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.search-highlight {
+  background: linear-gradient(120deg, rgba(247, 164, 29, 0.2) 0%, rgba(247, 164, 29, 0.1) 100%);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.no-results-message {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text);
+}
+
+.no-results-message i {
+  font-size: 48px;
+  opacity: 0.3;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+
+.no-results-message h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.no-results-message p {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.no-results-message .btn {
+  margin-top: 16px;
+}
+
+/* Search input focus state */
+#resource-search:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(247, 164, 29, 0.1);
+}
+
+/* Search button loading state */
+#search-btn:active {
+  transform: scale(0.95);
+}
