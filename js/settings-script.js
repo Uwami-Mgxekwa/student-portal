@@ -1,4 +1,5 @@
-import { isLoggedIn, getStudentInfo, supabase } from "../lib/supabase-auth.js";
+import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
+import { supabase } from "../config/supabase.js";
 import { showSignOutModal } from "../lib/pop-up.js";
 import { saveTheme, setTheme } from "../lib/theme.js";
 import { showAlert } from "../lib/pop-up.js";
