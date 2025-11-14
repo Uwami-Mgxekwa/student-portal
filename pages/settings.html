@@ -67,20 +67,175 @@
 
       <div class="main-content" id="mainContent">
         <h1 class="page-name">Settings</h1>
-        <div class="settings-wrapper">
-          <strong>Themes</strong>
-          <p>Switch themes to your preference</p>
 
-          <div class="theme-wrapper">
-            <div class="theme-label">
-              <strong>Enable Dark Mode</strong>
-              <p>Switches to dark theme</p>
+        <!-- Profile Section -->
+        <div class="settings-section">
+          <div class="section-header">
+            <h2><i class="fas fa-user-circle"></i> Profile Information</h2>
+            <p>Manage your personal information and profile picture</p>
+          </div>
+
+          <div class="profile-card">
+            <div class="profile-picture-section">
+              <div class="profile-picture-wrapper">
+                <img src="../assets/fallback-icon.png" alt="Profile" id="profilePicture" class="profile-picture">
+                <div class="profile-picture-overlay">
+                  <i class="fas fa-camera"></i>
+                  <span>Change Photo</span>
+                </div>
+                <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+              </div>
+              <div class="profile-picture-info">
+                <p><strong>Profile Picture</strong></p>
+                <p class="info-text">Click to upload a new photo (Max 2MB, JPG/PNG)</p>
+                <button class="btn-secondary btn-sm" id="removeProfilePicture">
+                  <i class="fas fa-trash"></i> Remove Photo
+                </button>
+              </div>
             </div>
-            <div class="cl-toggle-switch">
-              <label class="cl-switch">
-                <input type="checkbox" id="dark-theme-toggle" />
-                <span></span>
-              </label>
+
+            <form id="profileForm" class="profile-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" id="firstName" placeholder="Enter first name" required>
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" id="lastName" placeholder="Enter last name" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="studentId">Student ID</label>
+                  <input type="text" id="studentId" placeholder="Student ID" disabled>
+                  <small>Contact admin to change</small>
+                </div>
+                <div class="form-group">
+                  <label for="course">Course</label>
+                  <input type="text" id="course" placeholder="Course" disabled>
+                  <small>Contact admin to change</small>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input type="email" id="email" placeholder="your.email@example.com" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number (Optional)</label>
+                  <input type="tel" id="phone" placeholder="+27 XX XXX XXXX">
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                  <i class="fas fa-save"></i> Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Security Section -->
+        <div class="settings-section">
+          <div class="section-header">
+            <h2><i class="fas fa-lock"></i> Security</h2>
+            <p>Update your password and security settings</p>
+          </div>
+
+          <div class="settings-card">
+            <form id="passwordForm" class="password-form">
+              <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <div class="password-input-wrapper">
+                  <input type="password" id="currentPassword" placeholder="Enter current password" required>
+                  <button type="button" class="toggle-password" data-target="currentPassword">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <div class="password-input-wrapper">
+                  <input type="password" id="newPassword" placeholder="Enter new password" required minlength="6">
+                  <button type="button" class="toggle-password" data-target="newPassword">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+                <small>Minimum 6 characters</small>
+              </div>
+
+              <div class="form-group">
+                <label for="confirmPassword">Confirm New Password</label>
+                <div class="password-input-wrapper">
+                  <input type="password" id="confirmPassword" placeholder="Confirm new password" required minlength="6">
+                  <button type="button" class="toggle-password" data-target="confirmPassword">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                  <i class="fas fa-key"></i> Change Password
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Appearance Section -->
+        <div class="settings-section">
+          <div class="section-header">
+            <h2><i class="fas fa-palette"></i> Appearance</h2>
+            <p>Customize how the portal looks</p>
+          </div>
+
+          <div class="settings-card">
+            <div class="theme-wrapper">
+              <div class="theme-label">
+                <strong>Enable Dark Mode</strong>
+                <p>Switch to dark theme for better viewing at night</p>
+              </div>
+              <div class="cl-toggle-switch">
+                <label class="cl-switch">
+                  <input type="checkbox" id="dark-theme-toggle" />
+                  <span></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="settings-section">
+          <div class="section-header">
+            <h2><i class="fas fa-question-circle"></i> Help & Support</h2>
+            <p>Need assistance? We're here to help</p>
+          </div>
+
+          <div class="settings-card">
+            <div class="help-options">
+              <div class="help-option">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <strong>Contact Admin</strong>
+                  <p>Get help with account or academic issues</p>
+                  <a href="mailto:admin@gcc.edu" class="help-link">admin@gcc.edu</a>
+                </div>
+              </div>
+              <div class="help-option">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <strong>Support Hotline</strong>
+                  <p>Call us for immediate assistance</p>
+                  <a href="tel:+27123456789" class="help-link">+27 12 345 6789</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
