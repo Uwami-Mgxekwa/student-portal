@@ -80,6 +80,62 @@ function setupEventListeners() {
     });
 }
 
+// Calculate course progress based on academic year timeline
+// Academic year: March - December (exams Dec 1-12)
+function calculateCourseProgress() {
+  const now = new Date();
+  const currentMonth = now.getMonth(); // 0-11 (0=Jan, 11=Dec)
+  const currentDay = now.getDate();
+  
+  // Academic year starts in March (month 2) and ends in December (month 11)
+  // Exams are Dec 1-12
+  
+  let progress = 0;
+  
+  if (currentMonth < 2) {
+    // January-February: Between academic years (break)
+    progress = 0;
+  } else if (currentMonth === 2) {
+    // March: Start of year (0-10%)
+    progress = Math.floor((currentDay / 31) * 10);
+  } else if (currentMonth === 3) {
+    // April: (10-20%)
+    progress = 10 + Math.floor((currentDay / 30) * 10);
+  } else if (currentMonth === 4) {
+    // May: (20-30%)
+    progress = 20 + Math.floor((currentDay / 31) * 10);
+  } else if (currentMonth === 5) {
+    // June: (30-40%)
+    progress = 30 + Math.floor((currentDay / 30) * 10);
+  } else if (currentMonth === 6) {
+    // July: (40-50%)
+    progress = 40 + Math.floor((currentDay / 31) * 10);
+  } else if (currentMonth === 7) {
+    // August: (50-60%)
+    progress = 50 + Math.floor((currentDay / 31) * 10);
+  } else if (currentMonth === 8) {
+    // September: (60-70%)
+    progress = 60 + Math.floor((currentDay / 30) * 10);
+  } else if (currentMonth === 9) {
+    // October: (70-80%)
+    progress = 70 + Math.floor((currentDay / 31) * 10);
+  } else if (currentMonth === 10) {
+    // November: (80-90%)
+    progress = 80 + Math.floor((currentDay / 30) * 10);
+  } else if (currentMonth === 11) {
+    // December: Final exams (90-100%)
+    if (currentDay <= 12) {
+      // During exams (Dec 1-12)
+      progress = 90 + Math.floor((currentDay / 12) * 10);
+    } else {
+      // After exams - year complete
+      progress = 100;
+    }
+  }
+  
+  return Math.min(progress, 100);
+}
+
 // Course data by year
 const coursesByYear = {
   "1": [
@@ -88,7 +144,7 @@ const coursesByYear = {
       code: "PROG101",
       title: "Introduction to Programming",
       instructor: "Mr Owami",
-      progress: 65,
+      progress: calculateCourseProgress(),
       image: "../assets/programming.jpg",
       assignments: 3,
       tests: 2,
@@ -99,7 +155,7 @@ const coursesByYear = {
       code: "DBMS101",
       title: "Introduction to Database Management Systems",
       instructor: "Mr Owami",
-      progress: 58,
+      progress: calculateCourseProgress(),
       image: "../assets/database.jpg",
       assignments: 2,
       tests: 1,
@@ -112,7 +168,7 @@ const coursesByYear = {
       code: "PROG201",
       title: "Advanced Programming II",
       instructor: "Mr Owami",
-      progress: 45,
+      progress: calculateCourseProgress(),
       image: "../assets/programming.jpg",
       assignments: 4,
       tests: 2,
@@ -123,7 +179,7 @@ const coursesByYear = {
       code: "WEB201",
       title: "Web Development",
       instructor: "Mr Owami",
-      progress: 52,
+      progress: calculateCourseProgress(),
       image: "../assets/web-dev.jpg",
       assignments: 3,
       tests: 1,
