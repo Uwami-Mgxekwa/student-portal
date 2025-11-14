@@ -514,7 +514,6 @@
   .finance-table td:first-child {
     min-width: 70px;
   }
-}
 
   .detail-row {
     flex-direction: column;
