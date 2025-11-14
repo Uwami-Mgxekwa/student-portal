@@ -2,6 +2,7 @@ import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
 import { setTheme } from "../lib/theme.js";
 import { showSignOutModal } from "../lib/pop-up.js";
 import { supabase } from "../config/supabase.js";
+import { loadNotificationCount } from "../lib/notifications.js";
 
 const logOutBtn = document.getElementById("sign-out");
 const greeting = document.getElementById("greeting");
@@ -355,6 +356,7 @@ window.addEventListener("load", async () => {
   const loggedIn = await isLoggedIn();
   if (loggedIn) {
     showGreeting();
+    loadNotificationCount(); // Load notification badge count
   } else {
     location.href = "../index.html";
   }

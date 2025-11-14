@@ -1,6 +1,7 @@
 import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
 import { setTheme } from "../lib/theme.js";
 import { showSignOutModal } from "../lib/pop-up.js";
+import { supabase } from "../config/supabase.js";
 
 const logOutBtn = document.getElementById("sign-out");
 const greeting = document.getElementById("greeting");
@@ -44,81 +45,60 @@ function initializeSidebar() {
   }
 }
 
-function renderEvents() {
-  const events = [
-    {
-      title: "Freshers",
-      date: { month: "Feb", day: "10" },
-      time: "9:00 AM - 5:00 PM",
-      location: "Main Campus",
-      description:
-        "Welcome event for new students to meet peers, explore campus, and learn about college life.",
-      type: "social",
-      attendees: 250,
-    },
-    {
-      title: "MR and MRS GCC",
-      date: { month: "Mar", day: "15" },
-      time: "6:00 PM - 10:00 PM",
-      location: "College Auditorium",
-      description:
-        "Annual pageant competition celebrating talent, personality, and school spirit.",
-      type: "social",
-      attendees: 180,
-    },
-    {
-      title: "Sports Day",
-      date: { month: "Apr", day: "22" },
-      time: "8:00 AM - 4:00 PM",
-      location: "Sports Complex",
-      description:
-        "Inter-campus sports competition featuring various athletic events and team games.",
-      type: "social",
-      attendees: 320,
-    },
-    {
-      title: "Exam Workshops",
-      date: { month: "May", day: "05" },
-      time: "10:00 AM - 3:00 PM",
-      location: "Lecture Hall A",
-      description:
-        "Comprehensive exam preparation workshops covering study techniques and time management.",
-      type: "academic",
-      attendees: 150,
-    },
-    {
-      title: "Student Exam Workshops",
-      date: { month: "May", day: "12" },
-      time: "2:00 PM - 5:00 PM",
-      location: "Computer Lab 2",
-      description:
-        "Student-led peer tutoring sessions and exam revision workshops.",
-      type: "workshop",
-      attendees: 85,
-    },
-    {
-      title: "Heritage Day",
-      date: { month: "Sep", day: "24" },
-      time: "10:00 AM - 6:00 PM",
-      location: "Campus Grounds",
-      description:
-        "Celebrate South African culture with traditional food, music, dance, and cultural exhibitions.",
-      type: "social",
-      attendees: 400,
-    },
-    {
-      title: "GBV Awareness Day",
-      date: { month: "Nov", day: "25" },
-      time: "9:00 AM - 2:00 PM",
-      location: "Conference Hall",
-      description:
-        "Educational event raising awareness about gender-based violence with guest speakers and support resources.",
-      type: "academic",
-      attendees: 200,
-    },
-  ];
+async function renderEvents() {
+  const eventsList = document.getElementById("eventsList");
+  eventsList.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text);"><i class="fas fa-spinner fa-spin" style="font-size: 32px;"></i><p>Loading events...</p></div>';
 
-  renderEventsList(events);
+  try {
+    const { data: events, error } = await supabase
+      .from('events')
+      .select('*')
+      .order('event_date', { ascending: true });
+
+    if (error) throw error;
+
+    if (!events || events.length === 0) {
+      eventsList.innerHTML = `
+        <div style="text-align: center; padding: 60px 20px; color: var(--text);">
+          <i class="fas fa-calendar-times" style="font-size: 60px; opacity: 0.3; margin-bottom: 20px;"></i>
+          <h3>No Events Available</h3>
+          <p>Check back later for upcoming events and activities.</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Transform database events to match the expected format
+    const formattedEvents = events.map(event => {
+      const eventDate = new Date(event.event_date);
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      
+      return {
+        title: event.title,
+        date: {
+          month: months[eventDate.getMonth()],
+          day: eventDate.getDate().toString()
+        },
+        time: event.event_time || 'TBA',
+        location: event.location || 'TBA',
+        description: event.description || 'No description available',
+        type: event.event_type || 'general',
+        attendees: event.expected_attendees || 0
+      };
+    });
+
+    renderEventsList(formattedEvents);
+
+  } catch (error) {
+    console.error('Error loading events:', error);
+    eventsList.innerHTML = `
+      <div style="text-align: center; padding: 60px 20px; color: var(--text);">
+        <i class="fas fa-exclamation-triangle" style="font-size: 60px; color: #ef4444; margin-bottom: 20px;"></i>
+        <h3>Error Loading Events</h3>
+        <p>Unable to load events. Please try again later.</p>
+      </div>
+    `;
+  }
 }
 
 function renderEventsList(events) {

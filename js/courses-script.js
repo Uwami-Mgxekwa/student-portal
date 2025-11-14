@@ -1,6 +1,7 @@
 import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
 import { showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
+import { supabase } from "../config/supabase.js";
 
 const logOutBtn = document.getElementById("sign-out");
 
@@ -136,57 +137,47 @@ function calculateCourseProgress() {
   return Math.min(progress, 100);
 }
 
-// Course data by year
-const coursesByYear = {
-  "1": [
-    {
-      id: 1,
-      code: "PROG101",
-      title: "Introduction to Programming",
-      instructor: "Mr Owami",
+// Fetch courses from database
+async function fetchCoursesFromDatabase(studentYear) {
+  try {
+    const { data: courses, error } = await supabase
+      .from('courses')
+      .select('*')
+      .order('course_name');
+
+    if (error) throw error;
+
+    if (!courses || courses.length === 0) {
+      return [];
+    }
+
+    // Filter courses that are available for this year
+    const availableCourses = courses.filter(course => {
+      const years = (course.available_years || '1,2,3').split(',');
+      return years.includes(studentYear.toString());
+    });
+
+    // Transform database courses to match the expected format
+    return availableCourses.map((course, index) => ({
+      id: course.id,
+      code: course.course_code || 'N/A',
+      title: course.course_name,
+      instructor: 'TBA', // Can be added to database later
       progress: calculateCourseProgress(),
-      image: "../assets/programming.jpg",
-      assignments: 3,
-      tests: 2,
-      averageMark: 75,
-    },
-    {
-      id: 2,
-      code: "DBMS101",
-      title: "Introduction to Database Management Systems",
-      instructor: "Mr Owami",
-      progress: calculateCourseProgress(),
-      image: "../assets/database.jpg",
-      assignments: 2,
-      tests: 1,
-      averageMark: 82,
-    },
-  ],
-  "2": [
-    {
-      id: 3,
-      code: "PROG201",
-      title: "Advanced Programming II",
-      instructor: "Mr Owami",
-      progress: calculateCourseProgress(),
-      image: "../assets/programming.jpg",
-      assignments: 4,
-      tests: 2,
-      averageMark: 68,
-    },
-    {
-      id: 4,
-      code: "WEB201",
-      title: "Web Development",
-      instructor: "Mr Owami",
-      progress: calculateCourseProgress(),
-      image: "../assets/web-dev.jpg",
-      assignments: 3,
-      tests: 1,
-      averageMark: 73,
-    },
-  ],
-};
+      image: '../assets/programming.jpg', // Default image
+      assignments: Math.floor(Math.random() * 5) + 1, // Placeholder
+      tests: Math.floor(Math.random() * 3) + 1, // Placeholder
+      averageMark: Math.floor(Math.random() * 30) + 60, // Placeholder
+      description: course.description,
+      certificate: course.certificate_type,
+      duration: course.duration
+    }));
+
+  } catch (error) {
+    console.error('Error fetching courses:', error);
+    return [];
+  }
+}
 
 async function loadStudentCourses() {
   const enrolledCoursesContainer = document.getElementById("enrolledCourses");
@@ -213,8 +204,8 @@ async function loadStudentCourses() {
     const studentYear = studentResult.studentInfo.year;
     console.log('Student Year:', studentYear);
     
-    // Get courses for this year
-    const enrolledCourses = coursesByYear[studentYear] || [];
+    // Get courses for this year from database
+    const enrolledCourses = await fetchCoursesFromDatabase(studentYear);
     
     if (enrolledCourses.length === 0) {
       enrolledCoursesContainer.innerHTML = `

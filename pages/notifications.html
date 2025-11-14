@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notifications - GCC</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/logo.png">
+    <link rel="stylesheet" href="../css/dashboard-styles.css" />
+    <link rel="stylesheet" href="../css/notifications-styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo-container">
+        <div class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <img src="../assets/logo.png" alt="School Logo" class="school-logo" />
+        <p>Gauteng City College</p>
+      </div>
+      <div class="header-actions">
+        <div class="notification-icon active">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge" id="notificationBadge">0</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-wrapper">
+      <div class="sidebar collapsed" id="sidebar">
+        <nav>
+          <div class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </div>
+          <div class="nav-item courses">
+            <i class="fas fa-book"></i>
+            <span>Courses</span>
+          </div>
+          <div class="nav-item schedule">
+            <i class="fas fa-calendar"></i>
+            <span>Schedule</span>
+          </div>
+          <div class="nav-item resources">
+            <i class="fas fa-file-alt"></i>
+            <span>Resources</span>
+          </div>
+          <div class="nav-item finances">
+            <i class="fas fa-wallet"></i>
+            <span>Finances</span>
+          </div>
+          <div class="nav-item events">
+            <i class="fas fa-bell"></i>
+            <span>Events</span>
+          </div>
+          <div class="nav-item settings">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </div>
+          <div class="nav-item sign-out" id="sign-out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sign out</span>
+          </div>
+        </nav>
+      </div>
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+      <div class="main-content" id="mainContent">
+        <h1 class="page-name">Notifications</h1>
+        
+        <div class="notifications-header">
+          <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All</button>
+            <button class="filter-tab" data-filter="unread">Unread</button>
+            <button class="filter-tab" data-filter="urgent">Urgent</button>
+            <button class="filter-tab" data-filter="academic">Academic</button>
+            <button class="filter-tab" data-filter="financial">Financial</button>
+          </div>
+          <button class="btn-secondary" id="markAllReadBtn">
+            <i class="fas fa-check-double"></i> Mark All as Read
+          </button>
+        </div>
+
+        <div class="notifications-list" id="notificationsList">
+          <div class="loading">Loading notifications...</div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../js/notifications-script.js"></script>
+  </body>
+</html>

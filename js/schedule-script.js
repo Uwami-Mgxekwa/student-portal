@@ -105,6 +105,14 @@ const updateDateAndTime = () => {
 };
 
 const loadScheduleData = async () => {
+  // Show loading in table container
+  tableContainer.innerHTML = `
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; color: var(--text); width: 100%; min-height: 400px;">
+      <div class="loader"></div>
+      <p style="margin-top: 20px;">Loading schedule...</p>
+    </div>
+  `;
+
   try {
     const studentResult = await getStudentInfo();
     if (!studentResult.success || !studentResult.studentInfo) {
@@ -121,9 +129,10 @@ const loadScheduleData = async () => {
     }
 
     const { course, certificate, year } = studentResult.studentInfo;
-    const scheduleResult = await getSchedule(course, certificate, year);
+    const scheduleResult = await getSchedule(course, certificate, year, false);
     
     if (scheduleResult.success) {
+      tableContainer.innerHTML = ''; // Clear loading
       createTimeTable(scheduleResult.schedule.schedule_data);
     } else {
       // Show friendly message for missing schedule
