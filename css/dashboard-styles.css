@@ -760,6 +760,13 @@
   margin-top: 16px;
   padding-top: 16px;
   border-top: 1px solid var(--accent);
+  text-align: center;
+}
+
+.help-text {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 12px;
 }
 
 .whatsapp-contact-btn {

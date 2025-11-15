@@ -280,45 +280,63 @@ function formatFileSize(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
 }
 
-function renderPendingAssignments() {
-  // Sample data - will be replaced with database queries later
-  const pendingAssignments = [
-    {
-      title: "Programming Assignment 2",
-      course: "Introduction to Programming",
-      dueDate: "2025-11-20",
-      priority: "high",
-    },
-    {
-      title: "Database Design Project",
-      course: "Database Management Systems",
-      dueDate: "2025-11-25",
-      priority: "medium",
-    },
-    {
-      title: "Programming Assignment 3",
-      course: "Introduction to Programming",
-      dueDate: "2025-12-05",
-      priority: "low",
-    },
-  ];
-
+async function renderPendingAssignments() {
   const assignmentsList = document.getElementById("pendingAssignmentsList");
   if (!assignmentsList) return;
 
-  assignmentsList.innerHTML = "";
+  assignmentsList.innerHTML = '<div class="loading-assignments">Loading...</div>';
 
-  if (pendingAssignments.length === 0) {
-    assignmentsList.innerHTML = `
-      <div class="no-assignments">
-        <i class="fas fa-check-circle"></i>
-        <p>All caught up!</p>
-      </div>
-    `;
-    return;
-  }
+  try {
+    // Get student info to filter by year
+    const studentResult = await getStudentInfo();
+    const studentYear = studentResult.success && studentResult.studentInfo ? studentResult.studentInfo.year : null;
 
-  pendingAssignments.forEach((assignment) => {
+    // Fetch assignments from database
+    const { data: pendingAssignments, error } = await supabase
+      .from('assignments')
+      .select('*')
+      .eq('is_active', true)
+      .gte('due_date', new Date().toISOString().split('T')[0])
+      .order('due_date', { ascending: true });
+
+    if (error) throw error;
+
+    // Filter by student year
+    const filteredAssignments = pendingAssignments?.filter(assignment => 
+      assignment.target_year === 'all' || assignment.target_year === String(studentYear)
+    ) || [];
+
+    assignmentsList.innerHTML = "";
+
+    if (filteredAssignments.length === 0) {
+      assignmentsList.innerHTML = `
+        <div class="no-assignments">
+          <i class="fas fa-check-circle"></i>
+          <p>All caught up!</p>
+        </div>
+      `;
+      
+      // Still add contact button
+      const helpSection = document.createElement("div");
+      helpSection.className = "help-section";
+      helpSection.innerHTML = `
+        <p class="help-text">Need help with assignments?</p>
+        <button class="whatsapp-contact-btn" onclick="openWhatsAppContact()">
+          <i class="fab fa-whatsapp"></i> Contact Support
+        </button>
+      `;
+      assignmentsList.appendChild(helpSection);
+      return;
+    }
+
+    const pendingAssignmentsFormatted = filteredAssignments.map(a => ({
+      title: a.title,
+      course: a.course,
+      dueDate: a.due_date,
+      priority: a.priority
+    }));
+
+    pendingAssignmentsFormatted.forEach((assignment) => {
     const card = document.createElement("div");
     card.className = "assignment-card-sidebar";
 
@@ -353,23 +371,31 @@ function renderPendingAssignments() {
       </div>
       <h4>${assignment.title}</h4>
       <p class="assignment-course">${assignment.course}</p>
-      <button class="whatsapp-help-btn" onclick="openWhatsAppHelp('${assignment.title}')">
-        <i class="fab fa-whatsapp"></i> Need Help?
-      </button>
     `;
 
-    assignmentsList.appendChild(card);
-  });
+      assignmentsList.appendChild(card);
+    });
 
-  // Add general help button at the bottom
-  const helpSection = document.createElement("div");
-  helpSection.className = "help-section";
-  helpSection.innerHTML = `
-    <button class="whatsapp-contact-btn" onclick="openWhatsAppContact()">
-      <i class="fab fa-whatsapp"></i> Contact Support
-    </button>
-  `;
-  assignmentsList.appendChild(helpSection);
+    // Add general contact button at the bottom
+    const helpSection = document.createElement("div");
+    helpSection.className = "help-section";
+    helpSection.innerHTML = `
+      <p class="help-text">Need help with assignments?</p>
+      <button class="whatsapp-contact-btn" onclick="openWhatsAppContact()">
+        <i class="fab fa-whatsapp"></i> Contact Support
+      </button>
+    `;
+    assignmentsList.appendChild(helpSection);
+
+  } catch (error) {
+    console.error('Error loading assignments:', error);
+    assignmentsList.innerHTML = `
+      <div class="no-assignments">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>Failed to load assignments</p>
+      </div>
+    `;
+  }
 }
 
 // WhatsApp helper functions

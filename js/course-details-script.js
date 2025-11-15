@@ -1,10 +1,16 @@
-import { isLoggedIn } from "../lib/supabase-auth.js";
+import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
 import { showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
+import { supabase } from "../config/supabase.js";
 
 const logOutBtn = document.getElementById("sign-out");
 
-// Sample data - will be replaced with database queries later
+// Store current course data
+let currentCourse = null;
+let currentAssignments = [];
+let studentInfo = null;
+
+// Old sample data - keeping for reference but not using
 const courseData = {
   // Year 1 Courses
   "PROG101": {
@@ -261,86 +267,169 @@ function setupEventListeners() {
   });
 }
 
-function loadCourseDetails() {
+async function loadCourseDetails() {
   const urlParams = new URLSearchParams(window.location.search);
   const courseCode = urlParams.get("code");
+  const courseTitle = urlParams.get("title");
 
   if (!courseCode) {
-    // No course code provided - show error message instead of redirecting
     document.getElementById("courseTitle").textContent = "No Course Selected";
     document.getElementById("courseCode").textContent = "Please select a course from the Courses page";
-    console.error("No course code in URL. Add ?code=PROG101 to test");
+    showEmptyState();
     return;
   }
 
-  if (!courseData[courseCode]) {
-    // Course code not found - show error message
-    document.getElementById("courseTitle").textContent = "Course Not Found";
-    document.getElementById("courseCode").textContent = `Course code "${courseCode}" not found`;
-    console.error("Available course codes:", Object.keys(courseData));
+  try {
+    // Get student info first
+    const studentResult = await getStudentInfo();
+    if (studentResult.success) {
+      studentInfo = studentResult.studentInfo;
+    }
+
+    // Fetch course from database
+    const { data: courses, error: courseError } = await supabase
+      .from('courses')
+      .select('*')
+      .eq('course_code', courseCode)
+      .single();
+
+    if (courseError || !courses) {
+      // Try by course name if code doesn't match
+      const { data: coursesByName, error: nameError } = await supabase
+        .from('courses')
+        .select('*')
+        .ilike('course_name', courseTitle || courseCode)
+        .limit(1)
+        .single();
+
+      if (nameError || !coursesByName) {
+        document.getElementById("courseTitle").textContent = courseTitle || "Course Not Found";
+        document.getElementById("courseCode").textContent = courseCode ? `Code: ${courseCode}` : "Course not available in database";
+        showEmptyState();
+        return;
+      }
+      
+      currentCourse = coursesByName;
+    } else {
+      currentCourse = courses;
+    }
+
+    // Display course info
+    document.getElementById("courseTitle").textContent = currentCourse.course_name;
+    document.getElementById("courseCode").textContent = currentCourse.course_code || courseCode;
+    
+    // Show description if available
+    const descriptionEl = document.getElementById("courseDescription");
+    if (currentCourse.description) {
+      descriptionEl.textContent = currentCourse.description;
+      descriptionEl.style.display = "block";
+    } else {
+      descriptionEl.style.display = "none";
+    }
+
+    // Fetch assignments for this course
+    await loadAssignments();
+    
+    // Tests are not implemented yet - show placeholder
+    renderTestsPlaceholder();
+
+  } catch (error) {
+    console.error('Error loading course details:', error);
+    document.getElementById("courseTitle").textContent = "Error Loading Course";
+    document.getElementById("courseCode").textContent = "Please try again later";
+    showEmptyState();
+  }
+}
+
+async function loadAssignments() {
+  if (!currentCourse || !studentInfo) {
+    renderAssignments([]);
     return;
   }
 
-  const course = courseData[courseCode];
+  try {
+    const { data: assignments, error } = await supabase
+      .from('assignments')
+      .select('*')
+      .eq('course', currentCourse.course_name)
+      .eq('is_active', true)
+      .order('due_date', { ascending: true });
 
-  document.getElementById("courseTitle").textContent = course.title;
-  document.getElementById("courseCode").textContent = courseCode;
+    if (error) throw error;
 
-  renderAssignments(course.assignments);
-  renderTests(course.tests);
-  updateStats(course);
+    // Filter by student year
+    const filteredAssignments = assignments?.filter(assignment => 
+      assignment.target_year === 'all' || assignment.target_year === String(studentInfo.year)
+    ) || [];
+
+    currentAssignments = filteredAssignments;
+    renderAssignments(filteredAssignments);
+    updateStats(filteredAssignments);
+
+  } catch (error) {
+    console.error('Error loading assignments:', error);
+    renderAssignments([]);
+  }
+}
+
+function showEmptyState() {
+  document.getElementById("averageMark").textContent = "--";
+  document.getElementById("assignmentsCompleted").textContent = "0/0";
+  document.getElementById("testsCompleted").textContent = "0/0";
+  renderAssignments([]);
+  renderTestsPlaceholder();
 }
 
 function renderAssignments(assignments) {
   const tableBody = document.getElementById("assignmentsTable");
   tableBody.innerHTML = "";
 
-  if (assignments.length === 0) {
+  if (!assignments || assignments.length === 0) {
     tableBody.innerHTML = `
       <tr>
         <td colspan="8" style="text-align: center; padding: 40px;">
-          <i class="fas fa-inbox" style="font-size: 48px; opacity: 0.3; margin-bottom: 10px;"></i>
-          <p>No assignments yet</p>
+          <i class="fas fa-inbox" style="font-size: 48px; opacity: 0.3; margin-bottom: 10px; display: block;"></i>
+          <p style="margin: 10px 0; color: var(--text-secondary); font-weight: 600;">No assignments available yet</p>
+          <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 15px;">Assignments will appear here once your instructor creates them</p>
+          <button class="whatsapp-contact-btn" onclick="contactInstructor()" style="margin-top: 10px; padding: 8px 16px; background: #25D366; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">
+            <i class="fab fa-whatsapp"></i> Contact Instructor
+          </button>
         </td>
       </tr>
     `;
     return;
   }
 
-  assignments.forEach((assignment, index) => {
+  assignments.forEach((assignment) => {
     const row = document.createElement("tr");
     
-    const percentage = assignment.mark !== null ? ((assignment.mark / assignment.total) * 100).toFixed(1) : "--";
-    const statusClass = assignment.status === "Submitted" ? "status-submitted" : "status-pending";
-    const markDisplay = assignment.mark !== null ? assignment.mark : "--";
-    const submittedDisplay = assignment.submittedDate 
-      ? new Date(assignment.submittedDate).toLocaleDateString() 
-      : "--";
+    const dueDate = new Date(assignment.due_date);
+    const today = new Date();
+    const isPastDue = dueDate < today;
+    
+    // Determine status (for now, all are pending since we don't track submissions yet)
+    const status = "Pending";
+    const statusClass = isPastDue ? "status-overdue" : "status-pending";
+    
+    // Priority indicator
+    const priorityClass = assignment.priority || 'medium';
+    const priorityIcon = assignment.priority === 'high' ? '<i class="fas fa-exclamation-circle" style="color: #ef4444;"></i> ' : '';
 
-    // Action button based on status
-    let actionButton = "";
-    if (assignment.status === "Pending") {
-      actionButton = `
-        <button class="submit-action-btn whatsapp-submit-btn" onclick="submitViaWhatsApp('${assignment.name}', '${course.name}')">
-          <i class="fab fa-whatsapp"></i> Submit
-        </button>
-      `;
-    } else {
-      actionButton = `
-        <button class="view-action-btn whatsapp-view-btn" onclick="viewViaWhatsApp('${assignment.name}', '${course.name}')">
-          <i class="fab fa-whatsapp"></i> View
-        </button>
-      `;
-    }
+    // Action button - WhatsApp submission
+    const actionButton = `
+      <button class="submit-action-btn whatsapp-submit-btn" onclick="submitViaWhatsApp('${escapeHtml(assignment.title)}', '${escapeHtml(currentCourse?.course_name || '')}')">
+        <i class="fab fa-whatsapp"></i> Submit
+      </button>
+    `;
 
     row.innerHTML = `
-      <td>${assignment.name}</td>
-      <td>${new Date(assignment.dueDate).toLocaleDateString()}</td>
-      <td><span class="status-badge ${statusClass}">${assignment.status}</span></td>
-      <td>${submittedDisplay}</td>
-      <td>${markDisplay}</td>
-      <td>${assignment.total}</td>
-      <td>${percentage}%</td>
+      <td>${priorityIcon}${assignment.title}</td>
+      <td>${dueDate.toLocaleDateString()}</td>
+      <td><span class="status-badge ${statusClass}">${isPastDue ? 'Overdue' : status}</span></td>
+      <td>--</td>
+      <td>--</td>
+      <td>100</td>
+      <td>--</td>
       <td>${actionButton}</td>
     `;
 
@@ -348,61 +437,34 @@ function renderAssignments(assignments) {
   });
 }
 
-function renderTests(tests) {
-  const tableBody = document.getElementById("testsTable");
-  tableBody.innerHTML = "";
-
-  if (tests.length === 0) {
-    tableBody.innerHTML = `
-      <tr>
-        <td colspan="6" style="text-align: center; padding: 40px;">
-          <i class="fas fa-inbox" style="font-size: 48px; opacity: 0.3; margin-bottom: 10px;"></i>
-          <p>No tests yet</p>
-        </td>
-      </tr>
-    `;
-    return;
-  }
-
-  tests.forEach((test) => {
-    const row = document.createElement("tr");
-    
-    const percentage = test.mark !== null ? ((test.mark / test.total) * 100).toFixed(1) : "--";
-    const markDisplay = test.mark !== null ? test.mark : "--";
-    const grade = test.mark !== null ? getGrade(percentage) : "--";
-
-    row.innerHTML = `
-      <td>${test.name}</td>
-      <td>${new Date(test.date).toLocaleDateString()}</td>
-      <td>${markDisplay}</td>
-      <td>${test.total}</td>
-      <td>${percentage}%</td>
-      <td><span class="grade-badge grade-${grade.toLowerCase()}">${grade}</span></td>
-    `;
-
-    tableBody.appendChild(row);
-  });
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
-function updateStats(course) {
-  const submittedAssignments = course.assignments.filter(a => a.status === "Submitted").length;
-  const totalAssignments = course.assignments.length;
+function renderTestsPlaceholder() {
+  const tableBody = document.getElementById("testsTable");
+  tableBody.innerHTML = `
+    <tr>
+      <td colspan="6" style="text-align: center; padding: 40px;">
+        <i class="fas fa-clock" style="font-size: 48px; opacity: 0.3; margin-bottom: 10px; display: block;"></i>
+        <p style="margin: 10px 0; color: var(--text-secondary); font-weight: 600;">Test Marks Coming Soon</p>
+        <p style="font-size: 14px; color: var(--text-secondary);">Test marks and grades will be available here once published by your instructor</p>
+      </td>
+    </tr>
+  `;
+}
+
+function updateStats(assignments) {
+  const totalAssignments = assignments.length;
+  const today = new Date();
+  const overdueAssignments = assignments.filter(a => new Date(a.due_date) < today).length;
   
-  const completedTests = course.tests.filter(t => t.mark !== null).length;
-  const totalTests = course.tests.length;
-
-  const allMarks = [
-    ...course.assignments.filter(a => a.mark !== null).map(a => (a.mark / a.total) * 100),
-    ...course.tests.filter(t => t.mark !== null).map(t => (t.mark / t.total) * 100),
-  ];
-
-  const averageMark = allMarks.length > 0 
-    ? (allMarks.reduce((sum, mark) => sum + mark, 0) / allMarks.length).toFixed(1) 
-    : "--";
-
-  document.getElementById("averageMark").textContent = averageMark !== "--" ? `${averageMark}%` : "--";
-  document.getElementById("assignmentsCompleted").textContent = `${submittedAssignments}/${totalAssignments}`;
-  document.getElementById("testsCompleted").textContent = `${completedTests}/${totalTests}`;
+  // For now, we don't track submissions, so show total/overdue info
+  document.getElementById("averageMark").textContent = "--";
+  document.getElementById("assignmentsCompleted").textContent = `0/${totalAssignments}`;
+  document.getElementById("testsCompleted").textContent = overdueAssignments > 0 ? `${overdueAssignments} Overdue` : "0/0";
 }
 
 function getGrade(percentage) {
@@ -417,7 +479,6 @@ function getGrade(percentage) {
 // Global variables for modal
 let currentAssignmentIndex = null;
 let currentCourseCode = null;
-let studentInfo = null;
 
 // Open submission modal
 window.openSubmissionModal = async function(assignmentIndex) {
@@ -474,8 +535,13 @@ function closeSubmissionModal() {
 // WhatsApp submission functions
 window.submitViaWhatsApp = function(assignmentName, courseName) {
   const phoneNumber = "27635722080"; // South African format
+  const studentName = studentInfo ? `${studentInfo.first_name} ${studentInfo.last_name}` : 'Student';
+  const studentId = studentInfo ? studentInfo.student_id : 'N/A';
+  
   const message = encodeURIComponent(
     `Hi! I would like to submit my assignment:\n\n` +
+    `Student: ${studentName}\n` +
+    `Student ID: ${studentId}\n` +
     `Course: ${courseName}\n` +
     `Assignment: ${assignmentName}\n\n` +
     `I'm ready to send my work.`
@@ -486,11 +552,33 @@ window.submitViaWhatsApp = function(assignmentName, courseName) {
 
 window.viewViaWhatsApp = function(assignmentName, courseName) {
   const phoneNumber = "27635722080";
+  const studentName = studentInfo ? `${studentInfo.first_name} ${studentInfo.last_name}` : 'Student';
+  const studentId = studentInfo ? studentInfo.student_id : 'N/A';
+  
   const message = encodeURIComponent(
     `Hi! I would like to check on my assignment:\n\n` +
+    `Student: ${studentName}\n` +
+    `Student ID: ${studentId}\n` +
     `Course: ${courseName}\n` +
     `Assignment: ${assignmentName}\n\n` +
     `Can I get feedback or my marks?`
+  );
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  window.open(whatsappUrl, '_blank');
+};
+
+window.contactInstructor = function() {
+  const phoneNumber = "27635722080";
+  const studentName = studentInfo ? `${studentInfo.first_name} ${studentInfo.last_name}` : 'Student';
+  const studentId = studentInfo ? studentInfo.student_id : 'N/A';
+  const courseName = currentCourse ? currentCourse.course_name : 'Course';
+  
+  const message = encodeURIComponent(
+    `Hi! I have a question about my course:\n\n` +
+    `Student: ${studentName}\n` +
+    `Student ID: ${studentId}\n` +
+    `Course: ${courseName}\n\n` +
+    `I would like to know about upcoming assignments and course materials.`
   );
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
   window.open(whatsappUrl, '_blank');

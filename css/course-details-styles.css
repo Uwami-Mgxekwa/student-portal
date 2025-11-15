@@ -192,6 +192,11 @@
   color: #fb923c;
 }
 
+.status-overdue {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
 .grade-badge {
   padding: 4px 12px;
   border-radius: 6px;
