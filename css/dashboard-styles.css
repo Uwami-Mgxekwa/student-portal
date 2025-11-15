@@ -96,11 +96,19 @@
 }
 
 .legend-test{
-  background: #00ff00;
+  background: #10b981;
 }
 
 .legend-exam{
-  background: #ff0000;
+  background: #ef4444;
+}
+
+.legend-deadline{
+  background: #f59e0b;
+}
+
+.legend-holiday{
+  background: #3b82f6;
 }
 
 @media (max-width: 768px) {

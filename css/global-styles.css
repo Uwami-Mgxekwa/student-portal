@@ -593,3 +593,55 @@ footer a:hover {
     transform: scale(1.1);
   }
 }
+
+
+/* Mobile Sidebar Fixes */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    height: calc(100vh - 70px);
+    width: 280px;
+    z-index: 999;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+    width: 280px;
+    padding: 24px;
+  }
+
+  .sidebar:not(.collapsed) {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+
+  .sidebar:not(.collapsed) ~ .sidebar-overlay {
+    display: block;
+  }
+
+  /* Ensure nav items are visible */
+  .nav-item {
+    display: flex;
+    width: 100%;
+  }
+
+  .nav-item span {
+    display: inline;
+  }
+}

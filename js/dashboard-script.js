@@ -47,7 +47,7 @@ function initializeSidebar() {
   }
 }
 
-function renderCalendar() {
+async function renderCalendar() {
   const calendar = document.getElementById("calendar");
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
@@ -67,7 +67,10 @@ function renderCalendar() {
 
   calendar.innerHTML = "";
   const monthName = document.getElementById("month-name");
-  monthName.innerText = months[new Date().getMonth()];
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+  const currentYear = currentDate.getFullYear();
+  monthName.innerText = months[currentMonth];
 
   days.forEach((day) => {
     const dayElement = document.createElement("div");
@@ -76,14 +79,61 @@ function renderCalendar() {
     calendar.appendChild(dayElement);
   });
 
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  const currentYear = currentDate.getFullYear();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDay = new Date(currentYear, currentMonth, 1).getDay();
 
-  const tests = [10, 11, 12];
-  const exams = [24, 26, 27];
+  // Fetch important dates from database
+  let importantDates = { tests: [], exams: [], deadlines: [], holidays: [] };
+  try {
+    const studentResult = await getStudentInfo();
+    const studentYear = studentResult.success && studentResult.studentInfo ? studentResult.studentInfo.year : null;
+
+    // Format dates for SQL query
+    const monthStr = String(currentMonth + 1).padStart(2, '0');
+    const startOfMonth = `${currentYear}-${monthStr}-01`;
+    const endOfMonth = `${currentYear}-${monthStr}-${daysInMonth}`;
+
+    const { data: dates, error } = await supabase
+      .from('important_dates')
+      .select('*')
+      .gte('start_date', startOfMonth)
+      .lte('start_date', endOfMonth);
+
+    if (!error && dates) {
+      dates.forEach(date => {
+        // Check if date applies to this student's year
+        if (date.target_year === 'all' || date.target_year === String(studentYear)) {
+          const startDate = new Date(date.start_date);
+          const day = startDate.getDate();
+          
+          // Add the start day
+          if (date.date_type === 'test') importantDates.tests.push(day);
+          else if (date.date_type === 'exam') importantDates.exams.push(day);
+          else if (date.date_type === 'deadline') importantDates.deadlines.push(day);
+          else if (date.date_type === 'holiday') importantDates.holidays.push(day);
+          
+          // Handle date ranges (if end_date exists)
+          if (date.end_date) {
+            const endDate = new Date(date.end_date);
+            const endDay = endDate.getDate();
+            const endMonth = endDate.getMonth();
+            
+            // Only add range if end date is in the same month
+            if (endMonth === currentMonth) {
+              for (let d = day + 1; d <= endDay; d++) {
+                if (date.date_type === 'test') importantDates.tests.push(d);
+                else if (date.date_type === 'exam') importantDates.exams.push(d);
+                else if (date.date_type === 'deadline') importantDates.deadlines.push(d);
+                else if (date.date_type === 'holiday') importantDates.holidays.push(d);
+              }
+            }
+          }
+        }
+      });
+    }
+  } catch (error) {
+    console.error('Error loading important dates:', error);
+  }
 
   for (let i = 0; i < firstDay; i++) {
     const emptyDay = document.createElement("div");
@@ -93,21 +143,40 @@ function renderCalendar() {
 
   for (let i = 1; i <= daysInMonth; i++) {
     const dayElement = document.createElement("div");
-    let pinElement = document.createElement("span");
     dayElement.textContent = i;
+    
     if (i === currentDate.getDate()) {
       dayElement.style.background = "var(--background)";
       dayElement.style.fontWeight = "bold";
       dayElement.style.border = "1px solid var(--primary)";
     }
 
-    if (tests.includes(i)) {
-      pinElement.style.background = "#00ff00";
+    // Add markers for important dates
+    if (importantDates.tests.includes(i)) {
+      const pinElement = document.createElement("span");
+      pinElement.style.background = "#10b981";
+      pinElement.title = "Test";
       dayElement.appendChild(pinElement);
     }
 
-    if (exams.includes(i)) {
-      pinElement.style.background = "#ff0000";
+    if (importantDates.exams.includes(i)) {
+      const pinElement = document.createElement("span");
+      pinElement.style.background = "#ef4444";
+      pinElement.title = "Exam";
+      dayElement.appendChild(pinElement);
+    }
+
+    if (importantDates.deadlines.includes(i)) {
+      const pinElement = document.createElement("span");
+      pinElement.style.background = "#f59e0b";
+      pinElement.title = "Deadline";
+      dayElement.appendChild(pinElement);
+    }
+
+    if (importantDates.holidays.includes(i)) {
+      const pinElement = document.createElement("span");
+      pinElement.style.background = "#3b82f6";
+      pinElement.title = "Holiday";
       dayElement.appendChild(pinElement);
     }
 
