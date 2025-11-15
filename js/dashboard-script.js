@@ -353,11 +353,43 @@ function renderPendingAssignments() {
       </div>
       <h4>${assignment.title}</h4>
       <p class="assignment-course">${assignment.course}</p>
+      <button class="whatsapp-help-btn" onclick="openWhatsAppHelp('${assignment.title}')">
+        <i class="fab fa-whatsapp"></i> Need Help?
+      </button>
     `;
 
     assignmentsList.appendChild(card);
   });
+
+  // Add general help button at the bottom
+  const helpSection = document.createElement("div");
+  helpSection.className = "help-section";
+  helpSection.innerHTML = `
+    <button class="whatsapp-contact-btn" onclick="openWhatsAppContact()">
+      <i class="fab fa-whatsapp"></i> Contact Support
+    </button>
+  `;
+  assignmentsList.appendChild(helpSection);
 }
+
+// WhatsApp helper functions
+function openWhatsAppHelp(assignmentTitle) {
+  const phoneNumber = "27635722080"; // South African format (27 + your number without leading 0)
+  const message = encodeURIComponent(`Hi! I need help with: ${assignmentTitle}`);
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  window.open(whatsappUrl, '_blank');
+}
+
+function openWhatsAppContact() {
+  const phoneNumber = "27635722080";
+  const message = encodeURIComponent("Hi! I have a question about my courses.");
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  window.open(whatsappUrl, '_blank');
+}
+
+// Make functions globally available
+window.openWhatsAppHelp = openWhatsAppHelp;
+window.openWhatsAppContact = openWhatsAppContact;
 
 const showGreeting = async () => {
   const result = await getStudentInfo();

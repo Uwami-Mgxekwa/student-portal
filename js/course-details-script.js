@@ -265,8 +265,19 @@ function loadCourseDetails() {
   const urlParams = new URLSearchParams(window.location.search);
   const courseCode = urlParams.get("code");
 
-  if (!courseCode || !courseData[courseCode]) {
-    window.location.href = "../pages/courses.html";
+  if (!courseCode) {
+    // No course code provided - show error message instead of redirecting
+    document.getElementById("courseTitle").textContent = "No Course Selected";
+    document.getElementById("courseCode").textContent = "Please select a course from the Courses page";
+    console.error("No course code in URL. Add ?code=PROG101 to test");
+    return;
+  }
+
+  if (!courseData[courseCode]) {
+    // Course code not found - show error message
+    document.getElementById("courseTitle").textContent = "Course Not Found";
+    document.getElementById("courseCode").textContent = `Course code "${courseCode}" not found`;
+    console.error("Available course codes:", Object.keys(courseData));
     return;
   }
 
@@ -310,14 +321,14 @@ function renderAssignments(assignments) {
     let actionButton = "";
     if (assignment.status === "Pending") {
       actionButton = `
-        <button class="submit-action-btn" onclick="openSubmissionModal(${index})">
-          <i class="fas fa-upload"></i> Submit
+        <button class="submit-action-btn whatsapp-submit-btn" onclick="submitViaWhatsApp('${assignment.name}', '${course.name}')">
+          <i class="fab fa-whatsapp"></i> Submit
         </button>
       `;
     } else {
       actionButton = `
-        <button class="view-action-btn" onclick="viewSubmission(${index})">
-          <i class="fas fa-eye"></i> View
+        <button class="view-action-btn whatsapp-view-btn" onclick="viewViaWhatsApp('${assignment.name}', '${course.name}')">
+          <i class="fab fa-whatsapp"></i> View
         </button>
       `;
     }
@@ -460,9 +471,29 @@ function closeSubmissionModal() {
   currentAssignmentIndex = null;
 }
 
-// View submission (placeholder)
-window.viewSubmission = function(assignmentIndex) {
-  alert("View submission functionality - will show submission details and feedback");
+// WhatsApp submission functions
+window.submitViaWhatsApp = function(assignmentName, courseName) {
+  const phoneNumber = "27635722080"; // South African format
+  const message = encodeURIComponent(
+    `Hi! I would like to submit my assignment:\n\n` +
+    `Course: ${courseName}\n` +
+    `Assignment: ${assignmentName}\n\n` +
+    `I'm ready to send my work.`
+  );
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  window.open(whatsappUrl, '_blank');
+};
+
+window.viewViaWhatsApp = function(assignmentName, courseName) {
+  const phoneNumber = "27635722080";
+  const message = encodeURIComponent(
+    `Hi! I would like to check on my assignment:\n\n` +
+    `Course: ${courseName}\n` +
+    `Assignment: ${assignmentName}\n\n` +
+    `Can I get feedback or my marks?`
+  );
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  window.open(whatsappUrl, '_blank');
 };
 
 // File upload handling

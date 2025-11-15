@@ -885,3 +885,35 @@ textarea:focus {
     justify-content: center;
   }
 }
+
+
+/* WhatsApp Submit and View Buttons */
+.whatsapp-submit-btn {
+  background: #25D366 !important;
+  color: white !important;
+}
+
+.whatsapp-submit-btn:hover {
+  background: #20BA5A !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-submit-btn i {
+  font-size: 16px;
+}
+
+.whatsapp-view-btn {
+  border-color: #25D366 !important;
+  color: #25D366 !important;
+}
+
+.whatsapp-view-btn:hover {
+  background: #25D366 !important;
+  color: white !important;
+  box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-view-btn i {
+  font-size: 16px;
+}

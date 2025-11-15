@@ -285,7 +285,7 @@ function createCourseCard(course) {
         </div>
       </div>
 
-      <button class="course-action-btn" onclick="viewCourseDetails('${course.code}', '${course.title}')">
+      <button class="course-action-btn" onclick="event.preventDefault(); event.stopPropagation(); viewCourseDetails('${course.code}', '${course.title}');">
         <i class="fas fa-eye"></i> View Details
       </button>
     </div>
@@ -363,7 +363,10 @@ function renderDeadlines(studentYear) {
 
 // Function to navigate to course details
 window.viewCourseDetails = function(courseCode, courseTitle) {
-  window.location.href = `../pages/course-details.html?code=${courseCode}&title=${encodeURIComponent(courseTitle)}`;
+  console.log('Navigating to course details:', courseCode, courseTitle);
+  const url = `../pages/course-details.html?code=${courseCode}&title=${encodeURIComponent(courseTitle)}`;
+  console.log('URL:', url);
+  window.location.href = url;
 }
 
 logOutBtn.addEventListener("click", () => {
