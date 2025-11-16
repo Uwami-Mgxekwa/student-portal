@@ -189,7 +189,7 @@ async function loadStudentCourses() {
   
   try {
     // Get student info to determine year
-    const studentResult = await getStudentInfo();
+    const studentResult = await getStudentInfo(false); // Don't show loading overlay
     
     if (!studentResult.success || !studentResult.studentInfo) {
       enrolledCoursesContainer.innerHTML = `

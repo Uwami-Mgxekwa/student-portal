@@ -85,7 +85,7 @@ async function renderCalendar() {
   // Fetch important dates from database
   let importantDates = { tests: [], exams: [], deadlines: [], holidays: [] };
   try {
-    const studentResult = await getStudentInfo();
+    const studentResult = await getStudentInfo(false); // Don't show loading overlay
     const studentYear = studentResult.success && studentResult.studentInfo ? studentResult.studentInfo.year : null;
 
     // Format dates for SQL query
@@ -192,7 +192,7 @@ async function loadRecentFiles() {
   
   try {
     // Get student info to filter by year
-    const studentResult = await getStudentInfo();
+    const studentResult = await getStudentInfo(false); // Don't show loading overlay
     console.log('👤 Student info:', studentResult);
     
     if (!studentResult.success) {
@@ -288,7 +288,7 @@ async function renderPendingAssignments() {
 
   try {
     // Get student info to filter by year
-    const studentResult = await getStudentInfo();
+    const studentResult = await getStudentInfo(false); // Don't show loading overlay
     const studentYear = studentResult.success && studentResult.studentInfo ? studentResult.studentInfo.year : null;
 
     // Fetch assignments from database
@@ -418,7 +418,7 @@ window.openWhatsAppHelp = openWhatsAppHelp;
 window.openWhatsAppContact = openWhatsAppContact;
 
 const showGreeting = async () => {
-  const result = await getStudentInfo();
+  const result = await getStudentInfo(true); // Show loading overlay only here
   if (result.success) {
     const { student } = result;
     greeting.innerText =
@@ -482,7 +482,7 @@ window.addEventListener("load", async () => {
   
   const loggedIn = await isLoggedIn();
   if (loggedIn) {
-    showGreeting();
+    await showGreeting(); // Wait for greeting to complete
     loadNotificationCount(); // Load notification badge count
   } else {
     location.href = "../index.html";

@@ -114,7 +114,7 @@ const loadScheduleData = async () => {
   `;
 
   try {
-    const studentResult = await getStudentInfo();
+    const studentResult = await getStudentInfo(false); // Don't show loading overlay
     if (!studentResult.success || !studentResult.studentInfo) {
       // Show friendly message instead of error
       studentCourseHeading.innerText = "Schedule Not Available";

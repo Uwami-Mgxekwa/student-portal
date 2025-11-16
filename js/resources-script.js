@@ -242,7 +242,7 @@ async function loadRecentFiles() {
 
   try {
     // Get student info to filter by year
-    const studentResult = await getStudentInfo();
+    const studentResult = await getStudentInfo(false); // Don't show loading overlay
     console.log('👤 [Resources] Student info:', studentResult);
 
     if (!studentResult.success) {

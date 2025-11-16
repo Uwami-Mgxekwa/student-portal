@@ -281,7 +281,7 @@ async function loadCourseDetails() {
 
   try {
     // Get student info first
-    const studentResult = await getStudentInfo();
+    const studentResult = await getStudentInfo(false); // Don't show loading overlay
     if (studentResult.success) {
       studentInfo = studentResult.studentInfo;
     }
@@ -494,7 +494,7 @@ window.openSubmissionModal = async function(assignmentIndex) {
   const assignment = course.assignments[assignmentIndex];
 
   // Get student info
-  const result = await getStudentInfo();
+  const result = await getStudentInfo(false); // Don't show loading overlay
   if (result.success) {
     studentInfo = result.student;
   }
