@@ -1,10 +1,25 @@
 @import url("./color-scheme.css");
 @import url("./global-styles.css");
 
+/* Prevent horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  position: relative;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .greeting-wrapper{
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-shrink: 0;
 }
 
 .greeting {
@@ -30,6 +45,8 @@
   align-items: center;
   padding: 32px;
   transition: margin-left 0.3s ease;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .calendar-section {
@@ -41,8 +58,10 @@
   text-align: center;
   margin-bottom: 32px;
   width: 100%;
+  max-width: 100%;
   max-height: 500px; 
-  overflow: hidden; 
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .calendar {
@@ -55,7 +74,9 @@
   border-radius: 8px;
   height: auto; 
   max-height: 350px; 
-  overflow-y: auto; 
+  overflow-y: auto;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .calendar div {
@@ -153,6 +174,9 @@
   margin-bottom: 32px;
   color: var(--text);
   width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .assignments-header {
@@ -170,6 +194,7 @@
 .assignment-card {
   background: var(--background);
   width: 100%;
+  max-width: 100%;
   padding: 16px;
   border-radius: 8px;
   border: 1px solid var(--accent);
@@ -177,6 +202,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .assignment-info {
@@ -576,6 +603,14 @@
   @media (max-width: 768px) {
     .header {
       padding: 12px 16px;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    .logo-container {
+      flex-shrink: 1;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .logo-container p {
@@ -584,6 +619,16 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .greeting-wrapper {
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .greeting-wrapper img {
+      width: 32px;
+      height: 32px;
     }
 
     .sidebar {
@@ -602,6 +647,13 @@
     .main-content {
       padding: 16px;
       width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    .content-wrapper {
+      max-width: 100vw;
+      overflow-x: hidden;
     }
 
     .assignments-header {
@@ -632,10 +684,20 @@
 
   @media (max-width: 480px) {
     .greeting {
-      max-width: 120px;
+      max-width: 100px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-size: 14px;
+    }
+
+    .greeting-wrapper {
+      gap: 8px;
+    }
+
+    .greeting-wrapper img {
+      width: 28px;
+      height: 28px;
     }
 
     .assignment-meta {
@@ -646,6 +708,17 @@
 
     .calendar {
       font-size: 10px;
+      padding: 8px;
+      gap: 2px;
+    }
+
+    .calendar div {
+      padding: 4px 2px;
+      font-size: 10px;
+    }
+
+    .calendar-section {
+      padding: 12px;
     }
   }
 
