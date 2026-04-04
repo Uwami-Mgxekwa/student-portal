@@ -14,6 +14,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   </head>
   <body>
     <header class="header">
@@ -58,6 +60,9 @@
             <span>Sign out</span>
           </div>
         </nav>
+        <div class="sidebar-branding">
+          <a href="https://brelinx.com" target="_blank" rel="noopener noreferrer">Powered by Brelinx</a>
+        </div>
       </div>
       <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -87,7 +92,60 @@
               <li><strong>ADDRESS:</strong><span id="info-address">Details...</span> </li>
             </ul>
           </div>
+        </div>
 
+        <!-- Digital Student Card -->
+        <div class="digital-card-section">
+          <h2 class="section-title"><i class="fas fa-id-card"></i> Digital Student Card</h2>
+          <p class="section-subtitle">Present this card for identification on campus</p>
+          <div class="digital-card" id="digitalCard">
+            <div class="card-header">
+              <img src="../assets/logo.png" alt="GCC Logo" class="card-logo" />
+              <div class="card-school-info">
+                <h3>Gauteng City College</h3>
+                <p>Student Identification Card</p>
+              </div>
+              <div class="card-year-badge" id="cardYear"></div>
+            </div>
+            <div class="card-body">
+              <div class="card-photo-section">
+                <img id="card-photo" src="../assets/fallback-icon.png" alt="Student Photo" class="card-photo" />
+              </div>
+              <div class="card-details">
+                <h2 class="card-name" id="card-name">-</h2>
+                <div class="card-info-row">
+                  <span class="card-label">Student ID</span>
+                  <span class="card-value" id="card-id">-</span>
+                </div>
+                <div class="card-info-row">
+                  <span class="card-label">Course</span>
+                  <span class="card-value" id="card-course">-</span>
+                </div>
+                <div class="card-info-row">
+                  <span class="card-label">Faculty</span>
+                  <span class="card-value" id="card-faculty">-</span>
+                </div>
+                <div class="card-info-row">
+                  <span class="card-label">Year of Study</span>
+                  <span class="card-value" id="card-study-year">-</span>
+                </div>
+                <div class="card-info-row">
+                  <span class="card-label">Campus</span>
+                  <span class="card-value" id="card-campus">-</span>
+                </div>
+              </div>
+              <div class="card-qr-section">
+                <div id="card-qr"></div>
+                <p class="qr-label">Scan to verify</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <p>This card is the property of Gauteng City College. If found, please return to the nearest campus office.</p>
+            </div>
+          </div>
+          <button class="btn-download-card" id="downloadCardBtn">
+            <i class="fas fa-download"></i> Download Card
+          </button>
         </div>
       </div>
       

@@ -705,3 +705,32 @@ footer a:hover {
     max-width: 100px;
   }
 }
+
+/* Sidebar Brelinx Branding */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar nav {
+  flex: 1;
+}
+
+.sidebar-branding {
+  padding: 12px 0 4px;
+  border-top: 1px solid var(--accent);
+  text-align: center;
+  margin-top: 8px;
+}
+
+.sidebar-branding a {
+  font-size: 0.7rem;
+  color: var(--text);
+  opacity: 0.35;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.sidebar-branding a:hover {
+  opacity: 0.6;
+}

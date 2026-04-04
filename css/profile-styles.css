@@ -122,3 +122,211 @@
     }
   }
 }
+
+/* ============================================
+   DIGITAL STUDENT CARD
+   ============================================ */
+
+.digital-card-section {
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.section-title {
+  color: var(--text);
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.section-subtitle {
+  color: var(--text);
+  opacity: 0.6;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.digital-card {
+  width: 100%;
+  max-width: 680px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.card-school-info h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.card-school-info p {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.card-year-badge {
+  margin-left: auto;
+  background: rgba(255, 165, 0, 0.2);
+  border: 1px solid orange;
+  color: orange;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.card-body {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  align-items: flex-start;
+}
+
+.card-photo-section {
+  flex-shrink: 0;
+}
+
+.card-photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-details {
+  flex: 1;
+}
+
+.card-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.card-info-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 0.78rem;
+}
+
+.card-label {
+  color: rgba(255, 255, 255, 0.5);
+  min-width: 90px;
+}
+
+.card-value {
+  color: #fff;
+  font-weight: 500;
+}
+
+.card-qr-section {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-qr-section canvas,
+.card-qr-section img {
+  border-radius: 6px;
+}
+
+.qr-label {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.card-footer {
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+}
+
+.btn-download-card {
+  margin-top: 1rem;
+  padding: 10px 24px;
+  background: var(--primary);
+  color: var(--text);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+
+.btn-download-card:hover {
+  opacity: 0.8;
+}
+
+/* ============================================
+   SIDEBAR BRELINX BRANDING
+   ============================================ */
+
+.sidebar-branding {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--accent);
+  text-align: center;
+}
+
+.sidebar-branding a {
+  font-size: 0.7rem;
+  color: var(--text);
+  opacity: 0.35;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.sidebar-branding a:hover {
+  opacity: 0.6;
+}
+
+/* Make sidebar flex column so branding sticks to bottom */
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    flex-wrap: wrap;
+  }
+
+  .digital-card {
+    max-width: 100%;
+  }
+}

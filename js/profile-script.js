@@ -66,7 +66,46 @@ const showDetails = (student, studentInfo) => {
   emailInfo.innerText = student.email;
   phoneInfo.innerText = student.phone || "N/A";
   addressInfo.innerText = student.address || "N/A";
+
+  // Populate digital student card
+  populateDigitalCard(student, studentInfo);
 };
+
+const populateDigitalCard = (student, studentInfo) => {
+  const academicYear = new Date().getFullYear();
+
+  document.getElementById("card-photo").src = student.profile_image || "../assets/fallback-icon.png";
+  document.getElementById("card-name").innerText = `${student.first_name} ${student.last_name}`;
+  document.getElementById("card-id").innerText = student.student_id;
+  document.getElementById("card-course").innerText = studentInfo?.course || "N/A";
+  document.getElementById("card-faculty").innerText = studentInfo?.faculty || "N/A";
+  document.getElementById("card-study-year").innerText = studentInfo?.year ? `Year ${studentInfo.year}` : "N/A";
+  document.getElementById("card-campus").innerText = studentInfo?.campus || "N/A";
+  document.getElementById("cardYear").innerText = academicYear;
+
+  // Generate QR code pointing to verification page
+  const baseUrl = 'https://uwami-mgxekwa.github.io/student-portal';
+  const verifyUrl = `${baseUrl}/pages/verify.html?id=${student.student_id}`;
+  const qrContainer = document.getElementById("card-qr");
+  qrContainer.innerHTML = "";
+  new QRCode(qrContainer, {
+    text: verifyUrl,
+    width: 90,
+    height: 90,
+    colorDark: "#1a1a2e",
+    colorLight: "#ffffff",
+  });
+};
+
+// Download card as image
+document.getElementById("downloadCardBtn").addEventListener("click", async () => {
+  const card = document.getElementById("digitalCard");
+  const canvas = await html2canvas(card, { scale: 2, useCORS: true });
+  const link = document.createElement("a");
+  link.download = `GCC-Student-Card-${document.getElementById("card-id").innerText}.png`;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+});
 
 const loadStudentProfile = async () => {
   const result = await getStudentInfo();

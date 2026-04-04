@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Verification - GCC</title>
+  <link rel="icon" type="image/png" href="../assets/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .verify-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      width: 100%;
+      max-width: 420px;
+      overflow: hidden;
+    }
+
+    .verify-header {
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .verify-header img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .verify-header-text h2 {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .verify-header-text p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.75rem;
+    }
+
+    .verify-body {
+      padding: 24px;
+    }
+
+    /* Loading state */
+    .loading-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #666;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e2e8f0;
+      border-top-color: #1a1a2e;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Valid state */
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .status-valid {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #6ee7b7;
+    }
+
+    .status-invalid {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+
+    .student-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #e2e8f0;
+      display: block;
+      margin: 0 auto 16px;
+    }
+
+    .student-name {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+
+    .student-id-display {
+      text-align: center;
+      color: #666;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+
+    .info-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+
+    .info-label {
+      color: #666;
+      font-weight: 500;
+    }
+
+    .info-value {
+      color: #1a1a2e;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .year-badge {
+      display: inline-block;
+      background: rgba(255,165,0,0.15);
+      border: 1px solid orange;
+      color: #b45309;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .verify-footer {
+      padding: 14px 24px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #999;
+    }
+
+    /* Error state */
+    .error-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .error-state i {
+      font-size: 3rem;
+      color: #ef4444;
+      margin-bottom: 12px;
+    }
+
+    .error-state h3 {
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .error-state p {
+      color: #666;
+      font-size: 0.85rem;
+    }
+
+    .powered-by {
+      margin-top: 16px;
+      font-size: 0.7rem;
+      color: #aaa;
+      text-align: center;
+    }
+
+    .powered-by a {
+      color: #aaa;
+      text-decoration: none;
+    }
+
+    .powered-by a:hover { color: #666; }
+  </style>
+</head>
+<body>
+
+  <div class="verify-card" id="verifyCard">
+    <div class="verify-header">
+      <img src="../assets/logo.png" alt="GCC Logo" />
+      <div class="verify-header-text">
+        <h2>Gauteng City College</h2>
+        <p>Student Verification</p>
+      </div>
+    </div>
+    <div class="verify-body" id="verifyBody">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Verifying student...</p>
+      </div>
+    </div>
+    <div class="verify-footer">
+      Scanned at <span id="scanTime"></span> &bull; GCC Student Portal
+    </div>
+  </div>
+
+  <p class="powered-by">Powered by <a href="https://brelinx.com" target="_blank">Brelinx</a></p>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+    const SUPABASE_URL = 'https://qnroaigdrpoceasbqtmh.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFucm9haWdkcnBvY2Vhc2JxdG1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1MzIzMzgsImV4cCI6MjA3ODEwODMzOH0.AnySEJv5FLNikQ6aGlpg-p7YSpqINjvbMuuLe4SFKQc';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Show scan time
+    document.getElementById('scanTime').innerText = new Date().toLocaleString('en-ZA');
+
+    const params = new URLSearchParams(window.location.search);
+    const studentId = params.get('id');
+
+    const renderValid = (student, info) => {
+      const year = new Date().getFullYear();
+      document.getElementById('verifyBody').innerHTML = `
+        <div class="status-badge status-valid">
+          <i class="fas fa-check-circle"></i>
+          Verified Enrolled Student
+        </div>
+        <img class="student-photo"
+          src="${student.profile_image || '../assets/fallback-icon.png'}"
+          alt="Student Photo"
+          onerror="this.src='../assets/fallback-icon.png'"
+        />
+        <h2 class="student-name">${student.first_name} ${student.last_name}</h2>
+        <p class="student-id-display">Student ID: ${student.student_id}</p>
+        <div class="info-grid">
+          <div class="info-row">
+            <span class="info-label">Course</span>
+            <span class="info-value">${info?.course || 'N/A'}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Faculty</span>
+            <span class="info-value">${info?.faculty || 'N/A'}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Year of Study</span>
+            <span class="info-value">Year ${info?.year || 'N/A'}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Campus</span>
+            <span class="info-value">${info?.campus || 'N/A'}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Academic Year</span>
+            <span class="info-value"><span class="year-badge">${year}</span></span>
+          </div>
+        </div>
+      `;
+    };
+
+    const renderError = (message) => {
+      document.getElementById('verifyBody').innerHTML = `
+        <div class="error-state">
+          <i class="fas fa-times-circle"></i>
+          <h3>Verification Failed</h3>
+          <p>${message}</p>
+        </div>
+      `;
+    };
+
+    if (!studentId) {
+      renderError('No student ID provided. Please scan a valid GCC student card.');
+    } else {
+      try {
+        const { data: student, error } = await supabase
+          .from('students')
+          .select('*')
+          .eq('student_id', studentId)
+          .maybeSingle();
+
+        if (error || !student) {
+          renderError('Student not found. This card may be invalid or expired.');
+        } else {
+          const { data: info } = await supabase
+            .from('student_info')
+            .select('*')
+            .eq('student_id', studentId)
+            .maybeSingle();
+
+          renderValid(student, info);
+        }
+      } catch (err) {
+        renderError('Unable to connect to the database. Please try again.');
+      }
+    }
+  </script>
+</body>
+</html>
