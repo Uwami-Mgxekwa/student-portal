@@ -1,7 +1,7 @@
-import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
+import { isLoggedIn, getStudentInfo } from "../lib/back4app-auth.js";
 import { setTheme } from "../lib/theme.js";
 import { showSignOutModal } from "../lib/pop-up.js";
-import { supabase } from "../config/supabase.js";
+import { supabase } from "../config/back4app.js";
 import { loadNotificationCount } from "../lib/notifications.js";
 
 const logOutBtn = document.getElementById("sign-out");

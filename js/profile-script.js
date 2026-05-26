@@ -1,4 +1,4 @@
-import { isLoggedIn, getStudentInfo } from "../lib/supabase-auth.js";
+import { isLoggedIn, getStudentInfo } from "../lib/back4app-auth.js";
 import { showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
 const logOutBtn = document.getElementById("sign-out");

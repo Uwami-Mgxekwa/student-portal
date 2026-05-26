@@ -1,4 +1,4 @@
-import { isLoggedIn, getStudentInfo, getSchedule } from "../lib/supabase-auth.js";
+import { isLoggedIn, getStudentInfo, getSchedule } from "../lib/back4app-auth.js";
 import { showAlert, showSignOutModal } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";
 const tableContainer = document.getElementById("table-container");

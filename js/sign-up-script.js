@@ -1,4 +1,4 @@
-import { signUpStudent } from "../lib/supabase-auth.js";
+import { signUpStudent } from "../lib/back4app-auth.js";
 import checkFormValidity from "../lib/validate-form.js";
 import { removeAlert } from "../lib/pop-up.js";
 import { setTheme } from "../lib/theme.js";

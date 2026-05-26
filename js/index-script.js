@@ -7,7 +7,7 @@ let isLoggedIn = async () => {
 };
 
 try {
-  const authModule = await import("../lib/supabase-auth.js");
+  const authModule = await import("../lib/back4app-auth.js");
   isLoggedIn = authModule.isLoggedIn;
   console.log('✅ Supabase auth module loaded successfully');
 } catch (error) {
