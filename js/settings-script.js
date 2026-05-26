@@ -215,13 +215,11 @@ async function handleProfilePictureUpload(e) {
   const file = e.target.files[0];
   if (!file) return;
   
-  // Validate file type
   if (!file.type.startsWith('image/')) {
     showAlert('Invalid File', 'Please select an image file', 'error');
     return;
   }
   
-  // Validate file size (2MB)
   if (file.size > 2 * 1024 * 1024) {
     showAlert('File Too Large', 'Image size must be less than 2MB', 'error');
     return;
@@ -230,40 +228,21 @@ async function handleProfilePictureUpload(e) {
   try {
     showAlert('Uploading', 'Uploading image...', 'info');
     
-    // Compress image
     const compressedBlob = await compressImage(file);
+    const fileName = `profile-${currentStudent.student_id}-${Date.now()}.jpg`;
     
-    // Create file path
-    const fileExt = 'jpg';
-    const fileName = `${currentStudent.student_id}-${Date.now()}.${fileExt}`;
-    const filePath = `profile-pictures/${fileName}`;
+    // Upload using Parse File
+    const parseFile = new Parse.File(fileName, compressedBlob);
+    await parseFile.save();
+    const publicUrl = parseFile.url();
     
-    // Upload to Supabase Storage
-    const { data, error } = await supabase.storage
-      .from('resources')
-      .upload(filePath, compressedBlob, {
-        cacheControl: '3600',
-        upsert: true
-      });
+    // Update Parse User
+    const user = Parse.User.current();
+    if (user) {
+      user.set('profile_image', publicUrl);
+      await user.save();
+    }
     
-    if (error) throw error;
-    
-    // Get public URL
-    const { data: urlData } = supabase.storage
-      .from('resources')
-      .getPublicUrl(filePath);
-    
-    const publicUrl = urlData.publicUrl;
-    
-    // Update database
-    const { error: updateError } = await supabase
-      .from('students')
-      .update({ profile_image: publicUrl })
-      .eq('student_id', currentStudent.student_id);
-    
-    if (updateError) throw updateError;
-    
-    // Update UI
     document.getElementById('profilePicture').src = publicUrl;
     currentStudent.profile_image = publicUrl;
     
@@ -276,20 +255,15 @@ async function handleProfilePictureUpload(e) {
 }
 
 async function removeProfilePicture() {
-  if (!confirm('Are you sure you want to remove your profile picture?')) {
-    return;
-  }
+  if (!confirm('Are you sure you want to remove your profile picture?')) return;
   
   try {
-    // Update database to null
-    const { error } = await supabase
-      .from('students')
-      .update({ profile_image: null })
-      .eq('student_id', currentStudent.student_id);
+    const user = Parse.User.current();
+    if (user) {
+      user.unset('profile_image');
+      await user.save();
+    }
     
-    if (error) throw error;
-    
-    // Update UI
     document.getElementById('profilePicture').src = '../assets/fallback-icon.png';
     currentStudent.profile_image = null;
     
@@ -310,17 +284,14 @@ async function handleProfileUpdate(e) {
   const phone = document.getElementById('phone').value.trim();
   
   try {
-    const { error } = await supabase
-      .from('students')
-      .update({
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-        phone: phone
-      })
-      .eq('student_id', currentStudent.student_id);
+    const user = Parse.User.current();
+    if (!user) throw new Error('Not logged in');
     
-    if (error) throw error;
+    user.set('first_name', firstName);
+    user.set('last_name', lastName);
+    user.set('email', email);
+    user.set('phone', phone);
+    await user.save();
     
     currentStudent.first_name = firstName;
     currentStudent.last_name = lastName;
@@ -342,45 +313,37 @@ async function handlePasswordChange(e) {
   const newPassword = document.getElementById('newPassword').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
   
-  // Validate passwords match
   if (newPassword !== confirmPassword) {
     showAlert('Password Mismatch', 'New passwords do not match', 'error');
     return;
   }
   
-  // Validate password length
   if (newPassword.length < 6) {
     showAlert('Invalid Password', 'Password must be at least 6 characters', 'error');
     return;
   }
   
   try {
-    // Verify current password by attempting to sign in
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: currentStudent.email,
-      password: currentPassword
-    });
+    // Verify current password by re-logging in
+    const user = Parse.User.current();
+    if (!user) throw new Error('Not logged in');
     
-    if (signInError) {
-      showAlert('Authentication Failed', 'Current password is incorrect', 'error');
-      return;
-    }
+    await Parse.User.logIn(user.get('username'), currentPassword);
     
     // Update password
-    const { error } = await supabase.auth.updateUser({
-      password: newPassword
-    });
+    user.setPassword(newPassword);
+    await user.save();
     
-    if (error) throw error;
-    
-    // Clear form
     document.getElementById('passwordForm').reset();
-    
     showAlert('Success', 'Password changed successfully!', 'success');
     
   } catch (error) {
     console.error('Error changing password:', error);
-    showAlert('Password Change Failed', 'Failed to change password: ' + error.message, 'error');
+    if (error.code === 101) {
+      showAlert('Authentication Failed', 'Current password is incorrect', 'error');
+    } else {
+      showAlert('Password Change Failed', 'Failed to change password: ' + error.message, 'error');
+    }
   }
 }
 
