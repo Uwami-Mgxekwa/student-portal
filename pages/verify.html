@@ -233,7 +233,26 @@
 
   <p class="powered-by">Powered by <a href="https://brelinx.com" target="_blank">Brelinx</a></p>
 
+  <!-- Debug overlay — remove after fixing -->
+  <div id="debugLog" style="display:none; position:fixed; bottom:0; left:0; right:0; max-height:40vh; overflow-y:auto; background:rgba(0,0,0,0.85); color:#0f0; font-size:11px; font-family:monospace; padding:8px; z-index:9999;"></div>
+
   <script>
+    // Capture all console errors to screen for mobile debugging
+    const debugEl = document.getElementById('debugLog');
+    const showDebug = new URLSearchParams(window.location.search).get('debug') === '1';
+    if (showDebug) debugEl.style.display = 'block';
+
+    function dbg(msg, color) {
+      if (!showDebug) return;
+      const line = document.createElement('div');
+      line.style.color = color || '#0f0';
+      line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
+      debugEl.appendChild(line);
+      debugEl.scrollTop = debugEl.scrollHeight;
+    }
+
+    window.onerror = (msg, src, line) => dbg('ERROR: ' + msg + ' (' + src + ':' + line + ')', '#f55');
+    window.onunhandledrejection = (e) => dbg('UNHANDLED: ' + (e.reason?.message || e.reason), '#f55');
     const APP_ID    = 'SxhMBsTSB2BasoZQecw9KyixCwyDMK8cyQwx9T7f';
     const REST_KEY  = '06EPenV9Yn39SoxeJ06EbZxikBVl98NId12REFhI';
     const API_BASE  = 'https://parseapi.back4app.com';
@@ -310,6 +329,8 @@
       }
 
       try {
+        dbg('Querying _User for student_id: ' + studentId);
+
         // Use REST API to query _User — works without a session (public verification)
         const userWhere = encodeURIComponent(JSON.stringify({ student_id: studentId }));
         const userRes   = await fetch(
@@ -317,9 +338,11 @@
           { headers }
         );
 
+        dbg('User response status: ' + userRes.status);
         if (!userRes.ok) throw new Error(`HTTP ${userRes.status}`);
 
         const userData = await userRes.json();
+        dbg('User results count: ' + (userData.results?.length || 0));
         const user     = userData.results && userData.results[0];
 
         if (!user) {
@@ -334,12 +357,16 @@
           profile_image: user.profile_image || null
         };
 
+        dbg('Student found: ' + student.first_name + ' ' + student.last_name);
+
         // Fetch StudentInfo for academic details
         const infoWhere = encodeURIComponent(JSON.stringify({ student_id: studentId }));
         const infoRes   = await fetch(
           `${API_BASE}/1/classes/StudentInfo?where=${infoWhere}&limit=1`,
           { headers }
         );
+
+        dbg('StudentInfo response status: ' + infoRes.status);
 
         let info = null;
         if (infoRes.ok) {
@@ -352,6 +379,9 @@
               year:    infoObj.year,
               campus:  infoObj.campus
             };
+            dbg('StudentInfo found: ' + JSON.stringify(info));
+          } else {
+            dbg('No StudentInfo record found', '#ff0');
           }
         }
 
@@ -359,6 +389,7 @@
 
       } catch (err) {
         console.error('Verification error:', err);
+        dbg('CATCH: ' + err.message, '#f55');
         renderError('Unable to connect to the database. Please try again.');
       }
     })();
