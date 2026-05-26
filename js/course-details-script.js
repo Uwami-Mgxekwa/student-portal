@@ -496,7 +496,7 @@ window.openSubmissionModal = async function(assignmentIndex) {
   // Get student info
   const result = await getStudentInfo(false); // Don't show loading overlay
   if (result.success) {
-    studentInfo = result.student;
+    studentInfo = result.student || result.studentInfo;
   }
 
   // Populate modal
