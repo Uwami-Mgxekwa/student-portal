@@ -140,24 +140,19 @@ supportForm.addEventListener("submit", async (e) => {
 // Auto-fill Student ID if logged in
 window.addEventListener("load", async () => {
   try {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    const P = typeof Parse !== 'undefined' ? Parse : null;
+    if (!P) return;
 
+    const user = P.User.current();
     if (user) {
-      // Get student info
-      const { data: student } = await supabase
-        .from("students")
-        .select("student_id, first_name, last_name, email")
-        .eq("id", user.id)
-        .single();
+      const studentId = user.get("student_id");
+      const firstName = user.get("first_name");
+      const lastName = user.get("last_name");
+      const email = user.get("email");
 
-      if (student) {
-        document.getElementById("support-student-id").value = student.student_id;
-        document.getElementById("support-name").value =
-          `${student.first_name} ${student.last_name}`;
-        document.getElementById("support-email").value = student.email;
-      }
+      if (studentId) document.getElementById("support-student-id").value = studentId;
+      if (firstName && lastName) document.getElementById("support-name").value = `${firstName} ${lastName}`;
+      if (email) document.getElementById("support-email").value = email;
     }
   } catch (error) {
     console.log("User not logged in or error fetching data");
