@@ -103,12 +103,16 @@ logOutBtn.addEventListener("click", () => {
 async function loadStudentProfile() {
   try {
     const result = await getStudentInfo();
-    if (!result.success || !result.studentInfo) {
+    if (!result.success || !result.student) {
       showAlert('Error', 'Failed to load profile', 'error');
       return;
     }
 
-    currentStudent = result.studentInfo;
+    // Merge student (user fields) and studentInfo (academic fields) into currentStudent
+    currentStudent = {
+      ...result.student,
+      ...(result.studentInfo || {})
+    };
     
     // Populate form fields
     document.getElementById('firstName').value = currentStudent.first_name || '';
