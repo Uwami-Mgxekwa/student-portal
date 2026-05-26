@@ -358,7 +358,8 @@
             dbg('Student found via _User: ' + student.first_name + ' ' + student.last_name);
           }
         } else {
-          dbg('_User query failed (' + userRes.status + '), will try StudentInfo fallback', '#ff0');
+          const errBody = await userRes.text();
+          dbg('_User query failed (' + userRes.status + '): ' + errBody.substring(0, 120), '#ff0');
         }
 
         // Fetch StudentInfo for academic details (also used as fallback if _User blocked)
@@ -396,6 +397,9 @@
           } else {
             dbg('No StudentInfo record found', '#ff0');
           }
+        } else {
+          const errBody2 = await infoRes.text();
+          dbg('StudentInfo failed (' + infoRes.status + '): ' + errBody2.substring(0, 120), '#f55');
         }
 
         if (!student) {
