@@ -233,12 +233,12 @@
 
   <p class="powered-by">Powered by <a href="https://brelinx.com" target="_blank">Brelinx</a></p>
 
-  <script type="module">
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-
-    const SUPABASE_URL = 'https://qnroaigdrpoceasbqtmh.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFucm9haWdkcnBvY2Vhc2JxdG1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1MzIzMzgsImV4cCI6MjA3ODEwODMzOH0.AnySEJv5FLNikQ6aGlpg-p7YSpqINjvbMuuLe4SFKQc';
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  <script src="https://unpkg.com/parse/dist/parse.min.js"></script>
+  <script>
+    const APP_ID = 'SxhMBsTSB2BasoZQecw9KyixCwyDMK8cyQwx9T7f';
+    const JS_KEY = 'oFVQJKq96RoamUqC6EfbPdnIJBlA5V4ii6ZF6riF';
+    Parse.initialize(APP_ID, JS_KEY);
+    Parse.serverURL = 'https://parseapi.back4app.com/';
 
     // Show scan time
     document.getElementById('scanTime').innerText = new Date().toLocaleString('en-ZA');
@@ -295,31 +295,49 @@
       `;
     };
 
-    if (!studentId) {
-      renderError('No student ID provided. Please scan a valid GCC student card.');
-    } else {
+    (async function verify() {
+      if (!studentId) {
+        renderError('No student ID provided. Please scan a valid GCC student card.');
+        return;
+      }
+
       try {
-        const { data: student, error } = await supabase
-          .from('students')
-          .select('*')
-          .eq('student_id', studentId)
-          .maybeSingle();
+        // Query Parse _User for the student
+        const userQuery = new Parse.Query(Parse.User);
+        userQuery.equalTo('student_id', studentId);
+        const user = await userQuery.first();
 
-        if (error || !student) {
+        if (!user) {
           renderError('Student not found. This card may be invalid or expired.');
-        } else {
-          const { data: info } = await supabase
-            .from('student_info')
-            .select('*')
-            .eq('student_id', studentId)
-            .maybeSingle();
-
-          renderValid(student, info);
+          return;
         }
+
+        const student = {
+          student_id: user.get('student_id'),
+          first_name: user.get('first_name'),
+          last_name: user.get('last_name'),
+          profile_image: user.get('profile_image') || null
+        };
+
+        // Query StudentInfo for academic details
+        const infoQuery = new Parse.Query('StudentInfo');
+        infoQuery.equalTo('student_id', studentId);
+        const infoObj = await infoQuery.first();
+
+        const info = infoObj ? {
+          course: infoObj.get('course'),
+          faculty: infoObj.get('faculty'),
+          year: infoObj.get('year'),
+          campus: infoObj.get('campus')
+        } : null;
+
+        renderValid(student, info);
+
       } catch (err) {
+        console.error('Verification error:', err);
         renderError('Unable to connect to the database. Please try again.');
       }
-    }
+    })();
   </script>
 </body>
 </html>
