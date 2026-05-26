@@ -233,30 +233,38 @@
 
   <p class="powered-by">Powered by <a href="https://brelinx.com" target="_blank">Brelinx</a></p>
 
-  <script src="https://unpkg.com/parse/dist/parse.min.js"></script>
   <script>
-    const APP_ID = 'SxhMBsTSB2BasoZQecw9KyixCwyDMK8cyQwx9T7f';
-    const JS_KEY = 'oFVQJKq96RoamUqC6EfbPdnIJBlA5V4ii6ZF6riF';
-    Parse.initialize(APP_ID, JS_KEY);
-    Parse.serverURL = 'https://parseapi.back4app.com/';
+    const APP_ID    = 'SxhMBsTSB2BasoZQecw9KyixCwyDMK8cyQwx9T7f';
+    const REST_KEY  = '06EPenV9Yn39SoxeJ06EbZxikBVl98NId12REFhI';
+    const API_BASE  = 'https://parseapi.back4app.com';
 
     // Show scan time
     document.getElementById('scanTime').innerText = new Date().toLocaleString('en-ZA');
 
-    const params = new URLSearchParams(window.location.search);
+    const params    = new URLSearchParams(window.location.search);
     const studentId = params.get('id');
+
+    const headers = {
+      'X-Parse-Application-Id': APP_ID,
+      'X-Parse-REST-API-Key':   REST_KEY,
+      'Content-Type':           'application/json'
+    };
 
     const renderValid = (student, info) => {
       const year = new Date().getFullYear();
+      // Use absolute URL for profile image since this page can be opened from any origin
+      const fallback = 'https://uwami-mgxekwa.github.io/student-portal/assets/fallback-icon.png';
+      const photo = student.profile_image || fallback;
+
       document.getElementById('verifyBody').innerHTML = `
         <div class="status-badge status-valid">
           <i class="fas fa-check-circle"></i>
           Verified Enrolled Student
         </div>
         <img class="student-photo"
-          src="${student.profile_image || '../assets/fallback-icon.png'}"
+          src="${photo}"
           alt="Student Photo"
-          onerror="this.src='../assets/fallback-icon.png'"
+          onerror="this.src='${fallback}'"
         />
         <h2 class="student-name">${student.first_name} ${student.last_name}</h2>
         <p class="student-id-display">Student ID: ${student.student_id}</p>
@@ -302,10 +310,17 @@
       }
 
       try {
-        // Query Parse _User for the student
-        const userQuery = new Parse.Query(Parse.User);
-        userQuery.equalTo('student_id', studentId);
-        const user = await userQuery.first();
+        // Use REST API to query _User — works without a session (public verification)
+        const userWhere = encodeURIComponent(JSON.stringify({ student_id: studentId }));
+        const userRes   = await fetch(
+          `${API_BASE}/1/users?where=${userWhere}&limit=1`,
+          { headers }
+        );
+
+        if (!userRes.ok) throw new Error(`HTTP ${userRes.status}`);
+
+        const userData = await userRes.json();
+        const user     = userData.results && userData.results[0];
 
         if (!user) {
           renderError('Student not found. This card may be invalid or expired.');
@@ -313,23 +328,32 @@
         }
 
         const student = {
-          student_id: user.get('student_id'),
-          first_name: user.get('first_name'),
-          last_name: user.get('last_name'),
-          profile_image: user.get('profile_image') || null
+          student_id:    user.student_id,
+          first_name:    user.first_name,
+          last_name:     user.last_name,
+          profile_image: user.profile_image || null
         };
 
-        // Query StudentInfo for academic details
-        const infoQuery = new Parse.Query('StudentInfo');
-        infoQuery.equalTo('student_id', studentId);
-        const infoObj = await infoQuery.first();
+        // Fetch StudentInfo for academic details
+        const infoWhere = encodeURIComponent(JSON.stringify({ student_id: studentId }));
+        const infoRes   = await fetch(
+          `${API_BASE}/1/classes/StudentInfo?where=${infoWhere}&limit=1`,
+          { headers }
+        );
 
-        const info = infoObj ? {
-          course: infoObj.get('course'),
-          faculty: infoObj.get('faculty'),
-          year: infoObj.get('year'),
-          campus: infoObj.get('campus')
-        } : null;
+        let info = null;
+        if (infoRes.ok) {
+          const infoData = await infoRes.json();
+          const infoObj  = infoData.results && infoData.results[0];
+          if (infoObj) {
+            info = {
+              course:  infoObj.course,
+              faculty: infoObj.faculty,
+              year:    infoObj.year,
+              campus:  infoObj.campus
+            };
+          }
+        }
 
         renderValid(student, info);
 
