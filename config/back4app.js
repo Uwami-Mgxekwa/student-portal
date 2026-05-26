@@ -1,4 +1,4 @@
-import Parse from 'https://esm.sh/parse/dist/parse.min.js';
+import Parse from 'https://cdn.skypack.dev/parse';
 
 const APP_ID = 'SxhMBsTSB2BasoZQecw9KyixCwyDMK8cyQwx9T7f';
 const JS_KEY = 'oFVQJKq96RoamUqC6EfbPdnIJBlA5V4ii6ZF6riF';
