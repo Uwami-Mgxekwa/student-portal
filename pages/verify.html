@@ -253,9 +253,10 @@
 
     window.onerror = (msg, src, line) => dbg('ERROR: ' + msg + ' (' + src + ':' + line + ')', '#f55');
     window.onunhandledrejection = (e) => dbg('UNHANDLED: ' + (e.reason?.message || e.reason), '#f55');
-    const APP_ID    = 'SxhMBsTSB2BasoZQecw9KyixCwyDMK8cyQwx9T7f';
-    const REST_KEY  = '06EPenV9Yn39SoxeJ06EbZxikBVl98NId12REFhI';
-    const API_BASE  = 'https://parseapi.back4app.com';
+    const APP_ID     = 'SxhMBsTSB2BasoZQecw9KyixCwyDMK8cyQwx9T7f';
+    const REST_KEY   = '06EPenV9Yn39SoxeJ06EbZxikBVl98NId12REFhI';
+    const CLIENT_KEY = 's7cPCGuR8nOksoVPMg4ClH0ImWZd9YmohjVG6J9a';
+    const API_BASE   = 'https://parseapi.back4app.com';
 
     // Show scan time
     document.getElementById('scanTime').innerText = new Date().toLocaleString('en-ZA');
@@ -266,6 +267,7 @@
     const headers = {
       'X-Parse-Application-Id': APP_ID,
       'X-Parse-REST-API-Key':   REST_KEY,
+      'X-Parse-Client-Key':     CLIENT_KEY,
       'Content-Type':           'application/json'
     };
 
@@ -331,35 +333,35 @@
       try {
         dbg('Querying _User for student_id: ' + studentId);
 
-        // Use REST API to query _User — works without a session (public verification)
+        // Query _User via REST API — use /classes/_User not /users for where queries
         const userWhere = encodeURIComponent(JSON.stringify({ student_id: studentId }));
         const userRes   = await fetch(
-          `${API_BASE}/1/users?where=${userWhere}&limit=1`,
+          `${API_BASE}/1/classes/_User?where=${userWhere}&limit=1`,
           { headers }
         );
 
         dbg('User response status: ' + userRes.status);
-        if (!userRes.ok) throw new Error(`HTTP ${userRes.status}`);
 
-        const userData = await userRes.json();
-        dbg('User results count: ' + (userData.results?.length || 0));
-        const user     = userData.results && userData.results[0];
+        let student = null;
 
-        if (!user) {
-          renderError('Student not found. This card may be invalid or expired.');
-          return;
+        if (userRes.ok) {
+          const userData = await userRes.json();
+          dbg('User results count: ' + (userData.results?.length || 0));
+          const user = userData.results && userData.results[0];
+          if (user) {
+            student = {
+              student_id:    user.student_id,
+              first_name:    user.first_name,
+              last_name:     user.last_name,
+              profile_image: user.profile_image || null
+            };
+            dbg('Student found via _User: ' + student.first_name + ' ' + student.last_name);
+          }
+        } else {
+          dbg('_User query failed (' + userRes.status + '), will try StudentInfo fallback', '#ff0');
         }
 
-        const student = {
-          student_id:    user.student_id,
-          first_name:    user.first_name,
-          last_name:     user.last_name,
-          profile_image: user.profile_image || null
-        };
-
-        dbg('Student found: ' + student.first_name + ' ' + student.last_name);
-
-        // Fetch StudentInfo for academic details
+        // Fetch StudentInfo for academic details (also used as fallback if _User blocked)
         const infoWhere = encodeURIComponent(JSON.stringify({ student_id: studentId }));
         const infoRes   = await fetch(
           `${API_BASE}/1/classes/StudentInfo?where=${infoWhere}&limit=1`,
@@ -379,10 +381,26 @@
               year:    infoObj.year,
               campus:  infoObj.campus
             };
-            dbg('StudentInfo found: ' + JSON.stringify(info));
+            dbg('StudentInfo found: course=' + info.course + ' year=' + info.year);
+
+            // If _User was blocked, build a minimal student object from StudentInfo
+            if (!student) {
+              student = {
+                student_id:    infoObj.student_id,
+                first_name:    infoObj.first_name || 'Student',
+                last_name:     infoObj.last_name  || infoObj.student_id,
+                profile_image: null
+              };
+              dbg('Built student from StudentInfo fallback', '#ff0');
+            }
           } else {
             dbg('No StudentInfo record found', '#ff0');
           }
+        }
+
+        if (!student) {
+          renderError('Student not found. This card may be invalid or expired.');
+          return;
         }
 
         renderValid(student, info);
