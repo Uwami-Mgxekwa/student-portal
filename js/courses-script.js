@@ -63,12 +63,6 @@ function setupEventListeners() {
     });
 
   document
-    .querySelector(".nav-item.finances")
-    .addEventListener("click", function () {
-      window.location.href = "../pages/finances.html";
-    });
-
-  document
     .querySelector(".nav-item.events")
     .addEventListener("click", function (){
       window.location.href = "../pages/events.html";

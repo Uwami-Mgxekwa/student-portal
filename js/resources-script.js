@@ -393,12 +393,6 @@ document
   });
 
 document
-  .querySelector(".nav-item.finances")
-  .addEventListener("click", function () {
-    window.location.href = "../pages/finances.html";
-  });
-
-document
   .querySelector(".nav-item.settings")
   .addEventListener("click", function () {
     window.location.href = "../pages/settings.html";
